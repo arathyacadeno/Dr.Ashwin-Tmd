@@ -76,13 +76,28 @@ export const metadata = {
   },
 };
 
-import { CmsProvider } from '@/context/CmsContext';
+import fs from 'fs';
+import path from 'path';
+import { CmsProvider, defaultCmsData } from '@/context/CmsContext';
+
+function getInitialContent() {
+  try {
+    const dataFilePath = path.join(process.cwd(), 'data', 'content.json');
+    if (fs.existsSync(dataFilePath)) {
+      const raw = fs.readFileSync(dataFilePath, 'utf8');
+      return JSON.parse(raw);
+    }
+  } catch {}
+  return defaultCmsData;
+}
 
 export default function RootLayout({ children }) {
+  const initialContent = getInitialContent();
+
   return (
     <html lang="en" className={`${plusJakarta.variable} ${playfair.variable} ${poppins.variable} ${outfit.variable}`}>
       <body className="antialiased">
-        <CmsProvider>
+        <CmsProvider initialContent={initialContent}>
           <Navbar />
           {children}
           <BookingModal />

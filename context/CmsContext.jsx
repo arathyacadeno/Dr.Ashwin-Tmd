@@ -289,8 +289,8 @@ const CmsContext = createContext({
   saveContent: async () => {},
 });
 
-export function CmsProvider({ children }) {
-  const [content, setContent] = useState(defaultCmsData);
+export function CmsProvider({ children, initialContent }) {
+  const [content, setContent] = useState(initialContent || defaultCmsData);
 
   // Sync content from localStorage and server API
   const syncContent = useCallback(async () => {

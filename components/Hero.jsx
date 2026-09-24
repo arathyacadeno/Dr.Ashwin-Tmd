@@ -170,6 +170,7 @@ export default function Hero() {
         <div className="hero-figma-video-col" id="heroVideoBox" ref={videoBoxRef}>
           <video
             ref={videoRef}
+            key={content?.heroVideo || 'default-video'}
             className="hero-bg-video"
             autoPlay
             loop
@@ -177,7 +178,10 @@ export default function Hero() {
             playsInline
             poster="/assets/images/hero_smiling_woman.jpg"
           >
-            <source src="/assets/images/Woman_running_in_park_202608281117.mp4" type="video/mp4" />
+            <source
+              src={`/assets/images/${content?.heroVideo || 'Woman_running_in_park_202608281117.mp4'}`}
+              type="video/mp4"
+            />
             Your browser does not support the video tag.
           </video>
           <div className="hero-video-tint" id="heroVideoTint" ref={videoTintRef}></div>
@@ -186,16 +190,32 @@ export default function Hero() {
         {/* Main Hero Container with Exact Dual-Tone Split Headline */}
         <div className="hero-figma-main-container" id="heroFigmaStage" ref={figmaStageRef}>
           <div className="hero-figma-left-content" id="heroLeftContent">
-            <div className="figma-headline-wrap">
-              <h1 className="figma-headline-line line-1">
-                {content?.heroHeading ? content.heroHeading.split('For')[0].trim() || content.heroHeading : 'Advanced TMD & TMJ Care'}
-              </h1>
-              <h2 className="figma-headline-line line-2">
-                {content?.heroHeading && content.heroHeading.includes('For')
-                  ? `For ${content.heroHeading.split('For')[1].trim()}`
-                  : 'For Better Jaw Health'}
-              </h2>
-            </div>
+            {(() => {
+              const headingRaw = (content?.heroHeading || 'Advanced TMD & TMJ Care For Better Jaw Health').trim();
+              let line1 = headingRaw;
+              let line2 = '';
+
+              if (headingRaw.includes('\n')) {
+                const parts = headingRaw.split('\n').map((s) => s.trim()).filter(Boolean);
+                line1 = parts[0] || '';
+                line2 = parts[1] || '';
+              } else if (headingRaw.includes('For ')) {
+                const idx = headingRaw.indexOf('For ');
+                line1 = headingRaw.substring(0, idx).trim();
+                line2 = headingRaw.substring(idx).trim();
+              } else if (headingRaw.includes('for ')) {
+                const idx = headingRaw.indexOf('for ');
+                line1 = headingRaw.substring(0, idx).trim();
+                line2 = headingRaw.substring(idx).trim();
+              }
+
+              return (
+                <div className="figma-headline-wrap">
+                  <h1 className="figma-headline-line line-1">{line1}</h1>
+                  {line2 ? <h2 className="figma-headline-line line-2">{line2}</h2> : null}
+                </div>
+              );
+            })()}
           </div>
 
           {/* Bottom Action Block: Rating Stack & CTA Buttons */}
