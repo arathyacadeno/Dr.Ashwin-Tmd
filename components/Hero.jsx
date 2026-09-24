@@ -3,8 +3,10 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useCms } from '@/context/CmsContext';
 
 export default function Hero() {
+  const { content } = useCms();
   const heroRef = useRef(null);
   const videoBoxRef = useRef(null);
   const videoTintRef = useRef(null);
@@ -185,8 +187,14 @@ export default function Hero() {
         <div className="hero-figma-main-container" id="heroFigmaStage" ref={figmaStageRef}>
           <div className="hero-figma-left-content" id="heroLeftContent">
             <div className="figma-headline-wrap">
-              <h1 className="figma-headline-line line-1">Advanced TMD &amp; TMJ Care</h1>
-              <h2 className="figma-headline-line line-2">For Better Jaw Health</h2>
+              <h1 className="figma-headline-line line-1">
+                {content?.heroHeading ? content.heroHeading.split('For')[0].trim() || content.heroHeading : 'Advanced TMD & TMJ Care'}
+              </h1>
+              <h2 className="figma-headline-line line-2">
+                {content?.heroHeading && content.heroHeading.includes('For')
+                  ? `For ${content.heroHeading.split('For')[1].trim()}`
+                  : 'For Better Jaw Health'}
+              </h2>
             </div>
           </div>
 
@@ -210,12 +218,12 @@ export default function Hero() {
               </div>
 
               <Link href="/contact" className="figma-gold-btn" id="heroConsultBtn">
-                Book a consultation
+                {content?.heroCta1 || 'Book a consultation'}
               </Link>
             </div>
 
             <Link href="#what-is-tmd" className="figma-outline-btn">
-              See how we help
+              {content?.heroCta2 || 'See how we help'}
             </Link>
           </div>
         </div>

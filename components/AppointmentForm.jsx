@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useCms } from '@/context/CmsContext';
 
 export default function AppointmentForm() {
+  const { content } = useCms();
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -180,7 +182,7 @@ export default function AppointmentForm() {
           {/* Item 1: Call Us Directly */}
           <div className="contact-detail-item">
             <a
-              href="tel:+919947933999"
+              href={`tel:${(content?.contactPhone || '+91 94970 88200').replace(/\s+/g, '')}`}
               className="contact-detail-circle-icon call-blue"
               aria-label="Call Us Directly"
             >
@@ -193,8 +195,8 @@ export default function AppointmentForm() {
             </a>
             <div className="contact-detail-text">
               <h4 className="contact-detail-title">Call us directly</h4>
-              <a href="tel:+919947933999" className="contact-detail-sub">
-                +91 99479 33999
+              <a href={`tel:${(content?.contactPhone || '+91 94970 88200').replace(/\s+/g, '')}`} className="contact-detail-sub">
+                {content?.contactPhone || '+91 94970 88200'}
               </a>
             </div>
           </div>
@@ -202,7 +204,7 @@ export default function AppointmentForm() {
           {/* Item 2: WhatsApp Us */}
           <div className="contact-detail-item">
             <a
-              href="https://wa.me/919947933999"
+              href={`https://wa.me/${(content?.contactWhatsApp || '919947933999').replace(/[^0-9]/g, '')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="contact-detail-circle-icon whatsapp-green"
@@ -218,12 +220,12 @@ export default function AppointmentForm() {
             <div className="contact-detail-text">
               <h4 className="contact-detail-title">WhatsApp us</h4>
               <a
-                href="https://wa.me/919947933999"
+                href={`https://wa.me/${(content?.contactWhatsApp || '919947933999').replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-detail-sub"
               >
-                Immediate response during hours
+                {content?.contactWhatsApp || '+91 99479 33999'}
               </a>
             </div>
           </div>
@@ -243,11 +245,11 @@ export default function AppointmentForm() {
               <div className="contact-hours-list">
                 <div className="contact-hours-row">
                   <span className="hours-day">Monday to Friday</span>
-                  <span className="hours-time">9:30 AM to 5:30 PM</span>
+                  <span className="hours-time">{content?.contactHoursWeekdays || '9:30 AM to 5:30 PM'}</span>
                 </div>
                 <div className="contact-hours-row">
                   <span className="hours-day">Saturday</span>
-                  <span className="hours-time">9:30 AM to 12:00 PM</span>
+                  <span className="hours-time">{content?.contactHoursSaturday || '9:30 AM to 12:00 PM'}</span>
                 </div>
               </div>
             </div>
@@ -266,11 +268,11 @@ export default function AppointmentForm() {
             <div className="contact-detail-text">
               <h4 className="contact-detail-title">Clinic location</h4>
               <p className="contact-location-address">
-                Asoka Hospital Compound, 17/6, Bank Road, Opposite Malabar Gold, Polpaya Mana, Tazhekkod, Kozhikode, Kerala 673001
+                {content?.contactAddress || 'Asoka Hospital Compound, 17/6, Bank Road, Opposite Malabar Gold, Polpaya Mana, Tazhekkod, Kozhikode, Kerala 673001'}
               </p>
               <p className="contact-location-email">
                 <strong>Email:</strong>{' '}
-                <a href="mailto:info@drashwintmd.com">info@drashwintmd.com</a>
+                <a href={`mailto:${content?.contactEmail || 'info@drashwintmd.com'}`}>{content?.contactEmail || 'info@drashwintmd.com'}</a>
               </p>
             </div>
           </div>
@@ -279,7 +281,7 @@ export default function AppointmentForm() {
         {/* Map View Section */}
         <div className="contact-map-wrapper">
           <iframe
-            src="https://maps.google.com/maps?q=Asoka+Hospital+Bank+Road+Kozhikode+Kerala&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(content?.contactMapQuery || 'Asoka Hospital Bank Road Kozhikode Kerala')}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
             width="100%"
             height="400"
             style={{ border: 0 }}

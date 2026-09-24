@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { useCms } from '@/context/CmsContext';
 
 export default function ContactHero() {
+  const { content } = useCms();
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -33,10 +35,10 @@ export default function ContactHero() {
     <section className="contact-hero-section" id="contactHeroSection" ref={heroRef}>
       <div className="contact-hero-sticky" id="contactHeroSticky">
         <h1 className="contact-hero-title scaling-title" id="contactScalingTitle">
-          <span className="hero-line hero-line-1">Book your consultation</span>
+          <span className="hero-line hero-line-1">{content?.contactHeroTitle || 'Book your consultation'}</span>
         </h1>
         <p className="contact-hero-sub" id="contactScalingSub">
-          Bring any scans, reports or records you have gathered — they always help.
+          {content?.contactHeroSub || 'Bring any scans, reports or records you have gathered — they always help.'}
         </p>
         <div className="contact-hero-scroll-hint" id="contactHeroScrollHint">
           <span>Scroll down</span>

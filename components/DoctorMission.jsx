@@ -1,21 +1,22 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
-
-const missionWords = [
-  '"My', 'mission', 'is', 'not', 'simply', 'to', 'treat', 'jaw', 'problems.',
-  'It', 'is', 'to', 'help', 'people', 'understand', 'what', 'is', 'happening,',
-  'find', 'the', 'right', 'path', 'forward,', 'and', 'return', 'to', 'the',
-  'everyday', 'moments', 'that', 'matter', '—', 'eating', 'comfortably,',
-  'sleeping', 'well,', 'and', 'living', 'with', 'greater', 'freedom."'
-];
+import { useCms } from '@/context/CmsContext';
 
 export default function DoctorMission() {
+  const { content } = useCms();
   const sectionRef = useRef(null);
   const [activeWordCount, setActiveWordCount] = useState(0);
   const [isAuthorRevealed, setIsAuthorRevealed] = useState(false);
   const [docScale, setDocScale] = useState(0.75);
+
+  const missionWords = useMemo(() => {
+    const rawNote =
+      content?.docNote ||
+      '"My mission is not simply to treat jaw problems. It is to help people understand what is happening, find the right path forward, and return to the everyday moments that matter — eating comfortably, sleeping well, and living with greater freedom."';
+    return rawNote.split(/\s+/).filter(Boolean);
+  }, [content?.docNote]);
 
   useEffect(() => {
     const stickySection = sectionRef.current;
@@ -38,7 +39,11 @@ export default function DoctorMission() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [missionWords]);
+
+  const docImgSrc = content?.docImage?.startsWith('/')
+    ? content.docImage
+    : `/assets/images/${content?.docImage || 'og image.png'}`;
 
   return (
     <section
@@ -51,8 +56,8 @@ export default function DoctorMission() {
         <div className="container doctor-scroll-container">
           <div className="doctor-image-wrapper">
             <Image
-              src="/assets/images/og image.png"
-              alt="Dr. Ashwin - TMJ Specialist Kozhikode"
+              src={docImgSrc}
+              alt={content?.docName || "Dr. Ashwin - TMJ Specialist Kozhikode"}
               width={400}
               height={500}
               className="doctor-portrait"
@@ -71,8 +76,8 @@ export default function DoctorMission() {
                 ))}
               </h2>
               <div className={`doc-author-block ${isAuthorRevealed ? 'active revealed' : ''}`}>
-                <p className="doc-author-name">Dr. Ashwin</p>
-                <p className="doc-author-title">TMD &amp; TMJ Care, Kozhikode</p>
+                <p className="doc-author-name">{content?.docName || 'Dr. Ashwin'}</p>
+                <p className="doc-author-title">{content?.docSpecialty || 'TMD & TMJ Care, Kozhikode'}</p>
               </div>
             </div>
           </div>

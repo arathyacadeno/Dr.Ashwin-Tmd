@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
+import { useCms } from '@/context/CmsContext';
 
-const outcomes = [
+const initialOutcomes = [
   {
     num: 1,
     headline: 'Enjoy every meal again',
@@ -42,6 +43,21 @@ const outcomes = [
 ];
 
 export default function LifestyleTransformations() {
+  const { content } = useCms();
+
+  const outcomes = useMemo(() => {
+    if (content?.lifestyleCards?.length) {
+      return content.lifestyleCards.map((c, i) => ({
+        num: i + 1,
+        headline: c.title || initialOutcomes[i]?.headline,
+        text: c.desc || initialOutcomes[i]?.text,
+        img: c.img?.startsWith('/') ? c.img : `/assets/images/${c.img || initialOutcomes[i]?.img}`,
+        alt: c.title || initialOutcomes[i]?.alt,
+      }));
+    }
+    return initialOutcomes;
+  }, [content?.lifestyleCards]);
+
   const [scales, setScales] = useState(outcomes.map(() => 1));
   const [firstCardActive, setFirstCardActive] = useState(false);
   const [activeNumbers, setActiveNumbers] = useState({});
@@ -182,8 +198,16 @@ export default function LifestyleTransformations() {
       <div className="container">
         <div className="outcomes-stack-header">
           <h2 className="outcomes-stack-title">
-            <span className="title-charcoal">Feel the Difference</span>{' '}
-            <span className="title-gold">In Everyday Life.</span>
+            <span className="title-charcoal">
+              {content?.lifestyleSectionName
+                ? content.lifestyleSectionName.split('in')[0]?.split('In')[0] || content.lifestyleSectionName
+                : 'Feel the Difference'}
+            </span>{' '}
+            <span className="title-gold">
+              {content?.lifestyleSectionName && (content.lifestyleSectionName.includes('in') || content.lifestyleSectionName.includes('In'))
+                ? `In ${content.lifestyleSectionName.split(/in|In/)[1]?.trim()}`
+                : 'In Everyday Life.'}
+            </span>
           </h2>
         </div>
       </div>

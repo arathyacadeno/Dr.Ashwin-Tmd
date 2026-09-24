@@ -1,7 +1,10 @@
-import React from 'react';
-import Image from 'next/image';
+'use client';
 
-const testimonials = [
+import React, { useMemo } from 'react';
+import Image from 'next/image';
+import { useCms } from '@/context/CmsContext';
+
+const defaultTestimonials = [
   {
     name: 'Priya Nair',
     time: '1 week ago',
@@ -35,11 +38,39 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const { content } = useCms();
+
+  const testimonials = useMemo(() => {
+    if (content?.reviewContent && content?.reviewAuthor) {
+      return [
+        {
+          name: content.reviewAuthor,
+          time: 'Recently updated',
+          text: content.reviewContent,
+          avatar: '/assets/images/outcome_running.jpg',
+        },
+        ...defaultTestimonials.slice(1),
+      ];
+    }
+    return defaultTestimonials;
+  }, [content?.reviewContent, content?.reviewAuthor]);
+
   return (
     <section className="real-stories-section" id="stories">
       <div className="real-stories-container">
         <h2 className="real-stories-title">
-          Real Stories. <span className="gold-highlight">Real Freedom.</span>
+          {content?.testimonialsSectionName ? (
+            <>
+              {content.testimonialsSectionName.split('.')[0]}.{' '}
+              <span className="gold-highlight">
+                {content.testimonialsSectionName.split('.')[1] || 'Real Freedom.'}
+              </span>
+            </>
+          ) : (
+            <>
+              Real Stories. <span className="gold-highlight">Real Freedom.</span>
+            </>
+          )}
         </h2>
       </div>
 

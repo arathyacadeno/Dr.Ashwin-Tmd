@@ -1,33 +1,25 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import Image from 'next/image';
-
-const p1Words = [
-  'A', 'clinic', 'built', 'around', 'one', 'thing,', 'done', 'properly.', 'Jaw', 'problems', 'are', 'often',
-  'difficult', 'to', 'understand.', 'The', 'symptoms', 'may', 'appear', 'as', 'jaw', 'discomfort,', 'headaches,',
-  'ear', 'pressure,', 'muscle', 'tension,', 'difficulty', 'chewing,', 'or', 'disturbed', 'sleep', '—', 'making',
-  'the', 'underlying', 'cause', 'easy', 'to', 'overlook.'
-];
-
-const p2Words = [
-  'At', 'Dr.', 'Ashwin\'s', 'TMD', 'Clinic,', 'Calicut,', 'we', 'take', 'the', 'time', 'to', 'look', 'beyond',
-  'the', 'obvious.', 'We', 'bring', 'together', 'a', 'detailed', 'conversation,', 'careful', 'examination', 'of',
-  'the', 'jaw,', 'muscles,', 'bite', 'and', 'airway,', 'and', 'imaging', 'when', 'it', 'can', 'help', 'build',
-  'a', 'clearer', 'picture.', 'We', 'believe', 'good', 'care', 'starts', 'with', 'understanding.', 'Understanding',
-  'what', 'you', 'are', 'experiencing.', 'Understanding', 'why', 'it', 'may', 'be', 'happening.', 'And',
-  'understanding', 'what', 'can', 'be', 'done', 'before', 'treatment', 'begins.'
-];
-
-const p3Words = [
-  'Our', 'approach', 'is', 'thoughtful,', 'gradual', 'and', 'patient-focused', '—', 'with', 'treatment',
-  'reviewed', 'along', 'the', 'way,', 'so', 'every', 'step', 'has', 'a', 'clear', 'purpose.'
-];
+import { useCms } from '@/context/CmsContext';
 
 export default function StoryRevealCard() {
+  const { content } = useCms();
   const cardRef = useRef(null);
   const [revealProgress, setRevealProgress] = useState(0);
   const [activeWordIndex, setActiveWordIndex] = useState(0);
+
+  const defaultP1 =
+    'A clinic built around one thing, done properly. Jaw problems are often difficult to understand. The symptoms may appear as jaw discomfort, headaches, ear pressure, muscle tension, difficulty chewing, or disturbed sleep — making the underlying cause easy to overlook.';
+  const defaultP2 =
+    "At Dr. Ashwin's TMD Clinic, Calicut, we take the time to look beyond the obvious. We bring together a detailed conversation, careful examination of the jaw, muscles, bite and airway, and imaging when it can help build a clearer picture. We believe good care starts with understanding. Understanding what you are experiencing. Understanding why it may be happening. And understanding what can be done before treatment begins.";
+  const defaultP3 =
+    'Our approach is thoughtful, gradual and patient-focused — with treatment reviewed along the way, so every step has a clear purpose.';
+
+  const p1Words = useMemo(() => (content?.aboutStoryP1 || defaultP1).split(/\s+/).filter(Boolean), [content?.aboutStoryP1]);
+  const p2Words = useMemo(() => (content?.aboutStoryP2 || defaultP2).split(/\s+/).filter(Boolean), [content?.aboutStoryP2]);
+  const p3Words = useMemo(() => (content?.aboutStoryP3 || defaultP3).split(/\s+/).filter(Boolean), [content?.aboutStoryP3]);
 
   const totalWords = p1Words.length + p2Words.length + p3Words.length;
 
@@ -64,10 +56,13 @@ export default function StoryRevealCard() {
 
   let wordCounter = 0;
 
+  const loungeImg = content?.aboutStoryLoungeImage ? `/assets/images/${content.aboutStoryLoungeImage}` : '/assets/images/clinic_reception.jpg';
+  const exteriorImg = content?.aboutStoryExteriorImage ? `/assets/images/${content.aboutStoryExteriorImage}` : '/assets/images/clinic_exterior.jpg';
+
   return (
     <article className="about-story-card about-anim-item" ref={cardRef}>
       <div className="about-story-col">
-        <h2 className="about-card-title">Our Story</h2>
+        <h2 className="about-card-title">{content?.aboutStoryHeading || 'Our Story'}</h2>
         <div className="about-story-text" id="aboutStoryBriefText">
           <p>
             {p1Words.map((word, i) => {
@@ -114,9 +109,9 @@ export default function StoryRevealCard() {
         id="aboutStickyImageContainer"
       >
         <div className="about-reveal-image-wrapper" id="aboutRevealWrapper">
-          {/* Base (Old) Image: Clinic Reception Lounge */}
+          {/* Base Image: Clinic Reception Lounge */}
           <Image
-            src="/assets/images/clinic_reception.jpg"
+            src={loungeImg}
             alt="Dr. Ashwin's Clinic Reception Lounge"
             width={600}
             height={500}
@@ -124,15 +119,15 @@ export default function StoryRevealCard() {
             id="aboutBaseImg"
           />
 
-          {/* Reveal (New) Image Curtain: Clinic Evening Exterior */}
+          {/* Reveal Image Curtain: Clinic Exterior */}
           <div
             className="about-reveal-curtain"
             id="aboutRevealCurtain"
             style={{ clipPath: `inset(0 0 ${clipBottom}% 0)` }}
           >
             <Image
-              src="/assets/images/clinic_exterior.jpg"
-              alt="Dr. Ashwin's Clinic Evening Exterior"
+              src={exteriorImg}
+              alt="Dr. Ashwin's Clinic Exterior"
               width={600}
               height={500}
               className="about-reveal-img reveal-img"

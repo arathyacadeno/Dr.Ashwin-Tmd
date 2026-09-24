@@ -76,13 +76,17 @@ export const metadata = {
   },
 };
 
+import { CmsProvider } from '@/context/CmsContext';
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${playfair.variable} ${poppins.variable} ${outfit.variable}`}>
       <body className="antialiased">
-        <Navbar />
-        {children}
-        <BookingModal />
+        <CmsProvider>
+          <Navbar />
+          {children}
+          <BookingModal />
+        </CmsProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { useCms } from '@/context/CmsContext';
 
 const steps = [
   {
@@ -46,8 +47,21 @@ const steps = [
 ];
 
 export default function TreatmentProcess() {
+  const { content } = useCms();
   const [activeStep, setActiveStep] = useState(0);
   const [linePercent, setLinePercent] = useState(0);
+
+  const currentSteps = useMemo(() => {
+    return steps.map((s, idx) => {
+      const cmsStep = content?.treatmentsSteps?.[idx];
+      return {
+        ...s,
+        title: cmsStep?.title || s.title,
+        label: cmsStep?.title || s.label,
+        desc: cmsStep?.desc || s.desc,
+      };
+    });
+  }, [content?.treatmentsSteps]);
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const stepperColRef = useRef(null);
@@ -127,7 +141,7 @@ export default function TreatmentProcess() {
       const track = trackRef.current;
       const trackTop = track.getBoundingClientRect().top + window.scrollY;
       const trackHeight = track.offsetHeight - window.innerHeight;
-      const targetScroll = trackTop + ((index + 0.5) / steps.length) * trackHeight;
+      const targetScroll = trackTop + ((index + 0.5) / currentSteps.length) * trackHeight;
       window.scrollTo({ top: targetScroll, behavior: 'smooth' });
     }
 
@@ -158,7 +172,7 @@ export default function TreatmentProcess() {
                   ></div>
                 </div>
 
-                {steps.map((step, idx) => (
+                {currentSteps.map((step, idx) => (
                   <button
                     key={idx}
                     ref={(el) => (stepBtnRefs.current[idx] = el)}
@@ -182,7 +196,7 @@ export default function TreatmentProcess() {
               {/* Right Column: Visual Card with Bottom Scrim Overlay */}
               <div className="process-display-col">
                 <div className="process-visual-card" id="processVisualCard">
-                  {steps.map((step, idx) => (
+                  {currentSteps.map((step, idx) => (
                     <div
                       key={idx}
                       className={`process-slide ${activeStep === idx ? 'active' : ''}`}

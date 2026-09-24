@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCms } from '@/context/CmsContext';
 
-const stripsData = [
+const initialStripsData = [
   {
     title: 'Neuromuscular orthotic therapy',
     desc: 'Custom-engineered physiological orthotics calibrated to decompress jaw joint tension and restore optimal neuromuscular rest position.',
@@ -42,6 +43,19 @@ const stripsData = [
 ];
 
 export default function TreatmentsStrips() {
+  const { content } = useCms();
+
+  const stripsData = useMemo(() => {
+    if (content?.treatmentCards?.length) {
+      return content.treatmentCards.map((c, i) => ({
+        title: c.title || initialStripsData[i]?.title,
+        desc: c.desc || initialStripsData[i]?.desc,
+        img: c.img?.startsWith('/') ? c.img : `/assets/images/${c.img || initialStripsData[i]?.img}`,
+      }));
+    }
+    return initialStripsData;
+  }, [content?.treatmentCards]);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef(null);
   const cursorRef = useRef(null);
@@ -141,8 +155,16 @@ export default function TreatmentsStrips() {
       <div className="container">
         <div className="treatments-header">
           <h2 className="treatments-main-title">
-            <span className="title-charcoal">A Complete Approach</span>{' '}
-            <span className="title-gold">To Treatment</span>
+            <span className="title-charcoal">
+              {content?.treatmentsSectionName
+                ? content.treatmentsSectionName.split('To')[0]?.split('to')[0] || content.treatmentsSectionName
+                : 'A Complete Approach'}
+            </span>{' '}
+            <span className="title-gold">
+              {content?.treatmentsSectionName && (content.treatmentsSectionName.includes('To') || content.treatmentsSectionName.includes('to'))
+                ? `To ${content.treatmentsSectionName.split(/To|to/)[1]?.trim()}`
+                : 'To Treatment'}
+            </span>
           </h2>
         </div>
       </div>

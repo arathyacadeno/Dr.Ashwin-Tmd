@@ -1,12 +1,34 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { useCms } from '@/context/CmsContext';
+
+const initialMetrics = [
+  { number: '25+', label: 'YEARS EXPERIENCE' },
+  { number: '12k+', label: 'SUCCESSFUL CASES' },
+  { number: '15', label: 'GLOBAL AWARDS' },
+  { number: '98%', label: 'PATIENT RELIEF' },
+  { number: '4.9/5+', label: 'PATIENT RATING' },
+  { number: '24/7', label: 'PATIENT SUPPORT' },
+  { number: '100%', label: 'PERSONALIZED CARE' },
+];
 
 export default function WhyChooseUs() {
+  const { content } = useCms();
   const [clusterClass, setClusterClass] = useState('ready-to-converge');
   const wrapperRef = useRef(null);
   const animTimeoutRef = useRef(null);
   const hasConvergedRef = useRef(false);
+
+  const metrics = useMemo(() => {
+    if (content?.trustMetrics?.length >= 7) {
+      return content.trustMetrics.map((m, i) => ({
+        number: m.number || initialMetrics[i]?.number,
+        label: (m.label || initialMetrics[i]?.label).toUpperCase(),
+      }));
+    }
+    return initialMetrics;
+  }, [content?.trustMetrics]);
 
   const triggerConvergence = () => {
     setClusterClass('is-converging');
@@ -59,8 +81,19 @@ export default function WhyChooseUs() {
         <div className="why-choose-header">
           <span className="why-choose-tag">WHY CHOOSE US</span>
           <h2 className="why-choose-headline">
-            We&apos;re Here To Restore Your{' '}
-            <span className="why-choose-gold">Comfort &amp; Function.</span>
+            {content?.trustSectionName ? (
+              <>
+                {content.trustSectionName.split('&')[0]}
+                {content.trustSectionName.includes('&') && (
+                  <span className="why-choose-gold">&amp; {content.trustSectionName.split('&')[1]}</span>
+                )}
+              </>
+            ) : (
+              <>
+                We&apos;re Here To Restore Your{' '}
+                <span className="why-choose-gold">Comfort &amp; Function.</span>
+              </>
+            )}
           </h2>
         </div>
 
@@ -71,49 +104,12 @@ export default function WhyChooseUs() {
             onClick={handleClick}
             title="Click to replay animation"
           >
-            {/* Circle 1: 25+ Years Experience (Bottom-Left) */}
-            <div className="metric-bubble bubble-1">
-              <span className="metric-number">25+</span>
-              <span className="metric-label">YEARS EXPERIENCE</span>
-            </div>
-
-            {/* Circle 2: 12k+ Successful Cases (Top-Left) */}
-            <div className="metric-bubble bubble-2">
-              <span className="metric-number">12k+</span>
-              <span className="metric-label">SUCCESSFUL CASES</span>
-            </div>
-
-            {/* Circle 3: 15 Global Awards (Top-Center) */}
-            <div className="metric-bubble bubble-3">
-              <span className="metric-number">15</span>
-              <span className="metric-label">GLOBAL AWARDS</span>
-            </div>
-
-            {/* Circle 4: 98% Patient Relief (Bottom-Center) */}
-            <div className="metric-bubble bubble-4">
-              <span className="metric-number">98%</span>
-              <span className="metric-label">PATIENT RELIEF</span>
-            </div>
-
-            {/* Circle 5: 4.9/5 + Patient Rating (Large Center-Right) */}
-            <div className="metric-bubble bubble-5">
-              <span className="metric-number">
-                4.9/5<span className="metric-plus">+</span>
-              </span>
-              <span className="metric-label">PATIENT RATING</span>
-            </div>
-
-            {/* Circle 6: 24/7 Patient Support (Top-Right) */}
-            <div className="metric-bubble bubble-6">
-              <span className="metric-number">24/7</span>
-              <span className="metric-label">PATIENT SUPPORT</span>
-            </div>
-
-            {/* Circle 7: 100% Personalized Care (Bottom-Right) */}
-            <div className="metric-bubble bubble-7">
-              <span className="metric-number">100%</span>
-              <span className="metric-label">PERSONALIZED CARE</span>
-            </div>
+            {metrics.map((m, idx) => (
+              <div key={idx} className={`metric-bubble bubble-${idx + 1}`}>
+                <span className="metric-number">{m.number}</span>
+                <span className="metric-label">{m.label}</span>
+              </div>
+            ))}
 
             {/* Central Gravitational Ripple Ring */}
             <div className="convergence-pulse-ring" aria-hidden="true"></div>

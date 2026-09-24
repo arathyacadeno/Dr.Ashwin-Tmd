@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { useCms } from '@/context/CmsContext';
 
-const leftCards = [
+const defaultLeftCards = [
   {
     id: 1,
     title: 'Intraoral scanner',
@@ -23,7 +24,7 @@ const leftCards = [
   },
 ];
 
-const rightCards = [
+const defaultRightCards = [
   {
     id: 4,
     title: 'CBCT 3D scanner',
@@ -45,6 +46,27 @@ const rightCards = [
 ];
 
 export default function EquipmentSection() {
+  const { content } = useCms();
+
+  const { leftCards, rightCards } = useMemo(() => {
+    if (content?.equipmentCards?.length >= 6) {
+      const left = content.equipmentCards.slice(0, 3).map((c, i) => ({
+        id: i + 1,
+        title: c.title || defaultLeftCards[i]?.title,
+        desc: c.desc || defaultLeftCards[i]?.desc,
+        img: c.img?.startsWith('/') ? c.img : `/assets/images/${c.img || defaultLeftCards[i]?.img}`,
+      }));
+      const right = content.equipmentCards.slice(3, 6).map((c, i) => ({
+        id: i + 4,
+        title: c.title || defaultRightCards[i]?.title,
+        desc: c.desc || defaultRightCards[i]?.desc,
+        img: c.img?.startsWith('/') ? c.img : `/assets/images/${c.img || defaultRightCards[i]?.img}`,
+      }));
+      return { leftCards: left, rightCards: right };
+    }
+    return { leftCards: defaultLeftCards, rightCards: defaultRightCards };
+  }, [content?.equipmentCards]);
+
   const trackRef = useRef(null);
   const leftStreamRef = useRef(null);
   const rightStreamRef = useRef(null);
@@ -165,8 +187,16 @@ export default function EquipmentSection() {
             {/* Center Column: Sticky Pinned Title Block */}
             <div className="equipment-center-pinned-block" id="equipmentCenterBlock">
               <h2 className="equipment-center-title">
-                <span className="title-charcoal">Advanced Equipment For</span>
-                <span className="title-gold">TMD / TMJ Care.</span>
+                <span className="title-charcoal">
+                  {content?.equipmentSectionName
+                    ? content.equipmentSectionName.split('for')[0]?.split('For')[0] || content.equipmentSectionName
+                    : 'Advanced Equipment For'}
+                </span>
+                <span className="title-gold">
+                  {content?.equipmentSectionName && (content.equipmentSectionName.includes('for') || content.equipmentSectionName.includes('For'))
+                    ? content.equipmentSectionName.split(/for|For/)[1]?.trim()
+                    : 'TMD / TMJ Care.'}
+                </span>
               </h2>
             </div>
 

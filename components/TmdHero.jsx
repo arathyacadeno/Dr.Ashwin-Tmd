@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { useCms } from '@/context/CmsContext';
 
 export default function TmdHero() {
+  const { content } = useCms();
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -33,11 +35,11 @@ export default function TmdHero() {
     <section className="tmd-hero-section" id="tmdHeroSection" ref={heroRef}>
       <div className="tmd-hero-sticky" id="tmdHeroSticky">
         <h1 className="tmd-hero-title scaling-title" id="tmdScalingTitle">
-          <span className="hero-line hero-line-1">What is TMD,</span>
-          <span className="hero-line hero-line-2">in plain language</span>
+          <span className="hero-line hero-line-1">{content?.tmdHeroLine1 || 'What is TMD,'}</span>
+          <span className="hero-line hero-line-2">{content?.tmdHeroLine2 || 'in plain language'}</span>
         </h1>
         <p className="tmd-hero-sub" id="tmdScalingSub">
-          A common, well-understood and very treatable problem with the jaw joint
+          {content?.tmdHeroSub || 'A common, well-understood and very treatable problem with the jaw joint'}
         </p>
         <div className="tmd-hero-scroll-hint" id="tmdHeroScrollHint">
           <span>Scroll down</span>

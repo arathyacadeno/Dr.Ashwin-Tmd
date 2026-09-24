@@ -4,12 +4,19 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useCms } from '@/context/CmsContext';
 
 export default function Navbar() {
+  const { content } = useCms();
   const [scrolled, setScrolled] = useState(false);
   const [navHidden, setNavHidden] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  // Do not render public Navbar on admin dashboard pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -70,8 +77,8 @@ export default function Navbar() {
             priority
           />
           <div className="brand-titles">
-            <span className="brand-name-gold">DR ASHWIN’S</span>
-            <span className="brand-sub-white">TMD CLINIC</span>
+            <span className="brand-name-gold">{content?.navbarBrandGold || 'DR ASHWIN’S'}</span>
+            <span className="brand-sub-white">{content?.navbarBrandWhite || 'TMD CLINIC'}</span>
           </div>
         </Link>
 
@@ -125,7 +132,7 @@ export default function Navbar() {
         {/* CTA Button */}
         <div>
           <Link href="/contact" className="nav-btn-gold" id="navConsultBtn">
-            Book a consultation
+            {content?.navbarCtaText || 'Book a consultation'}
           </Link>
         </div>
 
