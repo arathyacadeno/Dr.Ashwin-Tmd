@@ -1,6 +1,6 @@
 /* ==========================================================================
    Admin Dashboard / CMS Page Styles - WordPress Style CMS
-   Exact Figma Design Matching User Screenshots
+   Exact Figma Design Matching User Screenshots 1 - 5
    ========================================================================== */
 
 .admin-layout-wrapper {
@@ -9,20 +9,20 @@
   width: 100%;
   background-color: #FFFFFF;
   font-family: var(--font-body), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1E293B;
+  color: #1E2229;
   box-sizing: border-box;
 }
 
 /* ==========================================================================
-   Left Dark Charcoal Sidebar
+   Left Dark Charcoal Sidebar (#63676D)
    ========================================================================== */
 .admin-sidebar {
-  width: 280px;
-  min-width: 280px;
+  width: 260px;
+  min-width: 260px;
   background-color: #63676D;
   display: flex;
   flex-direction: column;
-  padding: 2.2rem 0 2rem 0;
+  padding: 2rem 0 2rem 0;
   box-sizing: border-box;
   position: sticky;
   top: 0;
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  padding: 0 1.6rem 2.5rem 1.6rem;
+  padding: 0 1.5rem 2.2rem 1.5rem;
   text-decoration: none;
 }
 
@@ -48,13 +48,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
 }
 
 .admin-brand-logo-img {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
 }
 
@@ -64,39 +64,40 @@
 }
 
 .admin-brand-name-gold {
-  color: #FCBC15;
-  font-family: var(--font-sans), sans-serif;
+  color: #EE9D1A;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
   font-weight: 800;
   font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  line-height: 1.1;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
 }
 
 .admin-brand-sub-white {
   color: #FFFFFF;
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
   font-weight: 700;
   font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  line-height: 1.1;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
 }
 
 /* Navigation Menu */
 .admin-nav-menu {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
   width: 100%;
-  padding-left: 1.4rem;
+  padding-left: 1.25rem;
   box-sizing: border-box;
 }
 
 .admin-nav-item {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 0.9rem 1.5rem;
-  font-size: 1.05rem;
+  gap: 0.85rem;
+  padding: 0.85rem 1.4rem;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
+  font-size: 1rem;
   font-weight: 600;
   color: #FFFFFF;
   background: transparent;
@@ -111,96 +112,89 @@
 }
 
 .admin-nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.15);
   color: #FFFFFF;
 }
 
 .admin-nav-item.active {
   background-color: #FFFFFF;
-  color: #111827;
+  color: #1E2229;
   font-weight: 700;
-  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.05);
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.06);
 }
 
 .admin-nav-item.active svg {
-  color: #111827;
+  color: #1E2229;
   fill: currentColor;
 }
 
 .admin-nav-icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-.admin-nav-circle-info {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1;
+.admin-nav-text {
+  font-size: 0.98rem;
 }
 
 /* ==========================================================================
-   Main Content Canvas
+   Main Content Area
    ========================================================================== */
 .admin-content-area {
   flex: 1;
   background-color: #FFFFFF;
-  padding: 2.8rem 4rem 5rem 4rem;
+  padding: 2.5rem 3.5rem 5rem 3.5rem;
   overflow-y: auto;
   box-sizing: border-box;
   min-height: 100vh;
 }
 
-/* Header Banner: Title & Save Changes Button */
+/* Header Banner: Title & Buttons (Pinned Right) */
 .admin-header-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 2.8rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid #E2E8F0;
+  margin-bottom: 2.5rem;
+  box-sizing: border-box;
 }
 
 .admin-title-group h1 {
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
   font-size: 1.85rem;
   font-weight: 800;
-  color: #111827;
-  margin: 0 0 0.4rem 0;
-  letter-spacing: -0.02em;
+  color: #1E2229;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.01em;
 }
 
 .admin-title-group p {
+  font-family: var(--font-body), sans-serif;
   font-size: 0.92rem;
-  color: #64748B;
+  color: #7C828D;
   margin: 0;
 }
 
 .admin-header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
+  flex-shrink: 0;
 }
 
 .admin-preview-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background-color: #F1F5F9;
+  background-color: #F1F4F8;
   color: #334155;
   border: 1.5px solid #CBD5E1;
   border-radius: 9999px;
-  padding: 0.65rem 1.4rem;
+  padding: 0.65rem 1.35rem;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
   font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
@@ -217,25 +211,24 @@
 .admin-save-btn {
   background-color: #EE9D1A;
   color: #000000;
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
   font-size: 0.95rem;
   font-weight: 800;
   border: none;
-  border-radius: 9999px;
+  border-radius: 12px;
   padding: 0.75rem 2.2rem;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(238, 157, 26, 0.35);
+  box-shadow: 0 4px 12px rgba(238, 157, 26, 0.25);
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
 }
 
 .admin-save-btn:hover {
   background-color: #E59412;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(238, 157, 26, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(238, 157, 26, 0.35);
 }
 
 .admin-save-btn:active {
@@ -243,55 +236,55 @@
 }
 
 /* ==========================================================================
-   Section Form Blocks
+   Section Form Blocks & Headings
    ========================================================================== */
 .admin-section-block {
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.8rem;
 }
 
 .admin-section-heading {
-  font-family: var(--font-sans), sans-serif;
-  font-size: 1.45rem;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
+  font-size: 1.4rem;
   font-weight: 800;
-  color: #111827;
-  margin: 0 0 1.6rem 0;
-  letter-spacing: -0.015em;
+  color: #1E2229;
+  margin: 0 0 1.35rem 0;
+  letter-spacing: -0.01em;
 }
 
 /* Form Grid Systems */
 .admin-grid-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.75rem 2.2rem;
-  margin-bottom: 1.75rem;
+  gap: 1.4rem 2rem;
+  margin-bottom: 1.4rem;
 }
 
 .admin-grid-full {
   width: 100%;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.4rem;
 }
 
 /* Form Group & Labels */
 .admin-field-group {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .admin-field-label {
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1E293B;
+  color: #1E2229;
   letter-spacing: -0.01em;
 }
 
-/* Styled Pill Inputs matching exact grey boxes in Figma */
+/* Styled Pill Inputs matching exact Figma grey capsule boxes */
 .admin-pill-input {
   width: 100%;
   background-color: #C8CCD2;
-  color: #111827;
-  font-family: var(--font-sans), sans-serif;
+  color: #1E2229;
+  font-family: var(--font-body), sans-serif;
   font-size: 0.92rem;
   font-weight: 500;
   border: 1.5px solid transparent;
@@ -305,167 +298,210 @@
 .admin-pill-input:focus {
   background-color: #DFE3E8;
   border-color: #EE9D1A;
-  box-shadow: 0 0 0 3px rgba(238, 157, 26, 0.25);
+  box-shadow: 0 0 0 3px rgba(238, 157, 26, 0.2);
 }
 
 .admin-pill-textarea {
-  min-height: 105px;
+  min-height: 110px;
   resize: vertical;
   line-height: 1.6;
+  font-family: var(--font-body), sans-serif;
 }
 
-/* Upload Button Pill (with image icon on right) */
-.admin-upload-pill {
+/* Pill Input with Upload Icon on Right (Exact Figma UI) */
+.admin-input-upload-pill {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
   background-color: #C8CCD2;
-  color: #374151;
-  font-family: var(--font-sans), sans-serif;
+  border-radius: 12px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.admin-input-upload-pill:focus-within {
+  background-color: #DFE3E8;
+  box-shadow: 0 0 0 3px rgba(238, 157, 26, 0.2);
+}
+
+.admin-input-upload-pill input[type="text"] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-body), sans-serif;
   font-size: 0.92rem;
   font-weight: 500;
-  border: 1.5px solid transparent;
-  border-radius: 12px;
+  color: #1E2229;
   padding: 0.95rem 1.25rem;
   box-sizing: border-box;
+}
+
+.admin-upload-icon-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 1.25rem;
+  color: #374151;
   cursor: pointer;
-  transition: all 0.2s ease;
-  user-select: none;
-}
-
-.admin-upload-pill:hover {
-  background-color: #BAC0C7;
-  color: #111827;
-}
-
-.admin-upload-pill input[type="file"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.admin-upload-text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 80%;
-}
-
-.admin-upload-icon {
-  width: 22px;
-  height: 22px;
-  color: #4B5563;
   flex-shrink: 0;
+  transition: color 0.15s ease;
 }
 
-/* Dual Action Buttons Pill */
+.admin-upload-icon-trigger:hover {
+  color: #000000;
+}
+
+.admin-upload-icon-trigger input[type="file"] {
+  display: none;
+}
+
+/* Hero Dual Action Buttons Pill (Exact Figma UI: one single pill with divider) */
 .admin-cta-dual-pill {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
   background-color: #C8CCD2;
   border-radius: 12px;
-  padding: 0.65rem 1rem;
+  padding: 0.5rem 0.75rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.admin-cta-half-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1E2229;
+  padding: 0.6rem 1rem;
   box-sizing: border-box;
 }
 
-.admin-cta-dual-pill input {
-  background: transparent;
-  border: none;
-  font-family: var(--font-sans), sans-serif;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #111827;
-  padding: 0.35rem 0.5rem;
-  outline: none;
-  flex: 1;
-}
-
-.admin-cta-dual-pill input:focus {
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 6px;
+.admin-cta-half-input:focus {
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 8px;
 }
 
 .admin-cta-dual-divider {
   width: 1.5px;
-  height: 24px;
-  background: #9CA3AF;
+  height: 28px;
+  background-color: #A0A5AD;
+  margin: 0 0.5rem;
+  flex-shrink: 0;
 }
 
-/* Trust / Credibility Metric Circles Grid */
-.admin-metrics-row {
+/* ==========================================================================
+   Trust & Credibility Metric Cards (Figma Screenshot 5)
+   ========================================================================== */
+.admin-metrics-grid-3col {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem 2rem;
   margin-top: 1rem;
 }
 
-.admin-metric-card {
+.admin-metric-box {
   background-color: #C8CCD2;
   border-radius: 12px;
-  padding: 1rem 0.85rem;
+  padding: 1.1rem 1.25rem;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
 }
 
-.admin-metric-number-input {
+.admin-metric-num-input {
   background: transparent;
   border: none;
-  font-family: var(--font-serif), 'Playfair Display', Georgia, serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #111827;
-  padding: 0;
   outline: none;
-  width: 100%;
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1E2229;
+  padding: 0;
 }
 
-.admin-metric-label-input {
+.admin-metric-lbl-input {
   background: transparent;
   border: none;
-  font-family: var(--font-sans), sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #4B5563;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0;
   outline: none;
-  width: 100%;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #374151;
+  padding: 0;
 }
 
-/* Bottom Add Reviews Button */
-.admin-add-review-wrap {
+/* ==========================================================================
+   Testimonials & Bottom Action Button (Figma Screenshot 5)
+   ========================================================================== */
+.admin-review-box-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #C8CCD2;
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
+  box-sizing: border-box;
+}
+
+.admin-review-box-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.admin-review-rating-input {
+  width: 90px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 700;
+}
+
+.admin-review-author-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1E2229;
+}
+
+.admin-add-reviews-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 2.2rem;
   margin-bottom: 2rem;
 }
 
-.admin-gold-action-btn {
+.admin-add-reviews-btn {
   background-color: #EE9D1A;
   color: #000000;
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
   font-size: 0.95rem;
   font-weight: 800;
   border: none;
-  border-radius: 9999px;
-  padding: 0.75rem 2.8rem;
+  border-radius: 12px;
+  padding: 0.75rem 3rem;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(238, 157, 26, 0.35);
+  box-shadow: 0 4px 12px rgba(238, 157, 26, 0.25);
   transition: all 0.2s ease;
 }
 
-.admin-gold-action-btn:hover {
+.admin-add-reviews-btn:hover {
   background-color: #E59412;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(238, 157, 26, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(238, 157, 26, 0.35);
 }
 
 /* Floating Success Toast Alert */
@@ -521,7 +557,8 @@
   .admin-content-area {
     padding: 2rem 1.5rem;
   }
-  .admin-grid-2col {
+  .admin-grid-2col,
+  .admin-metrics-grid-3col {
     grid-template-columns: 1fr;
   }
 }

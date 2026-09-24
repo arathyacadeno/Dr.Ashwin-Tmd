@@ -1,5 +1,5 @@
 {
-  "heroHeading": "Advanced TMD & TMJ Care For Better Jaw Health",
+  "heroHeading": "Advanced TMD & TMJ Care ",
   "heroVideo": "Woman_running_in_park_202608281117.mp4",
   "heroCta1": "Book a consultation",
   "heroCta2": "See how we help",
@@ -141,7 +141,6 @@
   "reviewAuthor": "Vivek Menon",
   "reviewRating": "★★★★★",
   "reviewContent": "Visiting multiple clinics, Dr. Ashwin diagnosed the root cause of my jaw clenching and facial tension. Exceptional personal care and very polite staff.",
-
   "aboutHeroTitle1": "A clinic built around",
   "aboutHeroTitle2": "One thing, done properly",
   "aboutHeroScrollHint": "Scroll to explore our story",
@@ -158,7 +157,6 @@
   "aboutDoctorBio2": "His approach begins with understanding the complete picture — the symptoms, their history, the jaw joints and muscles, the bite, and related factors such as sleep and airway concerns. Each patient is carefully assessed before a treatment plan is discussed.",
   "aboutDoctorQuote": "“Good care starts with understanding the person, not just the symptom.”",
   "aboutDoctorImage": "og image.png",
-
   "tmdHeroLine1": "What is TMD?",
   "tmdHeroLine2": "Understand the condition",
   "tmdHeroSub": "Temporomandibular joint dysfunction explained with clarity and clinical precision.",
@@ -202,7 +200,6 @@
   ],
   "tmdWhenTitle": "When is it Time to Get Checked?",
   "tmdWhenText": "If jaw clicking, morning headaches, or temple ache have persisted for more than two weeks, early assessment prevents irreversible joint wear.",
-
   "treatmentsHeroTitle": "Treatment, thought through",
   "treatmentsHeroSub": "Gentle, reversible, and explained before it begins. Dr. Ashwin's evidence-based treatments.",
   "treatmentsSteps": [
@@ -254,7 +251,6 @@
       "desc": "Maintenance protocols and confidence to enjoy everyday moments without discomfort."
     }
   ],
-
   "contactHeroTitle": "Book your consultation",
   "contactHeroSub": "Bring any scans, reports or records you have gathered — they always help.",
   "contactPhone": "+91 94970 88200",
@@ -264,12 +260,10 @@
   "contactHoursSaturday": "Saturday: 9:30 AM to 12:00 PM",
   "contactAddress": "Asoka Hospital Compound, 17/6, Bank Road, Opposite Malabar Gold, Polpaya Mana, Tazhekkod, Kozhikode, Kerala 673001",
   "contactMapQuery": "Asoka Hospital Bank Road Kozhikode Kerala",
-
   "navbarBrandGold": "DR ASHWIN’S",
   "navbarBrandWhite": "TMD CLINIC",
   "navbarLogo": "logo.png",
   "navbarCtaText": "Book a consultation",
-
   "footerClinicDesc": "Expert care for TMJ/TMD disorders using advanced diagnostics and non-invasive treatments to restore comfort and jaw function. Led by Dr. Ashwin in Kozhikode.",
   "footerPhone": "+91 94970 88200",
   "footerWhatsApp": "+91 99479 33999",

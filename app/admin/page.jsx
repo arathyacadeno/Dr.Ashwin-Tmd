@@ -56,7 +56,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="admin-layout-wrapper">
       {/* ====================================================================
-          Left Dark Charcoal Sidebar (Exact Figma UI)
+          Left Dark Charcoal Sidebar (Exact Figma UI: #63676D)
           ==================================================================== */}
       <aside className="admin-sidebar">
         {/* Brand Logo & Titles */}
@@ -150,13 +150,13 @@ export default function AdminDashboardPage() {
       </aside>
 
       {/* ====================================================================
-          Main Content Form Area
+          Main Content Canvas (Exact Figma Layout)
           ==================================================================== */}
       <main className="admin-content-area">
-        {/* Top Header Bar */}
-        <header className="admin-top-header">
-          <div>
-            <h1 className="admin-main-heading">
+        {/* Top Header Row (Pinned Right Action Buttons) */}
+        <header className="admin-header-row">
+          <div className="admin-title-group">
+            <h1>
               {activeTab === 'home' && 'Homepage Management'}
               {activeTab === 'about' && 'About Us Management'}
               {activeTab === 'tmd' && 'What is TMD Management'}
@@ -165,8 +165,8 @@ export default function AdminDashboardPage() {
               {activeTab === 'navbar' && 'Navigation Bar Management'}
               {activeTab === 'footer' && 'Footer Management'}
             </h1>
-            <p className="admin-sub-heading">
-              {activeTab === 'home' && 'Manage the main Home page content displayed on the website'}
+            <p>
+              {activeTab === 'home' && 'Manage the main Home page content displayed on the homepage'}
               {activeTab === 'about' && 'Manage clinic story, philosophy, and Dr. Ashwin profile'}
               {activeTab === 'tmd' && 'Manage educational TMD explanations, symptoms, and causes'}
               {activeTab === 'treatments' && 'Manage treatment process steps and therapeutic stages'}
@@ -190,23 +190,23 @@ export default function AdminDashboardPage() {
                   : '/'
               }
               target="_blank"
-              className="admin-btn-secondary"
+              className="admin-preview-btn"
             >
               <span>View Live Website</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                 <polyline points="15 3 21 3 21 9"></polyline>
                 <line x1="10" y1="14" x2="21" y2="3"></line>
               </svg>
             </Link>
-            <button type="button" className="admin-btn-primary" onClick={handleSave}>
+            <button type="button" className="admin-save-btn" onClick={handleSave}>
               Save Changes
             </button>
           </div>
         </header>
 
         {/* ==================================================================
-            TAB 1: HOMEPAGE MANAGEMENT
+            TAB 1: HOMEPAGE MANAGEMENT (Exact Figma Screenshots 1 - 5)
             ================================================================== */}
         {activeTab === 'home' && (
           <div>
@@ -224,15 +224,15 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="admin-field-group">
                   <label className="admin-field-label">Hero Section Video</label>
-                  <div className="admin-input-with-upload">
+                  <div className="admin-input-upload-pill">
                     <input
                       type="text"
-                      className="admin-pill-input"
                       value={cmsData.heroVideo || ''}
+                      placeholder="Upload Video"
                       onChange={(e) => handleInputChange('heroVideo', e.target.value)}
                     />
-                    <label className="admin-upload-icon-btn" title="Choose Video File">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <label className="admin-upload-icon-trigger" title="Upload Video">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <polyline points="21 15 16 10 5 21" />
@@ -240,7 +240,6 @@ export default function AdminDashboardPage() {
                       <input
                         type="file"
                         accept="video/*"
-                        style={{ display: 'none' }}
                         onChange={(e) => handleFileUpload(e, (name) => handleInputChange('heroVideo', name))}
                       />
                     </label>
@@ -248,26 +247,30 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-field-group">
-                <label className="admin-field-label">Hero CTA Button</label>
-                <div className="admin-dual-cta-row">
-                  <input
-                    type="text"
-                    className="admin-pill-input admin-cta-half"
-                    value={cmsData.heroCta1 || ''}
-                    onChange={(e) => handleInputChange('heroCta1', e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    className="admin-pill-input admin-cta-half"
-                    value={cmsData.heroCta2 || ''}
-                    onChange={(e) => handleInputChange('heroCta2', e.target.value)}
-                  />
+              {/* Hero CTA Button: Single Wide Pill with 2 inputs and divider (Screenshot 1) */}
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Hero CTA Button</label>
+                  <div className="admin-cta-dual-pill">
+                    <input
+                      type="text"
+                      className="admin-cta-half-input"
+                      value={cmsData.heroCta1 || ''}
+                      onChange={(e) => handleInputChange('heroCta1', e.target.value)}
+                    />
+                    <div className="admin-cta-dual-divider"></div>
+                    <input
+                      type="text"
+                      className="admin-cta-half-input"
+                      value={cmsData.heroCta2 || ''}
+                      onChange={(e) => handleInputChange('heroCta2', e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
             </section>
 
-            {/* Section 2: Dr. Ashwin Introduction */}
+            {/* Section 2: Dr. Ashwin Introduction (Screenshot 1) */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Dr. Ashwin Introduction</h2>
               <div className="admin-grid-2col">
@@ -291,7 +294,7 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-grid-2col admin-doc-row">
+              <div className="admin-grid-2col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Doctor Ashwin Personal Note</label>
                   <textarea
@@ -303,15 +306,15 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="admin-field-group">
                   <label className="admin-field-label">Doctor Image</label>
-                  <div className="admin-input-with-upload">
+                  <div className="admin-input-upload-pill">
                     <input
                       type="text"
-                      className="admin-pill-input"
                       value={cmsData.docImage || ''}
+                      placeholder="Upload Image For Doctor"
                       onChange={(e) => handleInputChange('docImage', e.target.value)}
                     />
-                    <label className="admin-upload-icon-btn" title="Choose Image File">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <label className="admin-upload-icon-trigger" title="Upload Doctor Image">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <polyline points="21 15 16 10 5 21" />
@@ -319,7 +322,6 @@ export default function AdminDashboardPage() {
                       <input
                         type="file"
                         accept="image/*"
-                        style={{ display: 'none' }}
                         onChange={(e) => handleFileUpload(e, (name) => handleInputChange('docImage', name))}
                       />
                     </label>
@@ -328,7 +330,7 @@ export default function AdminDashboardPage() {
               </div>
             </section>
 
-            {/* Section 3: Lifestyle Benefits Section */}
+            {/* Section 3: Lifestyle Benefits Section (Screenshot 2) */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Lifestyle Benefits Section</h2>
               <div className="admin-grid-full">
@@ -343,59 +345,190 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-cards-grid">
-                {(cmsData.lifestyleCards || []).map((card, idx) => (
-                  <div key={idx} className="admin-card-item">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Card {idx + 1}</label>
+              {/* Cards 1 & 2 Titles */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 1</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.lifestyleCards?.[0]?.title || ''}
+                      onChange={(e) => handleCardChange('lifestyleCards', 0, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
                       <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={card.title || ''}
-                        onChange={(e) => handleCardChange('lifestyleCards', idx, 'title', e.target.value)}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('lifestyleCards', 0, 'img', name))}
                       />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Description</label>
-                      <textarea
-                        rows={3}
-                        className="admin-pill-input admin-pill-textarea"
-                        value={card.desc || ''}
-                        onChange={(e) => handleCardChange('lifestyleCards', idx, 'desc', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Card Image</label>
-                      <div className="admin-input-with-upload">
-                        <input
-                          type="text"
-                          className="admin-pill-input"
-                          value={card.img || ''}
-                          onChange={(e) => handleCardChange('lifestyleCards', idx, 'img', e.target.value)}
-                        />
-                        <label className="admin-upload-icon-btn" title="Choose Card Image">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                          </svg>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={(e) => handleFileUpload(e, (name) => handleCardChange('lifestyleCards', idx, 'img', name))}
-                          />
-                        </label>
-                      </div>
-                    </div>
+                    </label>
                   </div>
-                ))}
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 2</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.lifestyleCards?.[1]?.title || ''}
+                      onChange={(e) => handleCardChange('lifestyleCards', 1, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('lifestyleCards', 1, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cards 1 & 2 Descriptions */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 1 Description</label>
+                  <textarea
+                    rows={4}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.lifestyleCards?.[0]?.desc || ''}
+                    onChange={(e) => handleCardChange('lifestyleCards', 0, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 2 Description</label>
+                  <textarea
+                    rows={4}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.lifestyleCards?.[1]?.desc || ''}
+                    onChange={(e) => handleCardChange('lifestyleCards', 1, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Cards 3 & 4 Titles */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 3</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.lifestyleCards?.[2]?.title || ''}
+                      onChange={(e) => handleCardChange('lifestyleCards', 2, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('lifestyleCards', 2, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 4</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.lifestyleCards?.[3]?.title || ''}
+                      onChange={(e) => handleCardChange('lifestyleCards', 3, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('lifestyleCards', 3, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cards 3 & 4 Descriptions */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 3 Description</label>
+                  <textarea
+                    rows={4}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.lifestyleCards?.[2]?.desc || ''}
+                    onChange={(e) => handleCardChange('lifestyleCards', 2, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 4 Description</label>
+                  <textarea
+                    rows={4}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.lifestyleCards?.[3]?.desc || ''}
+                    onChange={(e) => handleCardChange('lifestyleCards', 3, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Cards 5 Title & Full-Width Description */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 5</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.lifestyleCards?.[4]?.title || ''}
+                      onChange={(e) => handleCardChange('lifestyleCards', 4, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('lifestyleCards', 4, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 5 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.lifestyleCards?.[4]?.desc || ''}
+                    onChange={(e) => handleCardChange('lifestyleCards', 4, 'desc', e.target.value)}
+                  />
+                </div>
               </div>
             </section>
 
-            {/* Section 4: Treatments Section */}
+            {/* Section 4: Treatments Section (Screenshot 3 & 4) */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Treatments Section</h2>
+              <h2 className="admin-section-heading">Treatments section.</h2>
               <div className="admin-grid-full">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Section Name</label>
@@ -408,59 +541,258 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-cards-grid">
-                {(cmsData.treatmentCards || []).map((card, idx) => (
-                  <div key={idx} className="admin-card-item">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Treatment Card {idx + 1}</label>
+              {/* Treatment Cards 1 & 2 */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 1</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.treatmentCards?.[0]?.title || ''}
+                      onChange={(e) => handleCardChange('treatmentCards', 0, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
                       <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={card.title || ''}
-                        onChange={(e) => handleCardChange('treatmentCards', idx, 'title', e.target.value)}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', 0, 'img', name))}
                       />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Description</label>
-                      <textarea
-                        rows={3}
-                        className="admin-pill-input admin-pill-textarea"
-                        value={card.desc || ''}
-                        onChange={(e) => handleCardChange('treatmentCards', idx, 'desc', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Card Image</label>
-                      <div className="admin-input-with-upload">
-                        <input
-                          type="text"
-                          className="admin-pill-input"
-                          value={card.img || ''}
-                          onChange={(e) => handleCardChange('treatmentCards', idx, 'img', e.target.value)}
-                        />
-                        <label className="admin-upload-icon-btn" title="Choose Image">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                          </svg>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', idx, 'img', name))}
-                          />
-                        </label>
-                      </div>
-                    </div>
+                    </label>
                   </div>
-                ))}
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 2</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.treatmentCards?.[1]?.title || ''}
+                      onChange={(e) => handleCardChange('treatmentCards', 1, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', 1, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 1 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.treatmentCards?.[0]?.desc || ''}
+                    onChange={(e) => handleCardChange('treatmentCards', 0, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 2 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.treatmentCards?.[1]?.desc || ''}
+                    onChange={(e) => handleCardChange('treatmentCards', 1, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Treatment Cards 3 & 4 */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 3</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.treatmentCards?.[2]?.title || ''}
+                      onChange={(e) => handleCardChange('treatmentCards', 2, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', 2, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 4</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.treatmentCards?.[3]?.title || ''}
+                      onChange={(e) => handleCardChange('treatmentCards', 3, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', 3, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 3 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.treatmentCards?.[2]?.desc || ''}
+                    onChange={(e) => handleCardChange('treatmentCards', 2, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 4 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.treatmentCards?.[3]?.desc || ''}
+                    onChange={(e) => handleCardChange('treatmentCards', 3, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Treatment Cards 5 & 6 */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 5</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.treatmentCards?.[4]?.title || ''}
+                      onChange={(e) => handleCardChange('treatmentCards', 4, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', 4, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 6</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.treatmentCards?.[5]?.title || ''}
+                      onChange={(e) => handleCardChange('treatmentCards', 5, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', 5, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 5 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.treatmentCards?.[4]?.desc || ''}
+                    onChange={(e) => handleCardChange('treatmentCards', 4, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 6 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.treatmentCards?.[5]?.desc || ''}
+                    onChange={(e) => handleCardChange('treatmentCards', 5, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Treatment Card 7 */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 7</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.treatmentCards?.[6]?.title || ''}
+                      onChange={(e) => handleCardChange('treatmentCards', 6, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentCards', 6, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 7 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.treatmentCards?.[6]?.desc || ''}
+                    onChange={(e) => handleCardChange('treatmentCards', 6, 'desc', e.target.value)}
+                  />
+                </div>
               </div>
             </section>
 
-            {/* Section 5: Advanced Equipment Section */}
+            {/* Section 5: Advanced Equipment / Technology Section (Screenshot 4 & 5) */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Advanced Equipment Section</h2>
+              <h2 className="admin-section-heading">Advanced Equipment / Technology Section</h2>
               <div className="admin-grid-full">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Section Name</label>
@@ -473,59 +805,220 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-cards-grid">
-                {(cmsData.equipmentCards || []).map((card, idx) => (
-                  <div key={idx} className="admin-card-item">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Equipment Card {idx + 1}</label>
+              {/* Equipment Cards 1 & 2 */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 1</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.equipmentCards?.[0]?.title || ''}
+                      onChange={(e) => handleCardChange('equipmentCards', 0, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
                       <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={card.title || ''}
-                        onChange={(e) => handleCardChange('equipmentCards', idx, 'title', e.target.value)}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('equipmentCards', 0, 'img', name))}
                       />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Description</label>
-                      <textarea
-                        rows={3}
-                        className="admin-pill-input admin-pill-textarea"
-                        value={card.desc || ''}
-                        onChange={(e) => handleCardChange('equipmentCards', idx, 'desc', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Equipment Image</label>
-                      <div className="admin-input-with-upload">
-                        <input
-                          type="text"
-                          className="admin-pill-input"
-                          value={card.img || ''}
-                          onChange={(e) => handleCardChange('equipmentCards', idx, 'img', e.target.value)}
-                        />
-                        <label className="admin-upload-icon-btn" title="Choose Image">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                          </svg>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={(e) => handleFileUpload(e, (name) => handleCardChange('equipmentCards', idx, 'img', name))}
-                          />
-                        </label>
-                      </div>
-                    </div>
+                    </label>
                   </div>
-                ))}
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 2</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.equipmentCards?.[1]?.title || ''}
+                      onChange={(e) => handleCardChange('equipmentCards', 1, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('equipmentCards', 1, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 1 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.equipmentCards?.[0]?.desc || ''}
+                    onChange={(e) => handleCardChange('equipmentCards', 0, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 2 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.equipmentCards?.[1]?.desc || ''}
+                    onChange={(e) => handleCardChange('equipmentCards', 1, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Equipment Cards 3 & 4 */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 3</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.equipmentCards?.[2]?.title || ''}
+                      onChange={(e) => handleCardChange('equipmentCards', 2, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('equipmentCards', 2, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 4</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.equipmentCards?.[3]?.title || ''}
+                      onChange={(e) => handleCardChange('equipmentCards', 3, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('equipmentCards', 3, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 3 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.equipmentCards?.[2]?.desc || ''}
+                    onChange={(e) => handleCardChange('equipmentCards', 2, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 4 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.equipmentCards?.[3]?.desc || ''}
+                    onChange={(e) => handleCardChange('equipmentCards', 3, 'desc', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Equipment Cards 5 & 6 */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 5</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.equipmentCards?.[4]?.title || ''}
+                      onChange={(e) => handleCardChange('equipmentCards', 4, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('equipmentCards', 4, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 6</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.equipmentCards?.[5]?.title || ''}
+                      onChange={(e) => handleCardChange('equipmentCards', 5, 'title', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleCardChange('equipmentCards', 5, 'img', name))}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 5 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.equipmentCards?.[4]?.desc || ''}
+                    onChange={(e) => handleCardChange('equipmentCards', 4, 'desc', e.target.value)}
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Cards 6 Description</label>
+                  <textarea
+                    rows={3}
+                    className="admin-pill-input admin-pill-textarea"
+                    value={cmsData.equipmentCards?.[5]?.desc || ''}
+                    onChange={(e) => handleCardChange('equipmentCards', 5, 'desc', e.target.value)}
+                  />
+                </div>
               </div>
             </section>
 
-            {/* Section 6: Trust & Credibility Section */}
+            {/* Section 6: Trust & Credibility Section (Screenshot 5) */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Trust &amp; Credibility Section</h2>
+              <h2 className="admin-section-heading">Trust &amp; Credibility section.</h2>
               <div className="admin-grid-full">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Section Name</label>
@@ -538,36 +1031,32 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-metrics-row-scroll">
+              <div className="admin-metrics-grid-3col">
                 {(cmsData.trustMetrics || []).map((metric, idx) => (
-                  <div key={idx} className="admin-metric-pill-card">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Number</label>
-                      <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={metric.number || ''}
-                        onChange={(e) => handleMetricChange(idx, 'number', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Label</label>
-                      <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={metric.label || ''}
-                        onChange={(e) => handleMetricChange(idx, 'label', e.target.value)}
-                      />
-                    </div>
+                  <div key={idx} className="admin-metric-box">
+                    <span className="admin-field-label" style={{ fontSize: '0.85rem' }}>Circle {idx + 1}</span>
+                    <input
+                      type="text"
+                      className="admin-metric-num-input"
+                      value={metric.number || ''}
+                      onChange={(e) => handleMetricChange(idx, 'number', e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      className="admin-metric-lbl-input"
+                      value={metric.label || ''}
+                      onChange={(e) => handleMetricChange(idx, 'label', e.target.value)}
+                    />
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* Section 7: Patient Testimonials Section */}
+            {/* Section 7: Patient Testimonials Section (Screenshot 5) */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Patient Testimonials Section</h2>
-              <div className="admin-grid-full">
+              <h2 className="admin-section-heading">Patient Testimonials / Patient Stories section.</h2>
+              
+              <div className="admin-grid-2col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Section Name</label>
                   <input
@@ -577,26 +1066,30 @@ export default function AdminDashboardPage() {
                     onChange={(e) => handleInputChange('testimonialsSectionName', e.target.value)}
                   />
                 </div>
-              </div>
 
-              <div className="admin-grid-2col">
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Review Author</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.reviewAuthor || ''}
-                    onChange={(e) => handleInputChange('reviewAuthor', e.target.value)}
-                  />
-                </div>
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Star Rating</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.reviewRating || ''}
-                    onChange={(e) => handleInputChange('reviewRating', e.target.value)}
-                  />
+                  <label className="admin-field-label">Review Section</label>
+                  <div className="admin-review-box-pill">
+                    <div className="admin-review-box-inner">
+                      <input
+                        type="text"
+                        className="admin-review-rating-input"
+                        value={cmsData.reviewRating || '★★★★★'}
+                        onChange={(e) => handleInputChange('reviewRating', e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        className="admin-review-author-input"
+                        value={cmsData.reviewAuthor || ''}
+                        onChange={(e) => handleInputChange('reviewAuthor', e.target.value)}
+                      />
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                  </div>
                 </div>
               </div>
 
@@ -611,6 +1104,12 @@ export default function AdminDashboardPage() {
                   />
                 </div>
               </div>
+
+              <div className="admin-add-reviews-wrap">
+                <button type="button" className="admin-add-reviews-btn" onClick={handleSave}>
+                  Add Reviews
+                </button>
+              </div>
             </section>
           </div>
         )}
@@ -620,7 +1119,6 @@ export default function AdminDashboardPage() {
             ================================================================== */}
         {activeTab === 'about' && (
           <div>
-            {/* About Hero */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">About Us Hero Section</h2>
               <div className="admin-grid-2col">
@@ -656,7 +1154,6 @@ export default function AdminDashboardPage() {
               </div>
             </section>
 
-            {/* Our Story Reveal Section */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Our Story &amp; Philosophy</h2>
               <div className="admin-grid-full">
@@ -710,15 +1207,15 @@ export default function AdminDashboardPage() {
               <div className="admin-grid-2col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Lounge Image (Base View)</label>
-                  <div className="admin-input-with-upload">
+                  <div className="admin-input-upload-pill">
                     <input
                       type="text"
-                      className="admin-pill-input"
                       value={cmsData.aboutStoryLoungeImage || ''}
+                      placeholder="clinic_reception.jpg"
                       onChange={(e) => handleInputChange('aboutStoryLoungeImage', e.target.value)}
                     />
-                    <label className="admin-upload-icon-btn" title="Choose Lounge Image">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <polyline points="21 15 16 10 5 21" />
@@ -726,7 +1223,6 @@ export default function AdminDashboardPage() {
                       <input
                         type="file"
                         accept="image/*"
-                        style={{ display: 'none' }}
                         onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutStoryLoungeImage', name))}
                       />
                     </label>
@@ -735,15 +1231,15 @@ export default function AdminDashboardPage() {
 
                 <div className="admin-field-group">
                   <label className="admin-field-label">Clinic Exterior Image (Curtain Reveal)</label>
-                  <div className="admin-input-with-upload">
+                  <div className="admin-input-upload-pill">
                     <input
                       type="text"
-                      className="admin-pill-input"
                       value={cmsData.aboutStoryExteriorImage || ''}
+                      placeholder="clinic_exterior.jpg"
                       onChange={(e) => handleInputChange('aboutStoryExteriorImage', e.target.value)}
                     />
-                    <label className="admin-upload-icon-btn" title="Choose Exterior Image">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <polyline points="21 15 16 10 5 21" />
@@ -751,7 +1247,6 @@ export default function AdminDashboardPage() {
                       <input
                         type="file"
                         accept="image/*"
-                        style={{ display: 'none' }}
                         onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutStoryExteriorImage', name))}
                       />
                     </label>
@@ -760,7 +1255,6 @@ export default function AdminDashboardPage() {
               </div>
             </section>
 
-            {/* Meet Dr. Ashwin Card */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Doctor Profile Card</h2>
               <div className="admin-grid-2col">
@@ -796,15 +1290,15 @@ export default function AdminDashboardPage() {
                 </div>
                 <div className="admin-field-group">
                   <label className="admin-field-label">Doctor Portrait Image</label>
-                  <div className="admin-input-with-upload">
+                  <div className="admin-input-upload-pill">
                     <input
                       type="text"
-                      className="admin-pill-input"
                       value={cmsData.aboutDoctorImage || ''}
+                      placeholder="og image.png"
                       onChange={(e) => handleInputChange('aboutDoctorImage', e.target.value)}
                     />
-                    <label className="admin-upload-icon-btn" title="Choose Portrait Image">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <polyline points="21 15 16 10 5 21" />
@@ -812,7 +1306,6 @@ export default function AdminDashboardPage() {
                       <input
                         type="file"
                         accept="image/*"
-                        style={{ display: 'none' }}
                         onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutDoctorImage', name))}
                       />
                     </label>
@@ -864,7 +1357,6 @@ export default function AdminDashboardPage() {
             ================================================================== */}
         {activeTab === 'tmd' && (
           <div>
-            {/* TMD Hero */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">What is TMD Hero Section</h2>
               <div className="admin-grid-2col">
@@ -900,7 +1392,6 @@ export default function AdminDashboardPage() {
               </div>
             </section>
 
-            {/* Busiest Joint Section */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Busiest Joint Section</h2>
               <div className="admin-grid-full">
@@ -927,7 +1418,6 @@ export default function AdminDashboardPage() {
               </div>
             </section>
 
-            {/* Great Disguise Artist (Symptoms) */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Disguise Artist &amp; Symptoms</h2>
               <div className="admin-grid-2col">
@@ -951,83 +1441,30 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-cards-grid">
-                {(cmsData.tmdSymptoms || []).map((sym, idx) => (
-                  <div key={idx} className="admin-card-item">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Symptom {idx + 1} Name</label>
-                      <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={sym.title || ''}
-                        onChange={(e) => handleCardChange('tmdSymptoms', idx, 'title', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Description</label>
-                      <textarea
-                        rows={3}
-                        className="admin-pill-input admin-pill-textarea"
-                        value={sym.desc || ''}
-                        onChange={(e) => handleCardChange('tmdSymptoms', idx, 'desc', e.target.value)}
-                      />
-                    </div>
+              {(cmsData.tmdSymptoms || []).map((sym, idx) => (
+                <div key={idx} className="admin-grid-2col" style={{ marginBottom: '1rem' }}>
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Symptom {idx + 1} Name</label>
+                    <input
+                      type="text"
+                      className="admin-pill-input"
+                      value={sym.title || ''}
+                      onChange={(e) => handleCardChange('tmdSymptoms', idx, 'title', e.target.value)}
+                    />
                   </div>
-                ))}
-              </div>
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Description</label>
+                    <textarea
+                      rows={2}
+                      className="admin-pill-input admin-pill-textarea"
+                      value={sym.desc || ''}
+                      onChange={(e) => handleCardChange('tmdSymptoms', idx, 'desc', e.target.value)}
+                    />
+                  </div>
+                </div>
+              ))}
             </section>
 
-            {/* Common Causes */}
-            <section className="admin-section-block">
-              <h2 className="admin-section-heading">Common Causes (The Usual Suspects)</h2>
-              <div className="admin-grid-2col">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Section Heading</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.tmdCausesTitle || ''}
-                    onChange={(e) => handleInputChange('tmdCausesTitle', e.target.value)}
-                  />
-                </div>
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Section Subtitle</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.tmdCausesSub || ''}
-                    onChange={(e) => handleInputChange('tmdCausesSub', e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-cards-grid">
-                {(cmsData.tmdCauses || []).map((cause, idx) => (
-                  <div key={idx} className="admin-card-item">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Cause {idx + 1} Name</label>
-                      <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={cause.title || ''}
-                        onChange={(e) => handleCardChange('tmdCauses', idx, 'title', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Description</label>
-                      <textarea
-                        rows={3}
-                        className="admin-pill-input admin-pill-textarea"
-                        value={cause.desc || ''}
-                        onChange={(e) => handleCardChange('tmdCauses', idx, 'desc', e.target.value)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* When to Seek Care */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">When to Seek Care</h2>
               <div className="admin-grid-full">
@@ -1061,7 +1498,6 @@ export default function AdminDashboardPage() {
             ================================================================== */}
         {activeTab === 'treatments' && (
           <div>
-            {/* Treatments Hero */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Treatments Hero Section</h2>
               <div className="admin-grid-full">
@@ -1088,62 +1524,30 @@ export default function AdminDashboardPage() {
               </div>
             </section>
 
-            {/* Diagnostic Stepper (5 Steps) */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Diagnostic Stepper (5 Steps)</h2>
-              <div className="admin-cards-grid">
-                {(cmsData.treatmentsSteps || []).map((step, idx) => (
-                  <div key={idx} className="admin-card-item">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Step {step.stepNum || idx + 1} Title</label>
-                      <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={step.title || ''}
-                        onChange={(e) => handleCardChange('treatmentsSteps', idx, 'title', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Step Description</label>
-                      <textarea
-                        rows={3}
-                        className="admin-pill-input admin-pill-textarea"
-                        value={step.desc || ''}
-                        onChange={(e) => handleCardChange('treatmentsSteps', idx, 'desc', e.target.value)}
-                      />
-                    </div>
+              {(cmsData.treatmentsSteps || []).map((step, idx) => (
+                <div key={idx} className="admin-grid-2col" style={{ marginBottom: '1.2rem' }}>
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Step {step.stepNum || idx + 1} Title</label>
+                    <input
+                      type="text"
+                      className="admin-pill-input"
+                      value={step.title || ''}
+                      onChange={(e) => handleCardChange('treatmentsSteps', idx, 'title', e.target.value)}
+                    />
                   </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Treatment Journey (4 Stages) */}
-            <section className="admin-section-block">
-              <h2 className="admin-section-heading">Treatment Journey (4 Stages)</h2>
-              <div className="admin-cards-grid">
-                {(cmsData.treatmentsJourneyStages || []).map((stage, idx) => (
-                  <div key={idx} className="admin-card-item">
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">{stage.stageNum || `Stage ${idx + 1}`} Title</label>
-                      <input
-                        type="text"
-                        className="admin-pill-input"
-                        value={stage.title || ''}
-                        onChange={(e) => handleCardChange('treatmentsJourneyStages', idx, 'title', e.target.value)}
-                      />
-                    </div>
-                    <div className="admin-field-group">
-                      <label className="admin-field-label">Description</label>
-                      <textarea
-                        rows={3}
-                        className="admin-pill-input admin-pill-textarea"
-                        value={stage.desc || ''}
-                        onChange={(e) => handleCardChange('treatmentsJourneyStages', idx, 'desc', e.target.value)}
-                      />
-                    </div>
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Step Description</label>
+                    <textarea
+                      rows={2}
+                      className="admin-pill-input admin-pill-textarea"
+                      value={step.desc || ''}
+                      onChange={(e) => handleCardChange('treatmentsSteps', idx, 'desc', e.target.value)}
+                    />
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </section>
           </div>
         )}
@@ -1249,7 +1653,7 @@ export default function AdminDashboardPage() {
 
               <div className="admin-grid-full">
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Google Maps Search / Embed Query</label>
+                  <label className="admin-field-label">Google Maps Search Query</label>
                   <input
                     type="text"
                     className="admin-pill-input"
@@ -1293,15 +1697,15 @@ export default function AdminDashboardPage() {
               <div className="admin-grid-2col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Navbar Logo File</label>
-                  <div className="admin-input-with-upload">
+                  <div className="admin-input-upload-pill">
                     <input
                       type="text"
-                      className="admin-pill-input"
                       value={cmsData.navbarLogo || ''}
+                      placeholder="logo.png"
                       onChange={(e) => handleInputChange('navbarLogo', e.target.value)}
                     />
-                    <label className="admin-upload-icon-btn" title="Choose Logo Image">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <label className="admin-upload-icon-trigger">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <polyline points="21 15 16 10 5 21" />
@@ -1309,7 +1713,6 @@ export default function AdminDashboardPage() {
                       <input
                         type="file"
                         accept="image/*"
-                        style={{ display: 'none' }}
                         onChange={(e) => handleFileUpload(e, (name) => handleInputChange('navbarLogo', name))}
                       />
                     </label>
