@@ -1480,13 +1480,22 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              {(cmsData.tmdSymptoms || []).map((sym, idx) => (
-                <div key={idx} className="admin-grid-2col" style={{ marginBottom: '1rem' }}>
+              {((cmsData.tmdSymptoms && cmsData.tmdSymptoms.length > 0) ? cmsData.tmdSymptoms : defaultCmsData.tmdSymptoms).map((sym, idx) => (
+                <div key={idx} className="admin-grid-2col" style={{ marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '1px solid #e5e7eb' }}>
                   <div className="admin-field-group">
-                    <label className="admin-field-label">Symptom {idx + 1} Name</label>
+                    <label className="admin-field-label">Category / Area {idx + 1}</label>
                     <input
                       type="text"
                       className="admin-pill-input"
+                      placeholder="e.g. In the ears"
+                      value={sym.tag || ''}
+                      onChange={(e) => handleCardChange('tmdSymptoms', idx, 'tag', e.target.value)}
+                    />
+                    <label className="admin-field-label" style={{ marginTop: '0.75rem' }}>Symptom {idx + 1} Title</label>
+                    <input
+                      type="text"
+                      className="admin-pill-input"
+                      placeholder="e.g. Tension or pain"
                       value={sym.title || ''}
                       onChange={(e) => handleCardChange('tmdSymptoms', idx, 'title', e.target.value)}
                     />
@@ -1494,7 +1503,7 @@ export default function AdminDashboardPage() {
                   <div className="admin-field-group">
                     <label className="admin-field-label">Description</label>
                     <textarea
-                      rows={2}
+                      rows={4}
                       className="admin-pill-input admin-pill-textarea"
                       value={sym.desc || ''}
                       onChange={(e) => handleCardChange('tmdSymptoms', idx, 'desc', e.target.value)}

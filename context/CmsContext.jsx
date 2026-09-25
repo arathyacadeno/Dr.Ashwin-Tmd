@@ -158,24 +158,39 @@ const defaultCmsData = {
   tmdBusiestJointTitle: 'The Busiest Joint in the Human Body',
   tmdBusiestJointText:
     'Your temporomandibular joints move thousands of times every day — every word you speak, every meal you chew, every swallow you make. When this intricate joint mechanism falls out of sync, the tension resonates throughout your entire face, neck, and head.',
-  tmdDisguiseTitle: 'The Great Disguise Artist',
-  tmdDisguiseSub: 'Why TMD is frequently mistaken for other health problems',
+  tmdDisguiseTitle: 'Why the jaw is such a good disguise artist',
+  tmdDisguiseSub:
+    'The TMJ and its muscles share nerves and tension pathways with your head, neck, ears, and face. Because of that, a problem here rarely announces itself as a simple "jaw pain".',
   tmdSymptoms: [
     {
-      title: 'Ear pain & ringing',
-      desc: 'Often confused with an ear infection because the jaw joint sits directly in front of the ear canal.',
+      tag: 'In the ears',
+      title: 'Tension or pain',
+      desc: 'Ear fullness, ringing, or pain that feels like an infection even when your doctor says your ears look completely clear.',
     },
     {
-      title: 'Tension headaches',
-      desc: 'Constant temple and forehead pressure that is frequently misdiagnosed as routine migraines.',
+      tag: 'In the head',
+      title: 'Morning tension',
+      desc: 'Tension headaches, waking with a dull ache at the temples, behind the eyes, or across the back of the head.',
     },
     {
-      title: 'Neck & shoulder ache',
-      desc: 'Radiating tightness down the neck and trapezius muscles from chronic jaw clenching.',
+      tag: 'In the jaw',
+      title: 'Click, pop, or lock',
+      desc: 'Clicking or popping sounds when you chew or open wide — with or without pain — or a jaw that catches or locks.',
     },
     {
-      title: 'Jaw clicking & locking',
-      desc: 'Popping sounds when opening the mouth or experiencing catching/locking when chewing.',
+      tag: 'In the mouth',
+      title: 'A bite that feels off',
+      desc: "Your teeth feel like they don't meet right, or you find yourself constantly trying to find a comfortable position to rest your jaw.",
+    },
+    {
+      tag: 'In the neck & shoulders',
+      title: 'Neck & postural tension',
+      desc: 'Persistent stiffness in the neck, upper back, or shoulders that returns no matter how many times you stretch or get a massage.',
+    },
+    {
+      tag: 'In the face',
+      title: 'Facial fatigue',
+      desc: 'Tired jaw muscles after eating, soreness in the cheeks, or aching across the face by the end of the day.',
     },
   ],
   tmdCausesTitle: 'The Usual Suspects',
