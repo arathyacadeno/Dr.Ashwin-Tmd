@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.0",
     "axios": "^1.7.9",
     "gsap": "^3.12.5",
     "lucide-react": "^0.475.0",
