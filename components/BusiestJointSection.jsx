@@ -1,31 +1,36 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { useCms } from '@/context/CmsContext';
 
-const p1Words = [
-  'Put', 'a', 'finger', 'just', 'in', 'front', 'of', 'your', 'ear', 'and', 'open', 'your', 'mouth.',
-  'That', 'movement', 'is', 'your', 'temporomandibular', 'joint', '—', 'the', 'TMJ.',
-  'You', 'use', 'it', 'every', 'time', 'you', 'speak,', 'eat,', 'swallow', 'or', 'yawn.'
-];
-
-const p2Words = [
-  'It', 'is', 'a', 'clever', 'joint.', 'It', 'hinges', 'and', 'slides', 'at', 'the', 'same', 'time,',
-  'the', 'two', 'sides', 'have', 'to', 'move', 'together,', 'and', 'a', 'small', 'cushioning', 'disc',
-  'rides', 'along', 'inside', 'it.', 'When', 'all', 'of', 'that', 'runs', 'smoothly', 'you', 'never', 'think', 'about', 'it.'
-];
-
-const p3Words = [
-  'When', 'something', 'is', 'slightly', 'off,', 'you', 'feel', 'it', '—', 'sometimes', 'in', 'the', 'jaw,',
-  'often', 'somewhere', 'else', 'entirely.', 'TMD', 'simply', 'means', 'a', 'problem', 'with', 'this', 'joint',
-  'or', 'the', 'muscles', 'that', 'move', 'it.', 'It', 'is', 'common,', 'it', 'is', 'well', 'studied,', 'and',
-  'in', 'most', 'cases', 'it', 'responds', 'well', 'to', 'straightforward', 'treatment.'
-];
+const defaultP1 =
+  'Put a finger just in front of your ear and open your mouth. That movement is your temporomandibular joint — the TMJ. You use it every time you speak, eat, swallow or yawn.';
+const defaultP2 =
+  'It is a clever joint. It hinges and slides at the same time, the two sides have to move together, and a small cushioning disc rides along inside it. When all of that runs smoothly you never think about it.';
+const defaultP3 =
+  'When something is slightly off, you feel it — sometimes in the jaw, often somewhere else entirely. TMD simply means a problem with this joint or the muscles that move it. It is common, it is well studied, and in most cases it responds well to straightforward treatment.';
 
 export default function BusiestJointSection() {
+  const { content } = useCms();
   const sectionRef = useRef(null);
   const [activeWordIndex, setActiveWordIndex] = useState(0);
 
-  const totalWords = p1Words.length + p2Words.length + p3Words.length;
+  const title = content?.tmdBusiestJointTitle || 'The busiest joint you own';
+  const fullText =
+    content?.tmdBusiestJointText ||
+    `${defaultP1}\n\n${defaultP2}\n\n${defaultP3}`;
+
+  const paragraphs = useMemo(() => {
+    return fullText.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  }, [fullText]);
+
+  const paragraphWords = useMemo(() => {
+    return paragraphs.map((p) => p.split(/\s+/).filter(Boolean));
+  }, [paragraphs]);
+
+  const totalWords = useMemo(() => {
+    return paragraphWords.reduce((sum, words) => sum + words.length, 0);
+  }, [paragraphWords]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,44 +61,22 @@ export default function BusiestJointSection() {
       <div className="tmd-joint-grid">
         {/* Text Column */}
         <div className="tmd-joint-col-text">
-          <h2 className="tmd-section-title">The busiest joint you own</h2>
+          <h2 className="tmd-section-title">{title}</h2>
           <div className="tmd-joint-body" id="tmdJointBody">
-            <p className="tmd-joint-text">
-              {p1Words.map((word, i) => {
-                const currentIdx = wordCounter++;
-                return (
-                  <React.Fragment key={i}>
-                    <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
-                      {word}
-                    </span>{' '}
-                  </React.Fragment>
-                );
-              })}
-            </p>
-            <p className="tmd-joint-text">
-              {p2Words.map((word, i) => {
-                const currentIdx = wordCounter++;
-                return (
-                  <React.Fragment key={i}>
-                    <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
-                      {word}
-                    </span>{' '}
-                  </React.Fragment>
-                );
-              })}
-            </p>
-            <p className="tmd-joint-text">
-              {p3Words.map((word, i) => {
-                const currentIdx = wordCounter++;
-                return (
-                  <React.Fragment key={i}>
-                    <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
-                      {word}
-                    </span>{' '}
-                  </React.Fragment>
-                );
-              })}
-            </p>
+            {paragraphWords.map((words, pIdx) => (
+              <p className="tmd-joint-text" key={pIdx}>
+                {words.map((word, wIdx) => {
+                  const currentIdx = wordCounter++;
+                  return (
+                    <React.Fragment key={wIdx}>
+                      <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
+                        {word}
+                      </span>{' '}
+                    </React.Fragment>
+                  );
+                })}
+              </p>
+            ))}
           </div>
         </div>
 

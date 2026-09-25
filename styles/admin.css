@@ -370,6 +370,129 @@
   display: none;
 }
 
+/* Pill Input with Right Action Icon (e.g. Trash, Arrow) */
+.admin-input-action-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #CBD0D6;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.admin-input-action-pill:focus-within {
+  background-color: #DFE3E8;
+  box-shadow: 0 0 0 3px rgba(238, 157, 26, 0.2);
+}
+
+.admin-input-action-pill input[type="text"] {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #1E2229;
+  padding: 0.82rem 1.4rem;
+  box-sizing: border-box;
+}
+
+.admin-input-action-pill input[type="text"]::placeholder {
+  color: #1E2229;
+  opacity: 0.85;
+}
+
+.admin-action-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 1.25rem;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.admin-action-icon-btn:hover {
+  color: #EF4444;
+}
+
+/* Add Sign Point Pill Button */
+.admin-add-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #F1F4F8;
+  color: #4B5563;
+  border: 1px solid #CBD5E1;
+  border-radius: 9999px;
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.75rem;
+}
+
+.admin-add-pill-btn:hover {
+  background-color: #E2E8F0;
+  color: #1E2229;
+}
+
+/* Add FAQ Blue Button */
+.admin-add-faq-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #EBF2FE;
+  color: #1E40AF;
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 1.15rem;
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-add-faq-btn:hover {
+  background-color: #DBEAFE;
+  color: #1D4ED8;
+}
+
+/* Card Box with Border for Consultation Points and FAQs */
+.admin-card-box {
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 1.25rem;
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.admin-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+
+.admin-small-meta-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+
 /* Hero Dual Action Buttons Pill (Exact Figma UI: one single pill with divider) */
 .admin-cta-dual-pill {
   display: flex;

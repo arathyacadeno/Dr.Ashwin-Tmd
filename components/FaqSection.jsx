@@ -1,58 +1,66 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useCms } from '@/context/CmsContext';
 
-const faqs = [
+const defaultFaqs = [
   {
     q: 'Will this get better?',
-    a: 'Most people improve, often substantially. How much and how quickly depends on the cause and how long it has been going on, which is exactly what the first appointment is for.',
+    a: 'Yes. With accurate diagnosis identifying whether the issue is muscular, articular, or airway-related, the overwhelming majority of TMD patients achieve substantial, lasting relief through conservative care.',
   },
   {
     q: 'Is treatment uncomfortable?',
-    a: 'Most TMD treatment is not. It is largely non-invasive and non-surgical — appliances, exercises and adjustments rather than anything dramatic.',
+    a: 'No. Our approach prioritizes non-invasive, gentle, and reversible protocols. Therapeutic splints, trigger therapy, and biometric adjustments are designed to relieve strain, not create it.',
   },
   {
     q: 'How long does it take?',
-    a: 'Muscular problems can settle in a few weeks. Bite and structural problems take longer. You will be given a realistic timeline once we know what we are dealing with, not before.',
+    a: 'Acute muscular symptoms often ease within 2 to 4 weeks. Full joint stabilization and structural retraining generally span 3 to 6 months depending on chronicity.',
   },
   {
     q: 'My jaw clicks but does not hurt. Is that a problem?',
-    a: 'Often not. Painless clicking can stay exactly as it is for years. It is worth checking if it is joined by discomfort, locking, or a reduced ability to open.',
+    a: 'A painless click often indicates a displaced disc that still self-reduces. While not an emergency, a baseline evaluation prevents progression to locked or painful stages.',
   },
   {
     q: 'Could my migraines be connected?',
-    a: 'Migraine and TMD are separate conditions that often keep each other company. Some patients find their headaches become less frequent once the jaw is more comfortable.',
+    a: 'Frequently, yes. Strain in the temporalis and masseter muscles triggers referred pain along the trigeminal nerve, often misdiagnosed as tension migraines.',
   },
   {
     q: 'Could sleep or breathing be connected?',
-    a: 'It can be. Jaw position, tongue space and airway are connected, which is why we look at breathing and sleep as part of the assessment.',
+    a: 'Intimately. Nocturnal airway restriction often causes the brain to clench or thrust the jaw forward instinctively to keep the airway open during sleep.',
   },
   {
     q: 'Do I need a referral?',
-    a: 'No — you can simply book. We are happy to work alongside your dentist, ENT specialist or physiotherapist if you would like us to.',
+    a: 'No formal referral is required. Patients can schedule directly for a comprehensive TMD evaluation.',
   },
   {
     q: 'Can my regular dentist treat this?',
-    a: 'General dental training touches on TMD only briefly. Persistent jaw problems need someone who works with the joint, the muscles and the airway regularly.',
+    a: 'While general dentists handle routine dental needs, TMD is a complex neuromuscular and orthopedic condition requiring specialized craniofacial training and diagnostic equipment.',
   },
 ];
 
 export default function FaqSection() {
+  const { content } = useCms();
   const [openIndex, setOpenIndex] = useState(0); // First item open by default
 
   const toggleFaq = (index) => {
     setOpenIndex((prev) => (prev === index ? -1 : index));
   };
 
+  const title = content?.tmdFaqTitle || 'Questions patients ask';
+  const subtitle =
+    content?.tmdFaqSubtitle ||
+    'Transparent answers to common clinical inquiries regarding pain relief, treatment duration, and diagnostic necessity.';
+  const list = content?.tmdFaqs || defaultFaqs;
+
   return (
     <section className="tmd-faq-section" id="tmdFaq">
       <div className="tmd-faq-header">
-        <h2 className="tmd-faq-title">Questions patients ask</h2>
-        <p className="tmd-faq-subtitle">A few simple, honest answers to the questions we hear most often.</p>
+        <h2 className="tmd-faq-title">{title}</h2>
+        <p className="tmd-faq-subtitle">{subtitle}</p>
       </div>
 
       <div className="tmd-faq-list">
-        {faqs.map((faq, index) => {
+        {list.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
             <div className={`tmd-faq-item ${isOpen ? 'active' : ''}`} key={index}>
@@ -92,3 +100,4 @@ export default function FaqSection() {
     </section>
   );
 }
+

@@ -59,6 +59,33 @@ export default function AdminDashboardPage() {
     });
   };
 
+  const handleArrayItemChange = (arrayKey, index, field, value) => {
+    setCmsData((prev) => {
+      const currentArray = [...(prev[arrayKey] || defaultCmsData[arrayKey] || [])];
+      if (field) {
+        currentArray[index] = { ...currentArray[index], [field]: value };
+      } else {
+        currentArray[index] = value;
+      }
+      return { ...prev, [arrayKey]: currentArray };
+    });
+  };
+
+  const handleArrayItemAdd = (arrayKey, newItem) => {
+    setCmsData((prev) => {
+      const currentArray = [...(prev[arrayKey] || defaultCmsData[arrayKey] || [])];
+      return { ...prev, [arrayKey]: [...currentArray, newItem] };
+    });
+  };
+
+  const handleArrayItemRemove = (arrayKey, index) => {
+    setCmsData((prev) => {
+      const currentArray = [...(prev[arrayKey] || defaultCmsData[arrayKey] || [])];
+      currentArray.splice(index, 1);
+      return { ...prev, [arrayKey]: currentArray };
+    });
+  };
+
   const handleFileUpload = async (e, callback) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -112,7 +139,13 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'home' ? 'active' : ''}`}
             onClick={() => setActiveTab('home')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '8px' }}>Home</span>
+            <span className="admin-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </span>
+            <span className="admin-nav-text">Home</span>
           </button>
 
           {/* About Us Tab */}
@@ -121,7 +154,7 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'about' ? 'active' : ''}`}
             onClick={() => setActiveTab('about')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '8px' }}>About Us</span>
+            <span className="admin-nav-text" style={{ paddingLeft: '28px' }}>About Us</span>
           </button>
 
           {/* What is TMD Tab */}
@@ -131,11 +164,23 @@ export default function AdminDashboardPage() {
             onClick={() => setActiveTab('tmd')}
           >
             <span className="admin-nav-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                <line x1="12" y1="17" x2="12.01" y2="17" />
-              </svg>
+              <span
+                style={{
+                  width: '22px',
+                  height: '22px',
+                  borderRadius: '50%',
+                  backgroundColor: '#000000',
+                  color: '#FFFFFF',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '13px',
+                  fontWeight: '800',
+                  lineHeight: '1',
+                }}
+              >
+                ?
+              </span>
             </span>
             <span className="admin-nav-text">What is TMD</span>
           </button>
@@ -188,7 +233,7 @@ export default function AdminDashboardPage() {
             <h1>
               {activeTab === 'home' && 'Homepage Management'}
               {activeTab === 'about' && 'About Us Management'}
-              {activeTab === 'tmd' && 'What is TMD Management'}
+              {activeTab === 'tmd' && 'What is TMD page Management'}
               {activeTab === 'treatments' && 'Treatments Management'}
               {activeTab === 'contact' && 'Contact Us Management'}
               {activeTab === 'navbar' && 'Navigation Bar Management'}
@@ -1381,146 +1426,563 @@ export default function AdminDashboardPage() {
             ================================================================== */}
         {activeTab === 'tmd' && (
           <div>
+            {/* ================================================================
+                Section 01: Hero Section Heading
+                ================================================================ */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">What is TMD Hero Section</h2>
-              <div className="admin-grid-2col">
+              <h2 className="admin-section-heading">01. Hero Section Heading</h2>
+
+              <div className="admin-grid-full">
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Hero Title Line 1</label>
+                  <label className="admin-field-label">Main Hero Heading (H1)</label>
                   <input
                     type="text"
                     className="admin-pill-input"
-                    value={cmsData.tmdHeroLine1 || ''}
-                    onChange={(e) => handleInputChange('tmdHeroLine1', e.target.value)}
-                  />
-                </div>
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Hero Title Line 2</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.tmdHeroLine2 || ''}
-                    onChange={(e) => handleInputChange('tmdHeroLine2', e.target.value)}
+                    value={
+                      cmsData.tmdHeroHeading !== undefined
+                        ? cmsData.tmdHeroHeading
+                        : `${cmsData.tmdHeroLine1 || 'What is TMD?'} ${cmsData.tmdHeroLine2 || 'Understand the condition'}`.trim()
+                    }
+                    onChange={(e) => {
+                      handleInputChange('tmdHeroHeading', e.target.value);
+                      if (e.target.value.includes('?')) {
+                        const parts = e.target.value.split(/(?<=\?)\s*/);
+                        handleInputChange('tmdHeroLine1', parts[0] || e.target.value);
+                        handleInputChange('tmdHeroLine2', parts[1] || '');
+                      } else {
+                        handleInputChange('tmdHeroLine1', e.target.value);
+                        handleInputChange('tmdHeroLine2', '');
+                      }
+                    }}
                   />
                 </div>
               </div>
+
               <div className="admin-grid-full">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Hero Subtitle</label>
-                  <textarea
-                    rows={2}
-                    className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.tmdHeroSub || ''}
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={
+                      cmsData.tmdHeroSub ||
+                      'Temporomandibular joint dysfunction explained with clarity and clinical precision.'
+                    }
                     onChange={(e) => handleInputChange('tmdHeroSub', e.target.value)}
                   />
                 </div>
               </div>
             </section>
 
+            {/* ================================================================
+                Section 02: The busiest joint you own
+                ================================================================ */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Busiest Joint Section</h2>
-              <div className="admin-grid-full">
+              <h2 className="admin-section-heading">02. The busiest joint you own</h2>
+
+              <div className="admin-grid-2col">
+                {/* Left Column: Section Heading with image upload */}
                 <div className="admin-field-group">
                   <label className="admin-field-label">Section Heading</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.tmdBusiestJointTitle || ''}
-                    onChange={(e) => handleInputChange('tmdBusiestJointTitle', e.target.value)}
-                  />
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.tmdBusiestJointTitle || 'The Busiest Joint You Own'}
+                      onChange={(e) => handleInputChange('tmdBusiestJointTitle', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger" title="Upload joint image or diagram">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M16 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <path d="M21 15l-5-5L5 21" />
+                        <line x1="19" y1="17" x2="19" y2="23" />
+                        <line x1="16" y1="20" x2="22" y2="20" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleInputChange('tmdBusiestJointImage', name))}
+                      />
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div className="admin-grid-full">
+
+                {/* Right Column: Description */}
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Explanation Content</label>
+                  <label className="admin-field-label">Description</label>
                   <textarea
-                    rows={4}
+                    rows={7}
                     className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.tmdBusiestJointText || ''}
+                    style={{ minHeight: '170px', lineHeight: '1.6' }}
+                    value={
+                      cmsData.tmdBusiestJointText ||
+                      `Put a finger just in front of your ear and open your mouth. That movement is your temporomandibular joint — the TMJ. You use it every time you speak, eat, swallow or yawn.\n\nIt is a clever joint. It hinges and slides at the same time, the two sides have to move together, and a small cushioning disc rides along inside it. When all of that runs smoothly you never think about it.\n\nWhen something is slightly off, you feel it — sometimes in the jaw, often somewhere else entirely. TMD simply means a problem with this joint or the muscles that move it. It is common, it is well studied, and in most cases it responds well to straightforward treatment.`
+                    }
                     onChange={(e) => handleInputChange('tmdBusiestJointText', e.target.value)}
                   />
                 </div>
               </div>
             </section>
 
+            {/* ================================================================
+                Section 02 (Part B): Why the jaw is such a good disguise artist
+                ================================================================ */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Disguise Artist &amp; Symptoms</h2>
+              <h2 className="admin-section-heading">02. Why the jaw is such a good disguise artist</h2>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Section Heading</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    style={{ maxWidth: '600px' }}
+                    value={cmsData.tmdDisguiseTitle || 'Why the jaw is such a good disguise artist'}
+                    onChange={(e) => handleInputChange('tmdDisguiseTitle', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* 6 Cards in 2-Column Grid */}
+              <div className="admin-grid-2col" style={{ marginTop: '1.2rem', rowGap: '1.8rem' }}>
+                {/* Left Column: Cards 1, 3, 5 */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
+                  {[0, 2, 4].map((i) => {
+                    const item = (cmsData.tmdSymptoms || defaultCmsData.tmdSymptoms || [])[i] || {};
+                    return (
+                      <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                        <div className="admin-field-group">
+                          <label className="admin-field-label">Cards {i + 1}</label>
+                          <input
+                            type="text"
+                            className="admin-pill-input"
+                            value={item.tag || ''}
+                            onChange={(e) => handleCardChange('tmdSymptoms', i, 'tag', e.target.value)}
+                          />
+                        </div>
+                        <div className="admin-field-group">
+                          <label className="admin-field-label">Sub Heading</label>
+                          <input
+                            type="text"
+                            className="admin-pill-input"
+                            value={item.title || ''}
+                            onChange={(e) => handleCardChange('tmdSymptoms', i, 'title', e.target.value)}
+                          />
+                        </div>
+                        <div className="admin-field-group">
+                          <label className="admin-field-label">Cards {i + 1} Description</label>
+                          <textarea
+                            rows={3}
+                            className="admin-pill-input admin-pill-textarea"
+                            style={{ minHeight: '90px' }}
+                            value={item.desc || ''}
+                            onChange={(e) => handleCardChange('tmdSymptoms', i, 'desc', e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Right Column: Cards 2, 4, 6 */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.8rem' }}>
+                  {[1, 3, 5].map((i) => {
+                    const item = (cmsData.tmdSymptoms || defaultCmsData.tmdSymptoms || [])[i] || {};
+                    return (
+                      <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                        <div className="admin-field-group">
+                          <label className="admin-field-label">Cards {i + 1}</label>
+                          <input
+                            type="text"
+                            className="admin-pill-input"
+                            value={item.tag || ''}
+                            onChange={(e) => handleCardChange('tmdSymptoms', i, 'tag', e.target.value)}
+                          />
+                        </div>
+                        <div className="admin-field-group">
+                          <label className="admin-field-label">Sub Heading</label>
+                          <input
+                            type="text"
+                            className="admin-pill-input"
+                            value={item.title || ''}
+                            onChange={(e) => handleCardChange('tmdSymptoms', i, 'title', e.target.value)}
+                          />
+                        </div>
+                        <div className="admin-field-group">
+                          <label className="admin-field-label">Cards {i + 1} Description</label>
+                          <textarea
+                            rows={3}
+                            className="admin-pill-input admin-pill-textarea"
+                            style={{ minHeight: '90px' }}
+                            value={item.desc || ''}
+                            onChange={(e) => handleCardChange('tmdSymptoms', i, 'desc', e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+
+            {/* ================================================================
+                Section 03: The usual reasons
+                ================================================================ */}
+            <section className="admin-section-block">
+              <h2 className="admin-section-heading">03. The usual reasons</h2>
+
               <div className="admin-grid-2col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Section Heading</label>
                   <input
                     type="text"
                     className="admin-pill-input"
-                    value={cmsData.tmdDisguiseTitle || ''}
-                    onChange={(e) => handleInputChange('tmdDisguiseTitle', e.target.value)}
+                    value={cmsData.tmdCausesTitle || 'The usual reasons'}
+                    onChange={(e) => handleInputChange('tmdCausesTitle', e.target.value)}
                   />
                 </div>
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Section Subtitle</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.tmdDisguiseSub || ''}
-                    onChange={(e) => handleInputChange('tmdDisguiseSub', e.target.value)}
+                  <label className="admin-field-label">Sub Heading</label>
+                  <textarea
+                    rows={2}
+                    className="admin-pill-input admin-pill-textarea"
+                    style={{ minHeight: '70px' }}
+                    value={
+                      cmsData.tmdCausesSub ||
+                      'TMD rarely arrives from a single clear event. For most patients, several factors build up together until the system simply runs out of room to compensate.'
+                    }
+                    onChange={(e) => handleInputChange('tmdCausesSub', e.target.value)}
                   />
                 </div>
               </div>
 
-              {((cmsData.tmdSymptoms && cmsData.tmdSymptoms.length > 0) ? cmsData.tmdSymptoms : defaultCmsData.tmdSymptoms).map((sym, idx) => (
-                <div key={idx} className="admin-grid-2col" style={{ marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '1px solid #e5e7eb' }}>
-                  <div className="admin-field-group">
-                    <label className="admin-field-label">Category / Area {idx + 1}</label>
-                    <input
-                      type="text"
-                      className="admin-pill-input"
-                      placeholder="e.g. In the ears"
-                      value={sym.tag || ''}
-                      onChange={(e) => handleCardChange('tmdSymptoms', idx, 'tag', e.target.value)}
-                    />
-                    <label className="admin-field-label" style={{ marginTop: '0.75rem' }}>Symptom {idx + 1} Title</label>
-                    <input
-                      type="text"
-                      className="admin-pill-input"
-                      placeholder="e.g. Tension or pain"
-                      value={sym.title || ''}
-                      onChange={(e) => handleCardChange('tmdSymptoms', idx, 'title', e.target.value)}
-                    />
-                  </div>
-                  <div className="admin-field-group">
-                    <label className="admin-field-label">Description</label>
-                    <textarea
-                      rows={4}
-                      className="admin-pill-input admin-pill-textarea"
-                      value={sym.desc || ''}
-                      onChange={(e) => handleCardChange('tmdSymptoms', idx, 'desc', e.target.value)}
-                    />
-                  </div>
+              {/* 8 Causes in 2 Columns */}
+              <div className="admin-grid-2col" style={{ marginTop: '1.4rem', rowGap: '1.4rem' }}>
+                {/* Left Column: Causes 1, 3, 5, 7 */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                  {[0, 2, 4, 6].map((i) => {
+                    const cause = (cmsData.tmdCauses || defaultCmsData.tmdCauses || [])[i] || {};
+                    const label = `Cause 0${i + 1}`;
+                    return (
+                      <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                        <span className="admin-small-meta-tag">{label}</span>
+                        <input
+                          type="text"
+                          className="admin-pill-input"
+                          value={cause.title || ''}
+                          onChange={(e) => handleCardChange('tmdCauses', i, 'title', e.target.value)}
+                        />
+                        <input
+                          type="text"
+                          className="admin-pill-input"
+                          style={{ borderRadius: '12px', fontSize: '0.86rem', color: '#374151' }}
+                          value={cause.desc || ''}
+                          onChange={(e) => handleCardChange('tmdCauses', i, 'desc', e.target.value)}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
+
+                {/* Right Column: Causes 2, 4, 6, 8 */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
+                  {[1, 3, 5, 7].map((i) => {
+                    const cause = (cmsData.tmdCauses || defaultCmsData.tmdCauses || [])[i] || {};
+                    const label = `Cause 0${i + 1}`;
+                    return (
+                      <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                        <span className="admin-small-meta-tag">{label}</span>
+                        <input
+                          type="text"
+                          className="admin-pill-input"
+                          value={cause.title || ''}
+                          onChange={(e) => handleCardChange('tmdCauses', i, 'title', e.target.value)}
+                        />
+                        <input
+                          type="text"
+                          className="admin-pill-input"
+                          style={{ borderRadius: '12px', fontSize: '0.86rem', color: '#374151' }}
+                          value={cause.desc || ''}
+                          onChange={(e) => handleCardChange('tmdCauses', i, 'desc', e.target.value)}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </section>
 
+            {/* ================================================================
+                Section 04: A Good Time to Come In
+                ================================================================ */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">When to Seek Care</h2>
+              <h2 className="admin-section-heading">04. A Good Time to Come In</h2>
+
               <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Section Heading</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.tmdWhenTitle || 'A Good Time to Come In'}
+                    onChange={(e) => handleInputChange('tmdWhenTitle', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Intro Text</label>
+                  <textarea
+                    rows={2}
+                    className="admin-pill-input admin-pill-textarea"
+                    style={{ minHeight: '65px' }}
+                    value={
+                      cmsData.tmdWhenIntro !== undefined
+                        ? cmsData.tmdWhenIntro
+                        : cmsData.tmdWhenText ||
+                          'You do not need to wait until the pain becomes severe or debilitating. Early evaluation protects the articular cartilage and prevents chronic muscular adaptation.'
+                    }
+                    onChange={(e) => {
+                      handleInputChange('tmdWhenIntro', e.target.value);
+                      handleInputChange('tmdWhenText', e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Warning Checkpoints</label>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                    {(cmsData.tmdCheckpoints || defaultCmsData.tmdCheckpoints || []).map((cp, idx) => (
+                      <div key={idx} className="admin-input-action-pill">
+                        <input
+                          type="text"
+                          value={cp || ''}
+                          onChange={(e) => handleArrayItemChange('tmdCheckpoints', idx, null, e.target.value)}
+                        />
+                        <button
+                          type="button"
+                          className="admin-action-icon-btn"
+                          title="Delete checkpoint"
+                          onClick={() => handleArrayItemRemove('tmdCheckpoints', idx)}
+                        >
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      className="admin-add-pill-btn"
+                      onClick={() => handleArrayItemAdd('tmdCheckpoints', 'New warning checkpoint')}
+                    >
+                      <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>+</span>
+                      <span>Add Sign Point</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ================================================================
+                Section 05: Every Consultation Includes
+                ================================================================ */}
+            <section className="admin-section-block">
+              <h2 className="admin-section-heading">05.Every Consultation Includes</h2>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Section Heading</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    style={{ maxWidth: '500px' }}
+                    value={cmsData.tmdConsultTitle || 'Every Consultation Includes'}
+                    onChange={(e) => handleInputChange('tmdConsultTitle', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="admin-grid-3col" style={{ marginTop: '1.2rem' }}>
+                {(cmsData.tmdConsultPoints || defaultCmsData.tmdConsultPoints || []).map((pt, idx) => (
+                  <div key={idx} className="admin-card-box">
+                    <span className="admin-small-meta-tag">{pt.pointNum || `POINT ${idx + 1}`}</span>
+                    <div className="admin-field-group" style={{ marginBottom: '0.85rem' }}>
+                      <input
+                        type="text"
+                        className="admin-pill-input"
+                        value={pt.title || ''}
+                        onChange={(e) => handleArrayItemChange('tmdConsultPoints', idx, 'title', e.target.value)}
+                      />
+                    </div>
+                    <div className="admin-field-group">
+                      <textarea
+                        rows={4}
+                        className="admin-pill-input admin-pill-textarea"
+                        style={{ minHeight: '90px', fontSize: '0.88rem' }}
+                        value={pt.desc || ''}
+                        onChange={(e) => handleArrayItemChange('tmdConsultPoints', idx, 'desc', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* ================================================================
+                Section 06: CTA (Call To Action)
+                ================================================================ */}
+            <section className="admin-section-block">
+              <h2 className="admin-section-heading">06.CTA (Call To Action)</h2>
+
+              <div className="admin-grid-3col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Heading</label>
                   <input
                     type="text"
                     className="admin-pill-input"
-                    value={cmsData.tmdWhenTitle || ''}
-                    onChange={(e) => handleInputChange('tmdWhenTitle', e.target.value)}
+                    value={cmsData.tmdCtaHeading || 'Ready to speak with Dr. Ashwin?'}
+                    onChange={(e) => handleInputChange('tmdCtaHeading', e.target.value)}
+                  />
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Button Text</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.tmdCtaButtonText || 'Book your consultation'}
+                    onChange={(e) => handleInputChange('tmdCtaButtonText', e.target.value)}
+                  />
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Button Link</label>
+                  <div className="admin-input-action-pill">
+                    <input
+                      type="text"
+                      value={cmsData.tmdCtaButtonLink || '/contact.html'}
+                      onChange={(e) => handleInputChange('tmdCtaButtonLink', e.target.value)}
+                    />
+                    <span style={{ paddingRight: '1.25rem', color: '#64748B', display: 'flex' }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ================================================================
+                Section 07: Questions Patients Ask / FAQ
+                ================================================================ */}
+            <section className="admin-section-block">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                <h2 className="admin-section-heading" style={{ margin: 0 }}>07.Questions Patients Ask / FAQ</h2>
+                <button
+                  type="button"
+                  className="admin-add-faq-btn"
+                  onClick={() =>
+                    handleArrayItemAdd('tmdFaqs', {
+                      itemNum: `FAQ ITEM 0${(cmsData.tmdFaqs || defaultCmsData.tmdFaqs || []).length + 1}`,
+                      q: 'New Question?',
+                      a: 'New Answer description here.',
+                    })
+                  }
+                >
+                  <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>+</span>
+                  <span>Add FAQ</span>
+                </button>
+              </div>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Section Heading</label>
+                  <div className="admin-input-action-pill">
+                    <input
+                      type="text"
+                      value={cmsData.tmdFaqTitle || 'Questions patients ask'}
+                      onChange={(e) => handleInputChange('tmdFaqTitle', e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      className="admin-action-icon-btn"
+                      title="Clear title"
+                      onClick={() => handleInputChange('tmdFaqTitle', '')}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Sub Heading</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={
+                      cmsData.tmdFaqSubtitle ||
+                      'Transparent answers to common clinical inquiries regarding pain relief, treatment duration, and diagnostic necessity.'
+                    }
+                    onChange={(e) => handleInputChange('tmdFaqSubtitle', e.target.value)}
                   />
                 </div>
               </div>
-              <div className="admin-grid-full">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Guidance Recommendation</label>
-                  <textarea
-                    rows={3}
-                    className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.tmdWhenText || ''}
-                    onChange={(e) => handleInputChange('tmdWhenText', e.target.value)}
-                  />
-                </div>
+
+              {/* FAQ Items List */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.5rem' }}>
+                {(cmsData.tmdFaqs || defaultCmsData.tmdFaqs || []).map((faq, idx) => (
+                  <div key={idx} className="admin-card-box">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
+                      <span className="admin-small-meta-tag">{faq.itemNum || `FAQ ITEM 0${idx + 1}`}</span>
+                      <button
+                        type="button"
+                        className="admin-action-icon-btn"
+                        title="Delete this FAQ"
+                        onClick={() => handleArrayItemRemove('tmdFaqs', idx)}
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                      </button>
+                    </div>
+
+                    <div className="admin-field-group" style={{ marginBottom: '1rem' }}>
+                      <label className="admin-field-label" style={{ fontSize: '0.82rem' }}>Question</label>
+                      <input
+                        type="text"
+                        className="admin-pill-input"
+                        value={faq.q || ''}
+                        onChange={(e) => handleArrayItemChange('tmdFaqs', idx, 'q', e.target.value)}
+                      />
+                    </div>
+
+                    <div className="admin-field-group">
+                      <label className="admin-field-label" style={{ fontSize: '0.82rem' }}>Answer</label>
+                      <textarea
+                        rows={3}
+                        className="admin-pill-input admin-pill-textarea"
+                        style={{ minHeight: '80px', fontSize: '0.9rem' }}
+                        value={faq.a || ''}
+                        onChange={(e) => handleArrayItemChange('tmdFaqs', idx, 'a', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
           </div>

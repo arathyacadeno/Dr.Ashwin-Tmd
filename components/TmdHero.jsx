@@ -31,15 +31,34 @@ export default function TmdHero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const headingRaw =
+    content?.tmdHeroHeading ||
+    `${content?.tmdHeroLine1 || 'What is TMD?'} ${content?.tmdHeroLine2 || 'Understand the condition'}`;
+
+  let line1 = content?.tmdHeroLine1 || 'What is TMD?';
+  let line2 = content?.tmdHeroLine2 || 'Understand the condition';
+
+  if (content?.tmdHeroHeading && !content?.tmdHeroLine1) {
+    if (headingRaw.includes('?')) {
+      const parts = headingRaw.split(/(?<=\?)\s*/);
+      line1 = parts[0] || headingRaw;
+      line2 = parts[1] || '';
+    } else {
+      line1 = headingRaw;
+      line2 = '';
+    }
+  }
+
   return (
     <section className="tmd-hero-section" id="tmdHeroSection" ref={heroRef}>
       <div className="tmd-hero-sticky" id="tmdHeroSticky">
         <h1 className="tmd-hero-title scaling-title" id="tmdScalingTitle">
-          <span className="hero-line hero-line-1">{content?.tmdHeroLine1 || 'What is TMD,'}</span>
-          <span className="hero-line hero-line-2">{content?.tmdHeroLine2 || 'in plain language'}</span>
+          <span className="hero-line hero-line-1">{line1}</span>
+          {line2 ? <span className="hero-line hero-line-2">{line2}</span> : null}
         </h1>
         <p className="tmd-hero-sub" id="tmdScalingSub">
-          {content?.tmdHeroSub || 'A common, well-understood and very treatable problem with the jaw joint'}
+          {content?.tmdHeroSub ||
+            'Temporomandibular joint dysfunction explained with clarity and clinical precision.'}
         </p>
         <div className="tmd-hero-scroll-hint" id="tmdHeroScrollHint">
           <span>Scroll down</span>

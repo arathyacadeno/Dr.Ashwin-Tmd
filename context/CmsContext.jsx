@@ -158,12 +158,14 @@ const defaultCmsData = {
   aboutDoctorImage: 'og image.png',
 
   // 3. WHAT IS TMD
+  tmdHeroHeading: 'What is TMD? Understand the condition',
   tmdHeroLine1: 'What is TMD?',
   tmdHeroLine2: 'Understand the condition',
   tmdHeroSub: 'Temporomandibular joint dysfunction explained with clarity and clinical precision.',
-  tmdBusiestJointTitle: 'The Busiest Joint in the Human Body',
+  tmdBusiestJointTitle: 'The Busiest Joint You Own',
+  tmdBusiestJointImage: 'anatomy_tmj.jpg',
   tmdBusiestJointText:
-    'Your temporomandibular joints move thousands of times every day — every word you speak, every meal you chew, every swallow you make. When this intricate joint mechanism falls out of sync, the tension resonates throughout your entire face, neck, and head.',
+    'Put a finger just in front of your ear and open your mouth. That movement is your temporomandibular joint — the TMJ. You use it every time you speak, eat, swallow or yawn.\n\nIt is a clever joint. It hinges and slides at the same time, the two sides have to move together, and a small cushioning disc rides along inside it. When all of that runs smoothly you never think about it.\n\nWhen something is slightly off, you feel it — sometimes in the jaw, often somewhere else entirely. TMD simply means a problem with this joint or the muscles that move it. It is common, it is well studied, and in most cases it responds well to straightforward treatment.',
   tmdDisguiseTitle: 'Why the jaw is such a good disguise artist',
   tmdDisguiseSub:
     'The TMJ and its muscles share nerves and tension pathways with your head, neck, ears, and face. Because of that, a problem here rarely announces itself as a simple "jaw pain".',
@@ -199,25 +201,127 @@ const defaultCmsData = {
       desc: 'Tired jaw muscles after eating, soreness in the cheeks, or aching across the face by the end of the day.',
     },
   ],
-  tmdCausesTitle: 'The Usual Suspects',
-  tmdCausesSub: 'What causes temporomandibular joint dysfunction to emerge',
+  tmdCausesTitle: 'The usual reasons',
+  tmdCausesSub:
+    'TMD rarely arrives from a single clear event. For most patients, several factors build up together until the system simply runs out of room to compensate.',
   tmdCauses: [
     {
-      title: 'Stress & clenching (Bruxism)',
-      desc: 'Nighttime grinding and daytime teeth clenching place excessive compressive loads on the joint disc.',
+      num: 'Cause 01',
+      title: 'Night-time clenching',
+      desc: 'Sleep bruxism generating sustained extreme bite forces while asleep.',
     },
     {
-      title: 'Misaligned bite & occlusion',
-      desc: 'Uneven contact between teeth forces the jaw muscles to constantly overcompensate during closing.',
+      num: 'Cause 02',
+      title: 'Daytime stress habits',
+      desc: 'Subconscious daytime bracing, teeth bracing during focused screen work or driving.',
     },
     {
-      title: 'Joint disc displacement & injury',
-      desc: 'Trauma or micro-injuries displacing the cushioning cartilage disc between the skull and mandible.',
+      num: 'Cause 03',
+      title: 'Breathing & Airway',
+      desc: 'Upper airway resistance, mouth breathing, or sleep-disordered breathing.',
+    },
+    {
+      num: 'Cause 04',
+      title: 'Structural friction',
+      desc: 'Internal disc derangement, uneven condylar seating, or natural skeletal asymmetry.',
+    },
+    {
+      num: 'Cause 05',
+      title: 'Posture & screen habits',
+      desc: 'Forward head posture from prolonged laptop/phone use loading the suboccipital and masticatory muscles.',
+    },
+    {
+      num: 'Cause 06',
+      title: 'An impact or accident',
+      desc: 'Micro or macro-trauma, sports collision, whiplash injury, or sudden hyper-extension of the jaw.',
+    },
+    {
+      num: 'Cause 07',
+      title: 'Dental changes',
+      desc: 'Recent missing teeth, unstable dental restorations, or uncompensated occlusal shifts.',
+    },
+    {
+      num: 'Cause 08',
+      title: 'Joint vulnerability',
+      desc: 'Systemic joint hypermobility, hormonal variations, or underlying inflammatory conditions.',
     },
   ],
-  tmdWhenTitle: 'When is it Time to Get Checked?',
-  tmdWhenText:
-    'If jaw clicking, morning headaches, or temple ache have persisted for more than two weeks, early assessment prevents irreversible joint wear.',
+  tmdWhenTitle: 'A Good Time to Come In',
+  tmdWhenIntro:
+    'You do not need to wait until the pain becomes severe or debilitating. Early evaluation protects the articular cartilage and prevents chronic muscular adaptation.',
+  tmdCheckpoints: [
+    'Pain/discomfort lasting more than 2–3 weeks',
+    'Clicking, popping, or grating accompanied by pain or tightness',
+    'Jaw catching, momentary deviations, or locking when chewing or speaking',
+    'Unexplained persistent headaches, recurring ear symptoms, or upper neck pain',
+    'Noticeable morning jaw tightness, muscle fatigue, or teeth tenderness upon waking',
+  ],
+  tmdConsultTitle: 'Every Consultation Includes',
+  tmdConsultPoints: [
+    {
+      pointNum: 'POINT 1',
+      title: 'Patient, thorough conversation',
+      desc: 'Dedicated 90–minute unhurried inquiry into your full symptom history, lifestyle triggers, and functional concerns.',
+    },
+    {
+      pointNum: 'POINT 2',
+      title: 'Examination of joint, muscles and b',
+      desc: 'Detailed biomechanical assessment of joint range of motion, cranial palpation, muscle trigger points, and digital bite dynamics.',
+    },
+    {
+      pointNum: 'POINT 3',
+      title: 'Clear guidance and simplest path f',
+      desc: 'An honest explanation of root causes, transparent diagnostic findings, and conservative reversible treatment pathways first.',
+    },
+  ],
+  tmdCtaHeading: 'Ready to speak with Dr. Ashwin?',
+  tmdCtaButtonText: 'Book your consultation',
+  tmdCtaButtonLink: '/contact.html',
+  tmdFaqTitle: 'Questions patients ask',
+  tmdFaqSubtitle:
+    'Transparent answers to common clinical inquiries regarding pain relief, treatment duration, and diagnostic necessity.',
+  tmdFaqs: [
+    {
+      itemNum: 'FAQ ITEM 01',
+      q: 'Will this get better?',
+      a: 'Yes. With accurate diagnosis identifying whether the issue is muscular, articular, or airway-related, the overwhelming majority of TMD patients achieve substantial, lasting relief through conservative care.',
+    },
+    {
+      itemNum: 'FAQ ITEM 02',
+      q: 'Is treatment uncomfortable?',
+      a: 'No. Our approach prioritizes non-invasive, gentle, and reversible protocols. Therapeutic splints, trigger therapy, and biometric adjustments are designed to relieve strain, not create it.',
+    },
+    {
+      itemNum: 'FAQ ITEM 03',
+      q: 'How long does it take?',
+      a: 'Acute muscular symptoms often ease within 2 to 4 weeks. Full joint stabilization and structural retraining generally span 3 to 6 months depending on chronicity.',
+    },
+    {
+      itemNum: 'FAQ ITEM 04',
+      q: 'My jaw clicks but does not hurt. Is that a problem?',
+      a: 'A painless click often indicates a displaced disc that still self-reduces. While not an emergency, a baseline evaluation prevents progression to locked or painful stages.',
+    },
+    {
+      itemNum: 'FAQ ITEM 05',
+      q: 'Could my migraines be connected?',
+      a: 'Frequently, yes. Strain in the temporalis and masseter muscles triggers referred pain along the trigeminal nerve, often misdiagnosed as tension migraines.',
+    },
+    {
+      itemNum: 'FAQ ITEM 06',
+      q: 'Could sleep or breathing be connected?',
+      a: 'Intimately. Nocturnal airway restriction often causes the brain to clench or thrust the jaw forward instinctively to keep the airway open during sleep.',
+    },
+    {
+      itemNum: 'FAQ ITEM 07',
+      q: 'Do I need a referral?',
+      a: 'No formal referral is required. Patients can schedule directly for a comprehensive TMD evaluation.',
+    },
+    {
+      itemNum: 'FAQ ITEM 08',
+      q: 'Can my regular dentist treat this?',
+      a: 'While general dentists handle routine dental needs, TMD is a complex neuromuscular and orthopedic condition requiring specialized craniofacial training and diagnostic equipment.',
+    },
+  ],
 
   // 4. TREATMENTS PAGE
   treatmentsHeroTitle: 'Treatment, thought through',
