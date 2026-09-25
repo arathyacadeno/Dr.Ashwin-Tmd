@@ -25,17 +25,20 @@ export async function GET() {
 
       if (result && result.statusCode === 200) {
         const text = await new Response(result.stream).text();
-        return NextResponse.json(JSON.parse(text));
+        const data = JSON.parse(text);
+        if (data && typeof data === 'object') {
+          return NextResponse.json({ ...defaultCmsData, ...data });
+        }
       }
-    } catch {
-      // Fallback to local file if not found on blob yet
+    } catch (err) {
+      console.warn('Vercel blob read fallback:', err);
     }
   }
 
   try {
     const fileContent = await fs.readFile(dataFilePath, 'utf8');
     const data = JSON.parse(fileContent);
-    return NextResponse.json(data);
+    return NextResponse.json({ ...defaultCmsData, ...data });
   } catch {
     return NextResponse.json(defaultCmsData);
   }
@@ -45,16 +48,18 @@ export async function POST(request) {
   try {
     const updatedData = await request.json();
 
-    // 1. If Vercel Blob is configured, save content.json to Vercel Blob
+    // 1. If Vercel Blob is configured, save content.json to Vercel Blob with allowOverwrite
     if (process.env.BLOB_READ_WRITE_TOKEN) {
       try {
         await put('data/content.json', JSON.stringify(updatedData, null, 2), {
           access: 'private',
           token: process.env.BLOB_READ_WRITE_TOKEN,
           addRandomSuffix: false,
+          allowOverwrite: true,
         });
       } catch (blobErr) {
         console.error('Blob content save error:', blobErr);
+        throw blobErr;
       }
     }
 
@@ -69,6 +74,6 @@ export async function POST(request) {
     return NextResponse.json({ success: true, data: updatedData });
   } catch (error) {
     console.error('Error saving content:', error);
-    return NextResponse.json({ error: 'Failed to update content' }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Failed to update content' }, { status: 500 });
   }
 }

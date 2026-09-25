@@ -78,21 +78,44 @@ export const metadata = {
 
 import fs from 'fs';
 import path from 'path';
+import { get } from '@vercel/blob';
 import { CmsProvider, defaultCmsData } from '@/context/CmsContext';
 
-function getInitialContent() {
+async function getInitialContent() {
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const storeId = process.env.BLOB_STORE_ID || 'store_xao5q3CCmgXGUOal';
+      const cleanStoreId = storeId.replace(/^store_/, '').toLowerCase();
+      const blobUrl = `https://${cleanStoreId}.private.blob.vercel-storage.com/data/content.json`;
+
+      const result = await get(blobUrl, {
+        access: 'private',
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+        useCache: false,
+      });
+
+      if (result && result.statusCode === 200) {
+        const text = await new Response(result.stream).text();
+        const data = JSON.parse(text);
+        if (data && typeof data === 'object') {
+          return { ...defaultCmsData, ...data };
+        }
+      }
+    } catch {}
+  }
+
   try {
     const dataFilePath = path.join(process.cwd(), 'data', 'content.json');
     if (fs.existsSync(dataFilePath)) {
       const raw = fs.readFileSync(dataFilePath, 'utf8');
-      return JSON.parse(raw);
+      return { ...defaultCmsData, ...JSON.parse(raw) };
     }
   } catch {}
   return defaultCmsData;
 }
 
-export default function RootLayout({ children }) {
-  const initialContent = getInitialContent();
+export default async function RootLayout({ children }) {
+  const initialContent = await getInitialContent();
 
   return (
     <html lang="en" className={`${plusJakarta.variable} ${playfair.variable} ${poppins.variable} ${outfit.variable}`}>

@@ -349,13 +349,19 @@ export function CmsProvider({ children, initialContent }) {
       localStorage.setItem('dr_ashwin_cms_data', JSON.stringify(newContent));
       window.dispatchEvent(new CustomEvent('cms-updated', { detail: newContent }));
 
-      await fetch('/api/content', {
+      const res = await fetch('/api/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newContent),
       });
+
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.error || 'Failed to save to server');
+      }
     } catch (err) {
       console.error('Error saving CMS content:', err);
+      throw err;
     }
   };
 
