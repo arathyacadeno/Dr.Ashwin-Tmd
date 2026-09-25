@@ -1,23 +1,5 @@
-import TreatmentsShowcase from '@/components/TreatmentsShowcase';
-import TreatmentProcess from '@/components/TreatmentProcess';
-import TreatmentJourney from '@/components/TreatmentJourney';
-import Footer from '@/components/Footer';
-
-export const metadata = {
-  title: 'Treatments & Services | Non-Invasive TMJ Care, Kozhikode',
-  description:
-    'Explore non-invasive treatments for TMD: custom neuromuscular appliances, bite correction, airway care, and gentle jaw rehabilitation in Calicut.',
-};
+import { redirect } from 'next/navigation';
 
 export default function ServicesPage() {
-  return (
-    <>
-      <main className="treatments-page-main">
-        <TreatmentsShowcase />
-        <TreatmentProcess />
-        <TreatmentJourney />
-      </main>
-      <Footer />
-    </>
-  );
+  redirect('/treatments');
 }

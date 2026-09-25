@@ -1373,107 +1373,104 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
 }
 
 /* Active Rolling-In Convergence Animation:
-   4 bubbles coming from Left (bubble-1, bubble-2, bubble-3, bubble-4)
-   3 bubbles coming from Right (bubble-5, bubble-6, bubble-7)
-   Spinning like car tyres and converging into the combined center group */
+   Circles roll along the horizontal baseline ground into the center cluster.
+   - Left bubbles (1, 2, 3, 4) roll in clockwise (negative degrees -> 0deg)
+   - Right bubbles (5, 6, 7) roll in counter-clockwise (positive degrees -> 0deg)
+   - Upper-tier bubbles roll along the ground, then naturally roll up into position */
+
 .metrics-cluster.is-converging .bubble-4 {
-  animation: rollInBubble4 2.1s cubic-bezier(0.16, 0.9, 0.3, 1.02) 0s forwards;
+  animation: rollInBubble4 1.85s cubic-bezier(0.22, 1, 0.36, 1) 0s forwards;
 }
-.metrics-cluster.is-converging .bubble-3 {
-  animation: rollInBubble3 2.2s cubic-bezier(0.16, 0.9, 0.3, 1.02) 0.04s forwards;
+.metrics-cluster.is-converging .bubble-5 {
+  animation: rollInBubble5 1.85s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
 }
 .metrics-cluster.is-converging .bubble-2 {
-  animation: rollInBubble2 2.25s cubic-bezier(0.16, 0.9, 0.3, 1.02) 0.08s forwards;
-}
-.metrics-cluster.is-converging .bubble-1 {
-  animation: rollInBubble1 2.35s cubic-bezier(0.16, 0.9, 0.3, 1.02) 0.12s forwards;
-}
-
-/* 3 bubbles coming from Right */
-.metrics-cluster.is-converging .bubble-5 {
-  animation: rollInBubble5 2.1s cubic-bezier(0.16, 0.9, 0.3, 1.02) 0s forwards;
+  animation: rollInBubble2 1.95s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
 }
 .metrics-cluster.is-converging .bubble-6 {
-  animation: rollInBubble6 2.25s cubic-bezier(0.16, 0.9, 0.3, 1.02) 0.06s forwards;
+  animation: rollInBubble6 1.95s cubic-bezier(0.22, 1, 0.36, 1) 0.16s forwards;
+}
+.metrics-cluster.is-converging .bubble-3 {
+  animation: rollInBubble3 2.05s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards;
+}
+.metrics-cluster.is-converging .bubble-1 {
+  animation: rollInBubble1 2.15s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
 }
 .metrics-cluster.is-converging .bubble-7 {
-  animation: rollInBubble7 2.35s cubic-bezier(0.16, 0.9, 0.3, 1.02) 0.12s forwards;
+  animation: rollInBubble7 2.15s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
 }
 
 /* ============================================================
-   4 BUBBLES FROM LEFT: Spinning Clockwise like car tyres rolling forward
+   LEFT BUBBLES: Rolling along the baseline Clockwise
    ============================================================ */
 
 /* 1. Bubble 4 (98% Patient Relief) — Lead roller from left along baseline */
 @keyframes rollInBubble4 {
   0% {
-    transform: translate(-760px, 0) rotate(-720deg);
+    transform: translate3d(-720px, 0, 0) rotate(-680deg);
+    opacity: 0;
+  }
+  12% {
     opacity: 1;
   }
-  50% {
-    transform: translate(-280px, 0) rotate(-280deg);
+  78% {
+    transform: translate3d(8px, 0, 0) rotate(8deg);
   }
-  75% {
-    transform: translate(-55px, 0) rotate(-55deg);
-  }
-  88% {
-    transform: translate(12px, 0) rotate(10deg);
-  }
-  95% {
-    transform: translate(-3px, 0) rotate(-2deg);
+  90% {
+    transform: translate3d(-3px, 0, 0) rotate(-3deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
     pointer-events: auto;
   }
 }
 
-/* 2. Bubble 3 (15 Global Awards) — 4th from Left: rolls in and mounts top-center */
-@keyframes rollInBubble3 {
-  0% {
-    transform: translate(-780px, 90px) rotate(-720deg);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-260px, 40px) rotate(-270deg);
-  }
-  75% {
-    transform: translate(-50px, 8px) rotate(-50deg);
-  }
-  88% {
-    transform: translate(10px, -3px) rotate(8deg);
-  }
-  95% {
-    transform: translate(-2px, 1px) rotate(-2deg);
-  }
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-/* 3. Bubble 2 (12k+ Successful Cases) — Rolls in from left and mounts upper-left */
+/* 2. Bubble 2 (12k+ Successful Cases) — Rolls along baseline then rolls up into mid-left */
 @keyframes rollInBubble2 {
   0% {
-    transform: translate(-820px, 70px) rotate(-720deg);
+    transform: translate3d(-750px, 84px, 0) rotate(-720deg);
+    opacity: 0;
+  }
+  12% {
     opacity: 1;
   }
-  50% {
-    transform: translate(-300px, 35px) rotate(-280deg);
+  60% {
+    transform: translate3d(-90px, 80px, 0) rotate(-90deg);
   }
-  75% {
-    transform: translate(-65px, 8px) rotate(-60deg);
+  80% {
+    transform: translate3d(8px, -4px, 0) rotate(8deg);
   }
-  88% {
-    transform: translate(10px, -4px) rotate(8deg);
-  }
-  95% {
-    transform: translate(-2px, 1px) rotate(-2deg);
+  92% {
+    transform: translate3d(-2px, 2px, 0) rotate(-2deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* 3. Bubble 3 (15 Global Awards) — Rolls along baseline then rolls up to top-center peak */
+@keyframes rollInBubble3 {
+  0% {
+    transform: translate3d(-730px, 122px, 0) rotate(-700deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  60% {
+    transform: translate3d(-80px, 115px, 0) rotate(-80deg);
+  }
+  80% {
+    transform: translate3d(7px, -4px, 0) rotate(7deg);
+  }
+  92% {
+    transform: translate3d(-2px, 1px, 0) rotate(-2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
     pointer-events: auto;
   }
@@ -1482,77 +1479,71 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
 /* 4. Bubble 1 (25+ Years Experience) — Baseline left anchor rolling in behind */
 @keyframes rollInBubble1 {
   0% {
-    transform: translate(-880px, 0) rotate(-840deg);
+    transform: translate3d(-820px, 0, 0) rotate(-780deg);
+    opacity: 0;
+  }
+  12% {
     opacity: 1;
   }
-  50% {
-    transform: translate(-340px, 0) rotate(-340deg);
+  80% {
+    transform: translate3d(7px, 0, 0) rotate(7deg);
   }
-  75% {
-    transform: translate(-75px, 0) rotate(-75deg);
-  }
-  88% {
-    transform: translate(8px, 0) rotate(8deg);
-  }
-  95% {
-    transform: translate(-2px, 0) rotate(-2deg);
+  92% {
+    transform: translate3d(-2px, 0, 0) rotate(-2deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
     pointer-events: auto;
   }
 }
 
 /* ============================================================
-   3 BUBBLES FROM RIGHT: Spinning Counter-Clockwise like car tyres rolling forward
+   RIGHT BUBBLES: Rolling along the baseline Counter-Clockwise
    ============================================================ */
 
 /* 5. Bubble 5 (4.9/5+ Patient Rating) — Lead roller from right along baseline */
 @keyframes rollInBubble5 {
   0% {
-    transform: translate(760px, 0) rotate(720deg);
+    transform: translate3d(720px, 0, 0) rotate(680deg);
+    opacity: 0;
+  }
+  12% {
     opacity: 1;
   }
-  50% {
-    transform: translate(280px, 0) rotate(280deg);
+  78% {
+    transform: translate3d(-8px, 0, 0) rotate(-8deg);
   }
-  75% {
-    transform: translate(55px, 0) rotate(55deg);
-  }
-  88% {
-    transform: translate(-14px, 0) rotate(-12deg);
-  }
-  95% {
-    transform: translate(3px, 0) rotate(2deg);
+  90% {
+    transform: translate3d(3px, 0, 0) rotate(3deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
     pointer-events: auto;
   }
 }
 
-/* 6. Bubble 6 (24/7 Patient Support) — Rolls in from right and mounts upper-right */
+/* 6. Bubble 6 (24/7 Patient Support) — Rolls along baseline then rolls up to mid-right */
 @keyframes rollInBubble6 {
   0% {
-    transform: translate(800px, 70px) rotate(720deg);
+    transform: translate3d(750px, 70px, 0) rotate(720deg);
+    opacity: 0;
+  }
+  12% {
     opacity: 1;
   }
-  50% {
-    transform: translate(290px, 30px) rotate(280deg);
+  60% {
+    transform: translate3d(90px, 66px, 0) rotate(90deg);
   }
-  75% {
-    transform: translate(60px, 8px) rotate(60deg);
+  80% {
+    transform: translate3d(-8px, -4px, 0) rotate(-8deg);
   }
-  88% {
-    transform: translate(-10px, -4px) rotate(-8deg);
-  }
-  95% {
-    transform: translate(2px, 1px) rotate(2deg);
+  92% {
+    transform: translate3d(2px, 2px, 0) rotate(2deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
     pointer-events: auto;
   }
@@ -1561,23 +1552,20 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
 /* 7. Bubble 7 (100% Personalized Care) — Baseline right anchor rolling in behind */
 @keyframes rollInBubble7 {
   0% {
-    transform: translate(880px, 0) rotate(840deg);
+    transform: translate3d(820px, 0, 0) rotate(780deg);
+    opacity: 0;
+  }
+  12% {
     opacity: 1;
   }
-  50% {
-    transform: translate(340px, 0) rotate(340deg);
+  80% {
+    transform: translate3d(-7px, 0, 0) rotate(-7deg);
   }
-  75% {
-    transform: translate(75px, 0) rotate(75deg);
-  }
-  88% {
-    transform: translate(-8px, 0) rotate(-8deg);
-  }
-  95% {
-    transform: translate(2px, 0) rotate(2deg);
+  92% {
+    transform: translate3d(2px, 0, 0) rotate(2deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
     opacity: 1;
     pointer-events: auto;
   }

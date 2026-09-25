@@ -31,12 +31,17 @@ export default function WhyChooseUs() {
   }, [content?.trustMetrics]);
 
   const triggerConvergence = () => {
-    setClusterClass('is-converging');
+    setClusterClass('ready-to-converge');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setClusterClass('is-converging');
 
-    if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
-    animTimeoutRef.current = setTimeout(() => {
-      setClusterClass('is-converged is-floating');
-    }, 2600);
+        if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
+        animTimeoutRef.current = setTimeout(() => {
+          setClusterClass('is-converged is-floating');
+        }, 2600);
+      });
+    });
   };
 
   useEffect(() => {
