@@ -406,12 +406,26 @@
 
 .admin-metric-box {
   background-color: #C8CCD2;
+  border: 1.5px solid transparent;
   border-radius: 12px;
   padding: 1.1rem 1.25rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.admin-metric-box:hover {
+  background-color: #D3D7DD;
+}
+
+.admin-metric-box:focus-within,
+.admin-metric-box.active {
+  background-color: #DFE3E8;
+  border-color: #EE9D1A;
+  box-shadow: 0 0 0 3px rgba(238, 157, 26, 0.2);
 }
 
 .admin-metric-num-input {

@@ -14,6 +14,7 @@ export default function AdminDashboardPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadToast, setUploadToast] = useState('');
+  const [activeMetricIndex, setActiveMetricIndex] = useState(null);
 
   useEffect(() => {
     if (content) {
@@ -1072,19 +1073,30 @@ export default function AdminDashboardPage() {
 
               <div className="admin-metrics-grid-3col">
                 {(cmsData.trustMetrics || []).map((metric, idx) => (
-                  <div key={idx} className="admin-metric-box">
+                  <div
+                    key={idx}
+                    className={`admin-metric-box ${activeMetricIndex === idx ? 'active' : ''}`}
+                    onClick={(e) => {
+                      setActiveMetricIndex(idx);
+                      if (e.target.tagName !== 'INPUT') {
+                        e.currentTarget.querySelector('.admin-metric-num-input')?.focus();
+                      }
+                    }}
+                  >
                     <span className="admin-field-label" style={{ fontSize: '0.85rem' }}>Circle {idx + 1}</span>
                     <input
                       type="text"
                       className="admin-metric-num-input"
                       value={metric.number || ''}
                       onChange={(e) => handleMetricChange(idx, 'number', e.target.value)}
+                      onFocus={() => setActiveMetricIndex(idx)}
                     />
                     <input
                       type="text"
                       className="admin-metric-lbl-input"
                       value={metric.label || ''}
                       onChange={(e) => handleMetricChange(idx, 'label', e.target.value)}
+                      onFocus={() => setActiveMetricIndex(idx)}
                     />
                   </div>
                 ))}
