@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { upload } from '@vercel/blob/client';
 import { useCms, defaultCmsData } from '@/context/CmsContext';
 import '@/styles/admin.css';
 
@@ -55,26 +56,20 @@ export default function AdminDashboardPage() {
     try {
       setIsUploading(true);
       setUploadToast(`Uploading ${file.name}...`);
-      const formData = new FormData();
-      formData.append('file', file);
 
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
+      const cleanName = file.name.replace(/[<>:"/\\|?*]/g, '_');
+      await upload(cleanName, file, {
+        access: 'private',
+        handleUploadUrl: '/api/upload',
       });
 
-      const data = await res.json();
-      if (res.ok && data.success) {
-        callback(data.fileName);
-        setUploadToast(`Uploaded ${data.fileName} successfully!`);
-        setTimeout(() => setUploadToast(''), 3500);
-      } else {
-        alert(data.error || 'Upload failed');
-        setUploadToast('');
-      }
+      const mediaPath = `/api/media/${cleanName}`;
+      callback(mediaPath);
+      setUploadToast(`Uploaded ${cleanName} successfully!`);
+      setTimeout(() => setUploadToast(''), 3500);
     } catch (err) {
       console.error('File upload error:', err);
-      alert('File upload failed. Please try again.');
+      alert('File upload failed: ' + (err.message || 'Please try again.'));
       setUploadToast('');
     } finally {
       setIsUploading(false);

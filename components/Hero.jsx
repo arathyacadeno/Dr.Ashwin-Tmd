@@ -164,9 +164,11 @@ export default function Hero() {
   }, []);
 
   const rawVideo = content?.heroVideo || 'Woman_running_in_park_202608281117.mp4';
-  const videoSrc = rawVideo.startsWith('http://') || rawVideo.startsWith('https://') || rawVideo.startsWith('/')
-    ? rawVideo
-    : `/assets/images/${rawVideo}`;
+  const videoSrc = encodeURI(
+    rawVideo.startsWith('http://') || rawVideo.startsWith('https://') || rawVideo.startsWith('/')
+      ? rawVideo
+      : `/assets/images/${rawVideo}`
+  );
 
   useEffect(() => {
     if (videoRef.current) {
