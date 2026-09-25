@@ -163,6 +163,19 @@ export default function Hero() {
     };
   }, []);
 
+  const rawVideo = content?.heroVideo || 'Woman_running_in_park_202608281117.mp4';
+  const videoSrc = rawVideo.startsWith('http://') || rawVideo.startsWith('https://') || rawVideo.startsWith('/')
+    ? rawVideo
+    : `/assets/images/${rawVideo}`;
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [videoSrc]);
+
   return (
     <div className="hero-pinned-track" id="hero" ref={heroRef}>
       <div className="hero-sticky-stage" id="heroStickyStage">
@@ -170,7 +183,7 @@ export default function Hero() {
         <div className="hero-figma-video-col" id="heroVideoBox" ref={videoBoxRef}>
           <video
             ref={videoRef}
-            key={content?.heroVideo || 'default-video'}
+            key={videoSrc}
             className="hero-bg-video"
             autoPlay
             loop
@@ -179,7 +192,7 @@ export default function Hero() {
             poster="/assets/images/hero_smiling_woman.jpg"
           >
             <source
-              src={`/assets/images/${content?.heroVideo || 'Woman_running_in_park_202608281117.mp4'}`}
+              src={videoSrc}
               type="video/mp4"
             />
             Your browser does not support the video tag.

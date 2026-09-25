@@ -10,6 +10,8 @@ export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState('home');
   const [cmsData, setCmsData] = useState(content || defaultCmsData);
   const [showToast, setShowToast] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadToast, setUploadToast] = useState('');
 
   useEffect(() => {
     if (content) {
@@ -46,10 +48,37 @@ export default function AdminDashboardPage() {
     });
   };
 
-  const handleFileUpload = (e, callback) => {
+  const handleFileUpload = async (e, callback) => {
     const file = e.target.files?.[0];
-    if (file) {
-      callback(file.name);
+    if (!file) return;
+
+    try {
+      setIsUploading(true);
+      setUploadToast(`Uploading ${file.name}...`);
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        callback(data.fileName);
+        setUploadToast(`Uploaded ${data.fileName} successfully!`);
+        setTimeout(() => setUploadToast(''), 3500);
+      } else {
+        alert(data.error || 'Upload failed');
+        setUploadToast('');
+      }
+    } catch (err) {
+      console.error('File upload error:', err);
+      alert('File upload failed. Please try again.');
+      setUploadToast('');
+    } finally {
+      setIsUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -1862,6 +1891,23 @@ export default function AdminDashboardPage() {
             <polyline points="20 6 9 17 4 12" />
           </svg>
           <span>Changes saved successfully! Live website updated.</span>
+        </div>
+      )}
+
+      {/* Floating Upload Toast Alert */}
+      {uploadToast && (
+        <div className="admin-toast-alert" style={{ background: isUploading ? '#1e293b' : '#166534', borderColor: isUploading ? '#3b82f6' : '#22c55e' }}>
+          {isUploading ? (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="animate-spin">
+              <circle cx="12" cy="12" r="10" strokeOpacity="0.25"></circle>
+              <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor"></path>
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          )}
+          <span>{uploadToast}</span>
         </div>
       )}
     </div>
