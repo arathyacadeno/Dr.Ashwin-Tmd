@@ -302,7 +302,10 @@ export function CmsProvider({ children, initialContent }) {
       }
 
       // 2. Fetch latest from server
-      const res = await fetch('/api/content');
+      const res = await fetch(`/api/content?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache' },
+      });
       if (res.ok) {
         const serverData = await res.json();
         if (serverData && !serverData.error) {

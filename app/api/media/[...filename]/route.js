@@ -15,10 +15,14 @@ export async function GET(request, { params }) {
   const cleanStoreId = storeId.replace(/^store_/, '').toLowerCase();
   const blobUrl = `https://${cleanStoreId}.private.blob.vercel-storage.com/${filename}`;
 
+  const BLOB_TOKEN =
+    process.env.BLOB_READ_WRITE_TOKEN ||
+    'vercel_blob_rw_xao5q3CCmgXGUOal_uaNFJ9pFEsTYukCh8NkxksKtcibaqh';
+
   try {
     const result = await get(blobUrl, {
       access: 'private',
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      token: BLOB_TOKEN,
     });
 
     const headers = new Headers();

@@ -81,8 +81,15 @@ import path from 'path';
 import { get } from '@vercel/blob';
 import { CmsProvider, defaultCmsData } from '@/context/CmsContext';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+const BLOB_TOKEN =
+  process.env.BLOB_READ_WRITE_TOKEN ||
+  'vercel_blob_rw_xao5q3CCmgXGUOal_uaNFJ9pFEsTYukCh8NkxksKtcibaqh';
+
 async function getInitialContent() {
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  if (BLOB_TOKEN) {
     try {
       const storeId = process.env.BLOB_STORE_ID || 'store_xao5q3CCmgXGUOal';
       const cleanStoreId = storeId.replace(/^store_/, '').toLowerCase();
@@ -90,7 +97,7 @@ async function getInitialContent() {
 
       const result = await get(blobUrl, {
         access: 'private',
-        token: process.env.BLOB_READ_WRITE_TOKEN,
+        token: BLOB_TOKEN,
         useCache: false,
       });
 

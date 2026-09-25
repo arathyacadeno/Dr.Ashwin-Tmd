@@ -3,6 +3,10 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+const BLOB_TOKEN =
+  process.env.BLOB_READ_WRITE_TOKEN ||
+  'vercel_blob_rw_xao5q3CCmgXGUOal_uaNFJ9pFEsTYukCh8NkxksKtcibaqh';
+
 export async function POST(request) {
   const body = await request.json();
 
@@ -10,6 +14,7 @@ export async function POST(request) {
     const jsonResponse = await handleUpload({
       body,
       request,
+      token: BLOB_TOKEN,
       onBeforeGenerateToken: async (pathname) => {
         return {
           allowedContentTypes: [
@@ -35,3 +40,4 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }
+

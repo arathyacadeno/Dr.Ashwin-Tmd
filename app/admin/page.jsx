@@ -11,6 +11,7 @@ export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState('home');
   const [cmsData, setCmsData] = useState(content || defaultCmsData);
   const [showToast, setShowToast] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadToast, setUploadToast] = useState('');
 
@@ -22,9 +23,17 @@ export default function AdminDashboardPage() {
 
   // Save changes handler
   const handleSave = async () => {
-    await saveContent(cmsData);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
+    try {
+      setIsSaving(true);
+      await saveContent(cmsData);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3500);
+    } catch (err) {
+      console.error('Error saving:', err);
+      alert('Failed to save changes: ' + (err.message || 'Please check network connection.'));
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleInputChange = (field, value) => {
@@ -223,8 +232,14 @@ export default function AdminDashboardPage() {
                 <line x1="10" y1="14" x2="21" y2="3"></line>
               </svg>
             </Link>
-            <button type="button" className="admin-save-btn" onClick={handleSave}>
-              Save Changes
+            <button
+              type="button"
+              className="admin-save-btn"
+              onClick={handleSave}
+              disabled={isSaving}
+              style={{ opacity: isSaving ? 0.7 : 1, cursor: isSaving ? 'wait' : 'pointer' }}
+            >
+              {isSaving ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
         </header>
