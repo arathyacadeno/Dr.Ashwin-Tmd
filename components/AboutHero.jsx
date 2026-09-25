@@ -32,15 +32,32 @@ export default function AboutHero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const headingRaw = (
+    content?.aboutHeroHeading ||
+    `${content?.aboutHeroTitle1 || 'A clinic built around'} ${content?.aboutHeroTitle2 || 'One thing, done properly'}`
+  ).trim();
+
+  let line1 = headingRaw;
+  let line2 = '';
+  if (headingRaw.toLowerCase().includes('around')) {
+    const idx = headingRaw.toLowerCase().indexOf('around') + 'around'.length;
+    line1 = headingRaw.substring(0, idx).trim();
+    line2 = headingRaw.substring(idx).trim();
+  }
+
+  const subtitle =
+    content?.aboutHeroSubtitle ||
+    "Dr. Ashwin's TMD Clinic, Calicut — jaw, bite and airway care with the time it deserves.";
+
   return (
     <section className="about-hero-section" id="aboutHeroSection" ref={heroRef}>
       <div className="about-hero-sticky" id="aboutHeroSticky">
         <h1 className="about-hero-title scaling-title" id="aboutScalingTitle">
-          <span className="hero-line hero-line-1">{content?.aboutHeroTitle1 || 'A clinic built around'}</span>
-          <span className="hero-line hero-line-2">{content?.aboutHeroTitle2 || 'One thing, done properly'}</span>
+          <span className="hero-line hero-line-1">{line1}</span>
+          {line2 ? <span className="hero-line hero-line-2">{line2}</span> : null}
         </h1>
         <p className="about-hero-sub" id="aboutScalingSub">
-          Dr. Ashwin&apos;s TMD Clinic, Calicut — jaw, bite and airway care with the time it deserves.
+          {subtitle}
         </p>
         <div className="about-hero-scroll-hint" id="aboutHeroScrollHint">
           <span>{content?.aboutHeroScrollHint || 'Scroll down'}</span>

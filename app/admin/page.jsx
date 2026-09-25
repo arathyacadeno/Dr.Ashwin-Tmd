@@ -112,12 +112,7 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'home' ? 'active' : ''}`}
             onClick={() => setActiveTab('home')}
           >
-            <span className="admin-nav-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-              </svg>
-            </span>
-            <span className="admin-nav-text">Home</span>
+            <span className="admin-nav-text" style={{ paddingLeft: '8px' }}>Home</span>
           </button>
 
           {/* About Us Tab */}
@@ -126,14 +121,7 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'about' ? 'active' : ''}`}
             onClick={() => setActiveTab('about')}
           >
-            <span className="admin-nav-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="16" x2="12" y2="12" />
-                <line x1="12" y1="8" x2="12.01" y2="8" />
-              </svg>
-            </span>
-            <span className="admin-nav-text">About Us</span>
+            <span className="admin-nav-text" style={{ paddingLeft: '8px' }}>About Us</span>
           </button>
 
           {/* What is TMD Tab */}
@@ -142,7 +130,14 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'tmd' ? 'active' : ''}`}
             onClick={() => setActiveTab('tmd')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '28px' }}>What is TMD</span>
+            <span className="admin-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </span>
+            <span className="admin-nav-text">What is TMD</span>
           </button>
 
           {/* Treatments Tab */}
@@ -201,7 +196,7 @@ export default function AdminDashboardPage() {
             </h1>
             <p>
               {activeTab === 'home' && 'Manage the main Home page content displayed on the homepage'}
-              {activeTab === 'about' && 'Manage clinic story, philosophy, and Dr. Ashwin profile'}
+              {activeTab === 'about' && "Manage the clinic narrative, hero section, philosophy, core ethos, and Dr. Ashwin's profile and credentials displayed on the live Our Story page."}
               {activeTab === 'tmd' && 'Manage educational TMD explanations, symptoms, and causes'}
               {activeTab === 'treatments' && 'Manage treatment process steps and therapeutic stages'}
               {activeTab === 'contact' && 'Manage clinic consultation details, working hours, and location'}
@@ -227,11 +222,6 @@ export default function AdminDashboardPage() {
               className="admin-preview-btn"
             >
               <span>View Live Website</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
             </Link>
             <button
               type="button"
@@ -240,7 +230,12 @@ export default function AdminDashboardPage() {
               disabled={isSaving}
               style={{ opacity: isSaving ? 0.7 : 1, cursor: isSaving ? 'wait' : 'pointer' }}
             >
-              {isSaving ? 'Saving...' : 'Save Changes'}
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              <span>{isSaving ? 'Saving...' : 'Save Changes'}</span>
             </button>
           </div>
         </header>
@@ -1170,231 +1165,209 @@ export default function AdminDashboardPage() {
             ================================================================== */}
         {activeTab === 'about' && (
           <div>
+            {/* Section 01: Hero Section Heading */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">About Us Hero Section</h2>
-              <div className="admin-grid-2col">
+              <h2 className="admin-section-heading">01. Hero Section Heading</h2>
+
+              <div className="admin-grid-full">
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Hero Title Line 1</label>
+                  <label className="admin-field-label">Main Hero Heading (H1)</label>
                   <input
                     type="text"
                     className="admin-pill-input"
-                    value={cmsData.aboutHeroTitle1 || ''}
-                    onChange={(e) => handleInputChange('aboutHeroTitle1', e.target.value)}
-                  />
-                </div>
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Hero Title Line 2</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.aboutHeroTitle2 || ''}
-                    onChange={(e) => handleInputChange('aboutHeroTitle2', e.target.value)}
+                    value={
+                      cmsData.aboutHeroHeading ||
+                      (cmsData.aboutHeroTitle1
+                        ? `${cmsData.aboutHeroTitle1} ${cmsData.aboutHeroTitle2 || ''}`.trim()
+                        : 'A clinic built around One thing, done properly')
+                    }
+                    onChange={(e) => {
+                      handleInputChange('aboutHeroHeading', e.target.value);
+                      const parts = e.target.value.split(/(?<=around)\s+/i);
+                      if (parts.length === 2) {
+                        handleInputChange('aboutHeroTitle1', parts[0]);
+                        handleInputChange('aboutHeroTitle2', parts[1]);
+                      } else {
+                        handleInputChange('aboutHeroTitle1', e.target.value);
+                        handleInputChange('aboutHeroTitle2', '');
+                      }
+                    }}
                   />
                 </div>
               </div>
+
               <div className="admin-grid-full">
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Scroll Hint Text</label>
+                  <label className="admin-field-label">Hero Subtitle</label>
                   <input
                     type="text"
                     className="admin-pill-input"
-                    value={cmsData.aboutHeroScrollHint || ''}
-                    onChange={(e) => handleInputChange('aboutHeroScrollHint', e.target.value)}
+                    value={
+                      cmsData.aboutHeroSubtitle ||
+                      "Dr. Ashwin's TMD Clinic, Calicut — jaw, bite and airway care with the time it deserves."
+                    }
+                    onChange={(e) => handleInputChange('aboutHeroSubtitle', e.target.value)}
                   />
                 </div>
               </div>
             </section>
 
+            {/* Section 02: Clinic Story */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Our Story &amp; Philosophy</h2>
-              <div className="admin-grid-full">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Story Section Title</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.aboutStoryHeading || ''}
-                    onChange={(e) => handleInputChange('aboutStoryHeading', e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-grid-full">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Paragraph 1 (The Challenge)</label>
-                  <textarea
-                    rows={3}
-                    className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.aboutStoryP1 || ''}
-                    onChange={(e) => handleInputChange('aboutStoryP1', e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-grid-full">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Paragraph 2 (Our Core Approach)</label>
-                  <textarea
-                    rows={4}
-                    className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.aboutStoryP2 || ''}
-                    onChange={(e) => handleInputChange('aboutStoryP2', e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-grid-full">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Paragraph 3 (Commitment)</label>
-                  <textarea
-                    rows={2}
-                    className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.aboutStoryP3 || ''}
-                    onChange={(e) => handleInputChange('aboutStoryP3', e.target.value)}
-                  />
-                </div>
-              </div>
+              <h2 className="admin-section-heading">02. Clinic Story</h2>
 
               <div className="admin-grid-2col">
+                {/* Left Column: Story Paragraph */}
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Lounge Image (Base View)</label>
-                  <div className="admin-input-upload-pill">
-                    <input
-                      type="text"
-                      value={cmsData.aboutStoryLoungeImage || ''}
-                      placeholder="clinic_reception.jpg"
-                      onChange={(e) => handleInputChange('aboutStoryLoungeImage', e.target.value)}
-                    />
-                    <label className="admin-upload-icon-trigger">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <polyline points="21 15 16 10 5 21" />
-                      </svg>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutStoryLoungeImage', name))}
-                      />
-                    </label>
-                  </div>
+                  <label className="admin-field-label">Story Paragraph</label>
+                  <textarea
+                    rows={10}
+                    className="admin-pill-input admin-pill-textarea"
+                    style={{ minHeight: '190px', lineHeight: '1.6' }}
+                    value={
+                      cmsData.aboutStoryParagraph !== undefined
+                        ? cmsData.aboutStoryParagraph
+                        : [cmsData.aboutStoryP1, cmsData.aboutStoryP2, cmsData.aboutStoryP3]
+                            .filter(Boolean)
+                            .join('\n\n')
+                    }
+                    onChange={(e) => {
+                      handleInputChange('aboutStoryParagraph', e.target.value);
+                      const pars = e.target.value.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+                      if (pars.length >= 1) handleInputChange('aboutStoryP1', pars[0]);
+                      if (pars.length >= 2) handleInputChange('aboutStoryP2', pars[1]);
+                      if (pars.length >= 3) handleInputChange('aboutStoryP3', pars.slice(2).join('\n\n'));
+                    }}
+                  />
                 </div>
 
+                {/* Right Column: Our Story Clinic Image */}
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Clinic Exterior Image (Curtain Reveal)</label>
-                  <div className="admin-input-upload-pill">
-                    <input
-                      type="text"
-                      value={cmsData.aboutStoryExteriorImage || ''}
-                      placeholder="clinic_exterior.jpg"
-                      onChange={(e) => handleInputChange('aboutStoryExteriorImage', e.target.value)}
-                    />
-                    <label className="admin-upload-icon-trigger">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <polyline points="21 15 16 10 5 21" />
-                      </svg>
+                  <label className="admin-field-label">Our Story Clinic Image</label>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+                    <div className="admin-input-upload-pill">
                       <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutStoryExteriorImage', name))}
+                        type="text"
+                        value={cmsData.aboutStoryLoungeImage || ''}
+                        placeholder="Clinic Image (1)"
+                        onChange={(e) => handleInputChange('aboutStoryLoungeImage', e.target.value)}
                       />
-                    </label>
+                      <label className="admin-upload-icon-trigger" title="Upload Clinic Image (1)">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M16 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <path d="M21 15l-5-5L5 21" />
+                          <line x1="19" y1="17" x2="19" y2="23" />
+                          <line x1="16" y1="20" x2="22" y2="20" />
+                        </svg>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutStoryLoungeImage', name))}
+                        />
+                      </label>
+                    </div>
+
+                    <div className="admin-input-upload-pill">
+                      <input
+                        type="text"
+                        value={cmsData.aboutStoryExteriorImage || ''}
+                        placeholder="Clinic Image (2)"
+                        onChange={(e) => handleInputChange('aboutStoryExteriorImage', e.target.value)}
+                      />
+                      <label className="admin-upload-icon-trigger" title="Upload Clinic Image (2)">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M16 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <path d="M21 15l-5-5L5 21" />
+                          <line x1="19" y1="17" x2="19" y2="23" />
+                          <line x1="16" y1="20" x2="22" y2="20" />
+                        </svg>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutStoryExteriorImage', name))}
+                        />
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
 
+            {/* Section 03: Doctor Story */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Doctor Profile Card</h2>
-              <div className="admin-grid-2col">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Specialist Tag</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.aboutDoctorTag || ''}
-                    onChange={(e) => handleInputChange('aboutDoctorTag', e.target.value)}
-                  />
-                </div>
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Doctor Name</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.aboutDoctorName || ''}
-                    onChange={(e) => handleInputChange('aboutDoctorName', e.target.value)}
-                  />
-                </div>
-              </div>
+              <h2 className="admin-section-heading">03. Doctor Story</h2>
 
               <div className="admin-grid-2col">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Doctor Qualification</label>
-                  <input
-                    type="text"
-                    className="admin-pill-input"
-                    value={cmsData.aboutDoctorQualification || ''}
-                    onChange={(e) => handleInputChange('aboutDoctorQualification', e.target.value)}
-                  />
-                </div>
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Doctor Portrait Image</label>
-                  <div className="admin-input-upload-pill">
+                {/* Left Column: 3 Hero Headings */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Hero Heading (H1)</label>
                     <input
                       type="text"
-                      value={cmsData.aboutDoctorImage || ''}
-                      placeholder="og image.png"
-                      onChange={(e) => handleInputChange('aboutDoctorImage', e.target.value)}
+                      className="admin-pill-input"
+                      value={cmsData.aboutDoctorTag || 'SPECIALIST'}
+                      onChange={(e) => handleInputChange('aboutDoctorTag', e.target.value)}
                     />
-                    <label className="admin-upload-icon-trigger">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                        <circle cx="8.5" cy="8.5" r="1.5" />
-                        <polyline points="21 15 16 10 5 21" />
-                      </svg>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleFileUpload(e, (name) => handleInputChange('aboutDoctorImage', name))}
-                      />
-                    </label>
+                  </div>
+
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Hero Heading (H2)</label>
+                    <input
+                      type="text"
+                      className="admin-pill-input"
+                      value={cmsData.aboutDoctorQualification || 'MDS - ORAL & MAXILLOFCIAL SURGERY'}
+                      onChange={(e) => handleInputChange('aboutDoctorQualification', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Hero Heading (H3)</label>
+                    <input
+                      type="text"
+                      className="admin-pill-input"
+                      value={cmsData.aboutDoctorName || 'Meet Dr.Ashwin'}
+                      onChange={(e) => handleInputChange('aboutDoctorName', e.target.value)}
+                    />
                   </div>
                 </div>
-              </div>
 
-              <div className="admin-grid-full">
+                {/* Right Column: Description */}
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Biography Paragraph 1</label>
+                  <label className="admin-field-label">Description</label>
                   <textarea
-                    rows={3}
+                    rows={8}
                     className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.aboutDoctorBio1 || ''}
-                    onChange={(e) => handleInputChange('aboutDoctorBio1', e.target.value)}
+                    style={{ minHeight: '190px', lineHeight: '1.6' }}
+                    value={
+                      cmsData.aboutDoctorBio !== undefined
+                        ? cmsData.aboutDoctorBio
+                        : [cmsData.aboutDoctorBio1, cmsData.aboutDoctorBio2]
+                            .filter(Boolean)
+                            .join('\n\n')
+                    }
+                    onChange={(e) => {
+                      handleInputChange('aboutDoctorBio', e.target.value);
+                      const bios = e.target.value.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+                      if (bios.length >= 1) handleInputChange('aboutDoctorBio1', bios[0]);
+                      if (bios.length >= 2) handleInputChange('aboutDoctorBio2', bios.slice(1).join('\n\n'));
+                    }}
                   />
                 </div>
               </div>
 
-              <div className="admin-grid-full">
+              {/* Full Width Quote */}
+              <div className="admin-grid-full" style={{ marginTop: '1.2rem' }}>
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Biography Paragraph 2</label>
-                  <textarea
-                    rows={3}
-                    className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.aboutDoctorBio2 || ''}
-                    onChange={(e) => handleInputChange('aboutDoctorBio2', e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-grid-full">
-                <div className="admin-field-group">
-                  <label className="admin-field-label">Doctor Personal Quote</label>
+                  <label className="admin-field-label">Quote</label>
                   <input
                     type="text"
                     className="admin-pill-input"
-                    value={cmsData.aboutDoctorQuote || ''}
+                    value={
+                      cmsData.aboutDoctorQuote ||
+                      '“Good care starts with understanding the person, not just the symptom.”'
+                    }
                     onChange={(e) => handleInputChange('aboutDoctorQuote', e.target.value)}
                   />
                 </div>

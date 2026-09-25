@@ -189,22 +189,22 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background-color: #F1F4F8;
-  color: #334155;
-  border: 1.5px solid #CBD5E1;
-  border-radius: 9999px;
-  padding: 0.65rem 1.35rem;
+  background-color: #EBF2FE;
+  color: #1E40AF;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1.2rem;
   font-family: var(--font-outfit), 'Outfit', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .admin-preview-btn:hover {
-  background-color: #E2E8F0;
-  border-color: #94A3B8;
+  background-color: #DBEAFE;
+  color: #1D4ED8;
   transform: translateY(-1px);
 }
 
@@ -212,23 +212,24 @@
   background-color: #EE9D1A;
   color: #000000;
   font-family: var(--font-outfit), 'Outfit', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 800;
+  font-size: 0.88rem;
+  font-weight: 700;
   border: none;
-  border-radius: 12px;
-  padding: 0.75rem 2.2rem;
+  border-radius: 6px;
+  padding: 0.55rem 1.4rem;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(238, 157, 26, 0.25);
+  box-shadow: 0 2px 8px rgba(238, 157, 26, 0.28);
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
   justify-content: center;
 }
 
 .admin-save-btn:hover {
   background-color: #E59412;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(238, 157, 26, 0.35);
+  box-shadow: 0 4px 12px rgba(238, 157, 26, 0.35);
 }
 
 .admin-save-btn:active {
@@ -239,15 +240,15 @@
    Section Form Blocks & Headings
    ========================================================================== */
 .admin-section-block {
-  margin-bottom: 2.8rem;
+  margin-bottom: 3.2rem;
 }
 
 .admin-section-heading {
   font-family: var(--font-outfit), 'Outfit', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #1E2229;
-  margin: 0 0 1.35rem 0;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 1.5rem 0;
   letter-spacing: -0.01em;
 }
 
@@ -273,26 +274,31 @@
 
 .admin-field-label {
   font-family: var(--font-outfit), 'Outfit', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #1E2229;
   letter-spacing: -0.01em;
 }
 
-/* Styled Pill Inputs matching exact Figma grey capsule boxes */
+/* Styled Pill Inputs matching exact grey capsule boxes */
 .admin-pill-input {
   width: 100%;
-  background-color: #C8CCD2;
+  background-color: #CBD0D6;
   color: #1E2229;
   font-family: var(--font-body), sans-serif;
   font-size: 0.92rem;
   font-weight: 500;
   border: 1.5px solid transparent;
-  border-radius: 12px;
-  padding: 0.95rem 1.25rem;
+  border-radius: 9999px;
+  padding: 0.82rem 1.4rem;
   box-sizing: border-box;
   outline: none;
   transition: all 0.2s ease;
+}
+
+.admin-pill-input::placeholder {
+  color: #1E2229;
+  opacity: 0.85;
 }
 
 .admin-pill-input:focus {
@@ -302,20 +308,22 @@
 }
 
 .admin-pill-textarea {
-  min-height: 110px;
+  border-radius: 16px !important;
+  min-height: 120px;
   resize: vertical;
   line-height: 1.6;
   font-family: var(--font-body), sans-serif;
+  padding: 1.1rem 1.4rem;
 }
 
-/* Pill Input with Upload Icon on Right (Exact Figma UI) */
+/* Pill Input with Upload Icon on Right (Exact UI) */
 .admin-input-upload-pill {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: #C8CCD2;
-  border-radius: 12px;
+  background-color: #CBD0D6;
+  border-radius: 9999px;
   box-sizing: border-box;
   transition: all 0.2s ease;
 }
@@ -334,8 +342,13 @@
   font-size: 0.92rem;
   font-weight: 500;
   color: #1E2229;
-  padding: 0.95rem 1.25rem;
+  padding: 0.82rem 1.4rem;
   box-sizing: border-box;
+}
+
+.admin-input-upload-pill input[type="text"]::placeholder {
+  color: #1E2229;
+  opacity: 0.85;
 }
 
 .admin-upload-icon-trigger {
@@ -343,14 +356,14 @@
   align-items: center;
   justify-content: center;
   padding-right: 1.25rem;
-  color: #374151;
+  color: #1E2229;
   cursor: pointer;
   flex-shrink: 0;
-  transition: color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .admin-upload-icon-trigger:hover {
-  color: #000000;
+  opacity: 0.7;
 }
 
 .admin-upload-icon-trigger input[type="file"] {

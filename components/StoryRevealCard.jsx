@@ -17,11 +17,23 @@ export default function StoryRevealCard() {
   const defaultP3 =
     'Our approach is thoughtful, gradual and patient-focused — with treatment reviewed along the way, so every step has a clear purpose.';
 
-  const p1Words = useMemo(() => (content?.aboutStoryP1 || defaultP1).split(/\s+/).filter(Boolean), [content?.aboutStoryP1]);
-  const p2Words = useMemo(() => (content?.aboutStoryP2 || defaultP2).split(/\s+/).filter(Boolean), [content?.aboutStoryP2]);
-  const p3Words = useMemo(() => (content?.aboutStoryP3 || defaultP3).split(/\s+/).filter(Boolean), [content?.aboutStoryP3]);
+  const fullText =
+    content?.aboutStoryParagraph ||
+    [content?.aboutStoryP1 || defaultP1, content?.aboutStoryP2 || defaultP2, content?.aboutStoryP3 || defaultP3]
+      .filter(Boolean)
+      .join('\n\n');
 
-  const totalWords = p1Words.length + p2Words.length + p3Words.length;
+  const storyParagraphs = useMemo(() => {
+    return fullText.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  }, [fullText]);
+
+  const paragraphWords = useMemo(() => {
+    return storyParagraphs.map((p) => p.split(/\s+/).filter(Boolean));
+  }, [storyParagraphs]);
+
+  const totalWords = useMemo(() => {
+    return paragraphWords.reduce((sum, words) => sum + words.length, 0);
+  }, [paragraphWords]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,50 +68,34 @@ export default function StoryRevealCard() {
 
   let wordCounter = 0;
 
-  const loungeImg = content?.aboutStoryLoungeImage ? `/assets/images/${content.aboutStoryLoungeImage}` : '/assets/images/clinic_reception.jpg';
-  const exteriorImg = content?.aboutStoryExteriorImage ? `/assets/images/${content.aboutStoryExteriorImage}` : '/assets/images/clinic_exterior.jpg';
+  const formatImgSrc = (img, fallback) => {
+    if (!img) return fallback;
+    if (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('/')) return img;
+    return `/assets/images/${img}`;
+  };
+
+  const loungeImg = formatImgSrc(content?.aboutStoryLoungeImage, '/assets/images/clinic_reception.jpg');
+  const exteriorImg = formatImgSrc(content?.aboutStoryExteriorImage, '/assets/images/clinic_exterior.jpg');
 
   return (
     <article className="about-story-card about-anim-item" ref={cardRef}>
       <div className="about-story-col">
         <h2 className="about-card-title">{content?.aboutStoryHeading || 'Our Story'}</h2>
         <div className="about-story-text" id="aboutStoryBriefText">
-          <p>
-            {p1Words.map((word, i) => {
-              const currentIdx = wordCounter++;
-              return (
-                <React.Fragment key={i}>
-                  <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
-                    {word}
-                  </span>{' '}
-                </React.Fragment>
-              );
-            })}
-          </p>
-          <p>
-            {p2Words.map((word, i) => {
-              const currentIdx = wordCounter++;
-              return (
-                <React.Fragment key={i}>
-                  <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
-                    {word}
-                  </span>{' '}
-                </React.Fragment>
-              );
-            })}
-          </p>
-          <p>
-            {p3Words.map((word, i) => {
-              const currentIdx = wordCounter++;
-              return (
-                <React.Fragment key={i}>
-                  <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
-                    {word}
-                  </span>{' '}
-                </React.Fragment>
-              );
-            })}
-          </p>
+          {paragraphWords.map((words, pIdx) => (
+            <p key={pIdx}>
+              {words.map((word, wIdx) => {
+                const currentIdx = wordCounter++;
+                return (
+                  <React.Fragment key={wIdx}>
+                    <span className={`reveal-word ${currentIdx <= activeWordIndex ? 'active' : ''}`}>
+                      {word}
+                    </span>{' '}
+                  </React.Fragment>
+                );
+              })}
+            </p>
+          ))}
         </div>
       </div>
 
