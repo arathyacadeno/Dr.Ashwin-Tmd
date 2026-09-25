@@ -53,12 +53,66 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [mobileMenuOpen]);
 
-  // Close mobile drawer on route change
+  // Sync body class with current route for page-specific CSS selectors
   useEffect(() => {
-    setMobileMenuOpen(false);
+    if (typeof document === 'undefined') return;
+    document.body.classList.remove(
+      'is-about-page',
+      'is-what-is-tmd-page',
+      'is-treatments-page',
+      'is-contact-page',
+      'home'
+    );
+    if (pathname === '/') {
+      document.body.classList.add('home');
+    } else if (pathname === '/about') {
+      document.body.classList.add('is-about-page');
+    } else if (pathname === '/what-is-tmd') {
+      document.body.classList.add('is-what-is-tmd-page');
+    } else if (pathname === '/treatments' || pathname === '/services') {
+      document.body.classList.add('is-treatments-page');
+    } else if (pathname === '/contact' || pathname === '/book-appointment') {
+      document.body.classList.add('is-contact-page');
+    }
+  }, [pathname]);
+
+  const [activeSection, setActiveSection] = useState('');
+
+  // Track active section on homepage scroll
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+
+    const sectionIds = ['about', 'treatments', 'contact'];
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 250;
+      let current = '';
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            current = id;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [pathname]);
 
   const isSubPage = pathname !== '/';
+
+  const isAboutActive = pathname === '/about' || (pathname === '/' && activeSection === 'about');
+  const isTmdActive = pathname === '/what-is-tmd' || (pathname === '/' && activeSection === 'what-is-tmd');
+  const isTreatmentsActive = pathname === '/treatments' || pathname === '/services' || (pathname === '/' && activeSection === 'treatments');
+  const isContactActive = pathname === '/contact' || pathname === '/book-appointment' || (pathname === '/' && activeSection === 'contact');
 
   return (
     <header
@@ -105,25 +159,29 @@ export default function Navbar() {
         >
           <Link
             href="/about"
-            className={`nav-link-item ${pathname === '/about' ? 'active' : ''}`}
+            className={`nav-link-item ${isAboutActive ? 'active' : ''}`}
+            style={isAboutActive ? { color: '#EDAA12', fontWeight: '700' } : {}}
           >
             About Us
           </Link>
           <Link
             href="/what-is-tmd"
-            className={`nav-link-item ${pathname === '/what-is-tmd' ? 'active' : ''}`}
+            className={`nav-link-item ${isTmdActive ? 'active' : ''}`}
+            style={isTmdActive ? { color: '#EDAA12', fontWeight: '700' } : {}}
           >
             What is TMD
           </Link>
           <Link
             href="/treatments"
-            className={`nav-link-item ${pathname === '/treatments' || pathname === '/services' ? 'active' : ''}`}
+            className={`nav-link-item ${isTreatmentsActive ? 'active' : ''}`}
+            style={isTreatmentsActive ? { color: '#EDAA12', fontWeight: '700' } : {}}
           >
             Treatments
           </Link>
           <Link
             href="/contact"
-            className={`nav-link-item ${pathname === '/contact' ? 'active' : ''}`}
+            className={`nav-link-item ${isContactActive ? 'active' : ''}`}
+            style={isContactActive ? { color: '#EDAA12', fontWeight: '700' } : {}}
           >
             Contact Us
           </Link>

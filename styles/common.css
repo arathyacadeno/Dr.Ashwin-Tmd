@@ -20,8 +20,6 @@ Text Domain: dr-ashwin-theme
    Dr. Ashwin's TMD Clinic - Exact Figma UI Design System
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
 :root {
   /* User Requested Design Tokens & Base Variables */
   --primary-gold: #EDAA12;
@@ -233,7 +231,7 @@ button, input, textarea, select {
 }
 
 .nav-link-item {
-  color: var(--text-white);
+  color: #222222;
   font-size: 1.05rem;
   font-weight: 600;
   transition: var(--transition-fast);
@@ -241,13 +239,19 @@ button, input, textarea, select {
   padding: 0.25rem 0;
 }
 
-.nav-link-item:hover {
-  color: #000000;
+.site-header .nav-link-item.active,
+.site-header:not(.scrolled) .nav-link-item.active,
+.site-header.scrolled .nav-link-item.active,
+.nav-link-item.active {
+  color: #EDAA12 !important;
+  font-weight: 700 !important;
 }
 
-.nav-link-item[href*="about"]:hover,
-.nav-link-item[href*="what-is-tmd"]:hover {
-  color: #FCBC15;
+.site-header .nav-link-item:hover,
+.site-header:not(.scrolled) .nav-link-item:hover,
+.site-header.scrolled .nav-link-item:hover,
+.nav-link-item:hover {
+  color: #EDAA12 !important;
 }
 
 .nav-btn-gold {

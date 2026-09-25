@@ -53,8 +53,8 @@ export default function AboutHero() {
     <section className="about-hero-section" id="aboutHeroSection" ref={heroRef}>
       <div className="about-hero-sticky" id="aboutHeroSticky">
         <h1 className="about-hero-title scaling-title" id="aboutScalingTitle">
-          <span className="hero-line hero-line-1">{line1}</span>
-          {line2 ? <span className="hero-line hero-line-2">{line2}</span> : null}
+          <span className="hero-line hero-line-1" style={{ display: 'block' }}>{line1}</span>{' '}
+          {line2 ? <span className="hero-line hero-line-2" style={{ display: 'block' }}>{line2}</span> : null}
         </h1>
         <p className="about-hero-sub" id="aboutScalingSub">
           {subtitle}

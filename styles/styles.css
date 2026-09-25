@@ -4,8 +4,6 @@
    Dr. Ashwin's TMD Clinic - Kozhikode
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
-
 :root {
   --primary-gold: #EDAA12;
   --primary-gold-hover: #D6970A;
@@ -1979,6 +1977,7 @@ body:not(.home) .site-header:not(.scrolled) .brand-sub-white {
   color: #1A1A1A;
 }
 
+.site-header .nav-link-item,
 body.is-about-page .site-header:not(.scrolled) .nav-link-item,
 body.is-contact-page .site-header:not(.scrolled) .nav-link-item,
 body.is-treatments-page .site-header:not(.scrolled) .nav-link-item,
@@ -1986,18 +1985,27 @@ body.is-what-is-tmd-page .site-header:not(.scrolled) .nav-link-item {
   color: #222222;
 }
 
+.site-header .nav-link-item.active,
+.site-header:not(.scrolled) .nav-link-item.active,
+.site-header.scrolled .nav-link-item.active,
+.nav-link-item.active,
 body.is-about-page .site-header:not(.scrolled) .nav-link-item.active,
 body.is-contact-page .site-header:not(.scrolled) .nav-link-item.active,
 body.is-treatments-page .site-header:not(.scrolled) .nav-link-item.active,
 body.is-what-is-tmd-page .site-header:not(.scrolled) .nav-link-item.active {
-  color: #EDAA12;
+  color: #EDAA12 !important;
+  font-weight: 700 !important;
 }
 
+.site-header .nav-link-item:hover,
+.site-header:not(.scrolled) .nav-link-item:hover,
+.site-header.scrolled .nav-link-item:hover,
+.nav-link-item:hover,
 body.is-about-page .site-header:not(.scrolled) .nav-link-item:hover,
 body.is-contact-page .site-header:not(.scrolled) .nav-link-item:hover,
 body.is-treatments-page .site-header:not(.scrolled) .nav-link-item:hover,
 body.is-what-is-tmd-page .site-header:not(.scrolled) .nav-link-item:hover {
-  color: #EDAA12;
+  color: #EDAA12 !important;
 }
 
 body.is-about-page .site-header:not(.scrolled) .mobile-nav-toggle,
