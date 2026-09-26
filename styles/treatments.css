@@ -844,13 +844,38 @@ body.is-treatments-page {
 
 .journey-badge-dot {
   position: absolute;
-  top: -1px;
-  right: 4px;
+  top: 50%;
+  left: 50%;
   width: 7.5px;
   height: 7.5px;
   border-radius: 50%;
   background-color: #E5A93C;
-  box-shadow: 0 0 0 2px #F6F5F1;
+  box-shadow: 0 0 0 2px #F6F5F1, 0 0 8px rgba(229, 169, 60, 0.5);
+  pointer-events: none;
+  z-index: 4;
+  animation: orbitJourneyDot 6s linear infinite;
+  will-change: transform;
+}
+
+.journey-step-col:hover .journey-badge-dot {
+  box-shadow: 0 0 0 2px #F6F5F1, 0 0 12px rgba(229, 169, 60, 0.9);
+  background-color: #EEA025;
+}
+
+@keyframes orbitJourneyDot {
+  0% {
+    transform: translate(-50%, -50%) rotate(45deg) translateY(-26px);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(405deg) translateY(-26px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-badge-dot {
+    animation: none;
+    transform: translate(-50%, -50%) rotate(45deg) translateY(-26px);
+  }
 }
 
 /* Connecting lines bridging between columns (Removed for borderless seamless view) */
