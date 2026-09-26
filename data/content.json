@@ -320,33 +320,101 @@
       "a": "While general dentists handle routine dental needs, TMD is a complex neuromuscular and orthopedic condition requiring specialized craniofacial training and diagnostic equipment."
     }
   ],
-  "treatmentsHeroTitle": "Treatment, thought through",
-  "treatmentsHeroSub": "Gentle, reversible, and explained before it begins. Dr. Ashwin's evidence-based treatments.",
+  "treatmentsHeroTitle": "Gentle, reversible, and explained before it begins",
+  "treatmentsHeroSub": "We start with the simplest approach that will work, and we only move further if we need to.",
+  "treatmentsShowcaseCards": [
+    {
+      "title": "Custom appliances",
+      "desc": "A comfortable, made-to-measure appliance that takes pressure off the joint, relaxes the muscles and protects your teeth from grinding. Completely reversible, and adjusted as you improve.",
+      "img": "/assets/images/with petient.png"
+    },
+    {
+      "title": "Bite correction",
+      "desc": "Where the way your teeth meet is part of the problem, we correct it gradually and check that the joint is comfortable at each stage.",
+      "img": "/assets/images/tscan_analysis.jpg"
+    },
+    {
+      "title": "Airway-focused care",
+      "desc": "Where breathing or tongue position plays a role, we address that alongside the jaw — often the piece that makes the difference to sleep quality.",
+      "img": "/assets/images/cbct_scanner.jpg"
+    },
+    {
+      "title": "Muscle care and pain relief",
+      "desc": "Targeted treatment for tight, tender muscles, plus simple things you can do at home between visits.",
+      "img": "/assets/images/emg_assessment.jpg"
+    },
+    {
+      "title": "Exercise and posture work",
+      "desc": "A short daily routine for the jaw and neck, coordinated with physiotherapy where that is useful.",
+      "img": "/assets/images/jaw_movement_sensor.jpg"
+    },
+    {
+      "title": "Habit support",
+      "desc": "Practical ways to catch and interrupt clenching before it becomes pain again.",
+      "img": "/assets/images/care_look_carefully.jpg"
+    },
+    {
+      "title": "Working with your other doctors",
+      "desc": "We coordinate with ENT specialists, physicians, physiotherapists and sleep specialists whenever a case calls for it.",
+      "img": "/assets/images/clinic_reception.jpg"
+    }
+  ],
   "treatmentsSteps": [
     {
       "stepNum": "01",
       "title": "Listen and map",
-      "desc": "A thorough consultation mapping your symptoms, clenching habits, headaches, and timeline."
+      "desc": "A thorough consultation mapping your symptoms, clenching habits, headaches, and timeline.",
+      "img": "/assets/images/care_listen_first.jpg"
     },
     {
       "stepNum": "02",
       "title": "Examine and measure",
-      "desc": "Physical evaluation of jaw range of motion, muscle trigger points, joint sounds, and bite alignment."
+      "desc": "Physical evaluation of jaw range of motion, muscle trigger points, joint sounds, and bite alignment.",
+      "img": "/assets/images/care_look_carefully.jpg"
     },
     {
       "stepNum": "03",
       "title": "Image with purpose",
-      "desc": "Targeted CBCT 3D scan and digital impressions to visualize bony structures and joint spaces."
+      "desc": "Targeted CBCT 3D scan and digital impressions to visualize bony structures and joint spaces.",
+      "img": "/assets/images/process_step_03_imaging.jpg"
     },
     {
       "stepNum": "04",
       "title": "Airway and sleep",
-      "desc": "Evaluating airway patency and nocturnal breathing to ensure holistic recovery."
+      "desc": "Evaluating airway patency and nocturnal breathing to ensure holistic recovery.",
+      "img": "/assets/images/process_step_04_sleep.jpg"
     },
     {
       "stepNum": "05",
       "title": "Plan and review",
-      "desc": "A personalized non-invasive treatment roadmap with continual milestone tracking."
+      "desc": "A personalized non-invasive treatment roadmap with continual milestone tracking.",
+      "img": "/assets/images/process_step_05_together.jpg"
+    }
+  ],
+  "treatmentsJourneySteps": [
+    {
+      "stepNum": "01",
+      "meta": "STEP 01",
+      "title": "Your first visit",
+      "desc": "Conversation, examination, and imaging if needed."
+    },
+    {
+      "stepNum": "02",
+      "meta": "STEP 02",
+      "title": "Your second visit",
+      "desc": "We show you what we found, explain the options with timelines and costs, and answer everything before you decide anything."
+    },
+    {
+      "stepNum": "03",
+      "meta": "STEP 03",
+      "title": "Treatment",
+      "desc": "Upper airway resistance, mouth breathing, or sleep-disordered breathing.The appliance is fitted or treatment begins, with regular reviews to make sure it is going the way it should."
+    },
+    {
+      "stepNum": "04",
+      "meta": "STEP 04",
+      "title": "Keeping it that way",
+      "desc": "Once you are comfortable, reviews confirm it is holding, along with simple guidance to keep it there."
     }
   ],
   "treatmentsJourneyStages": [

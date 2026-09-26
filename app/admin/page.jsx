@@ -234,7 +234,7 @@ export default function AdminDashboardPage() {
               {activeTab === 'home' && 'Homepage Management'}
               {activeTab === 'about' && 'About Us Management'}
               {activeTab === 'tmd' && 'What is TMD page Management'}
-              {activeTab === 'treatments' && 'Treatments Management'}
+              {activeTab === 'treatments' && 'Treatments page Management'}
               {activeTab === 'contact' && 'Contact Us Management'}
               {activeTab === 'navbar' && 'Navigation Bar Management'}
               {activeTab === 'footer' && 'Footer Management'}
@@ -243,7 +243,7 @@ export default function AdminDashboardPage() {
               {activeTab === 'home' && 'Manage the main Home page content displayed on the homepage'}
               {activeTab === 'about' && "Manage the clinic narrative, hero section, philosophy, core ethos, and Dr. Ashwin's profile and credentials displayed on the live Our Story page."}
               {activeTab === 'tmd' && 'Manage educational TMD explanations, symptoms, and causes'}
-              {activeTab === 'treatments' && 'Manage treatment process steps and therapeutic stages'}
+              {activeTab === 'treatments' && 'Manage the main Home page content displayed on the Home age'}
               {activeTab === 'contact' && 'Manage clinic consultation details, working hours, and location'}
               {activeTab === 'navbar' && 'Manage brand titles, logo, and header consultation CTA'}
               {activeTab === 'footer' && 'Manage footer bio, contact details, social links, and copyright'}
@@ -1993,56 +1993,260 @@ export default function AdminDashboardPage() {
             ================================================================== */}
         {activeTab === 'treatments' && (
           <div>
+            {/* ================================================================
+                Section 01: Hero Section Heading
+                ================================================================ */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Treatments Hero Section</h2>
+              <h2 className="admin-section-heading">01. Hero Section Heading</h2>
+
               <div className="admin-grid-full">
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Hero Title</label>
+                  <label className="admin-field-label">Main Hero Heading (H1)</label>
                   <input
                     type="text"
                     className="admin-pill-input"
-                    value={cmsData.treatmentsHeroTitle || ''}
+                    value={
+                      cmsData.treatmentsHeroTitle !== undefined
+                        ? cmsData.treatmentsHeroTitle
+                        : 'Gentle, reversible, and explained before it begins'
+                    }
                     onChange={(e) => handleInputChange('treatmentsHeroTitle', e.target.value)}
+                    placeholder="Gentle, reversible, and explained before it begins"
                   />
                 </div>
               </div>
+
               <div className="admin-grid-full">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Hero Subtitle</label>
                   <textarea
                     rows={2}
                     className="admin-pill-input admin-pill-textarea"
-                    value={cmsData.treatmentsHeroSub || ''}
+                    style={{ minHeight: '65px', borderRadius: '16px' }}
+                    value={
+                      cmsData.treatmentsHeroSub !== undefined
+                        ? cmsData.treatmentsHeroSub
+                        : 'We start with the simplest approach that will work, and we only move further if we need to.'
+                    }
                     onChange={(e) => handleInputChange('treatmentsHeroSub', e.target.value)}
+                    placeholder="We start with the simplest approach that will work, and we only move further if we need to."
                   />
                 </div>
               </div>
             </section>
 
+            {/* ================================================================
+                Section 02: Treatment Cards
+                ================================================================ */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Diagnostic Stepper (5 Steps)</h2>
-              {(cmsData.treatmentsSteps || []).map((step, idx) => (
-                <div key={idx} className="admin-grid-2col" style={{ marginBottom: '1.2rem' }}>
-                  <div className="admin-field-group">
-                    <label className="admin-field-label">Step {step.stepNum || idx + 1} Title</label>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                <h2 className="admin-section-heading" style={{ margin: 0 }}>02. Treatment Cards</h2>
+                <button
+                  type="button"
+                  className="admin-add-faq-btn"
+                  onClick={() =>
+                    handleArrayItemAdd('treatmentsShowcaseCards', {
+                      title: `New Treatment Card`,
+                      desc: `Treatment description here.`,
+                      img: '/assets/images/with petient.png',
+                    })
+                  }
+                >
+                  <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>+</span>
+                  <span>Add Card</span>
+                </button>
+              </div>
+
+              <div className="admin-grid-2col">
+                {(cmsData.treatmentsShowcaseCards || defaultCmsData.treatmentsShowcaseCards || []).map((card, idx) => (
+                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginBottom: '0.85rem' }}>
+                    <div className="admin-field-group">
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <label className="admin-field-label">Cards {idx + 1}</label>
+                        {idx >= 6 && (
+                          <button
+                            type="button"
+                            className="admin-action-icon-btn"
+                            title="Delete card"
+                            style={{ padding: 0 }}
+                            onClick={() => handleArrayItemRemove('treatmentsShowcaseCards', idx)}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polyline points="3 6 5 6 21 6"></polyline>
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                      <div className="admin-input-upload-pill">
+                        <input
+                          type="text"
+                          value={card.title || ''}
+                          onChange={(e) => handleCardChange('treatmentsShowcaseCards', idx, 'title', e.target.value)}
+                          placeholder={`Card ${idx + 1} Title`}
+                        />
+                        <label className="admin-upload-icon-trigger" title={card.img ? `File: ${card.img}` : 'Upload card image'}>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                            <line x1="19" y1="16" x2="19" y2="22" />
+                            <line x1="16" y1="19" x2="22" y2="19" />
+                          </svg>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentsShowcaseCards', idx, 'img', name))}
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="admin-field-group">
+                      <label className="admin-field-label">Cards {idx + 1} Description</label>
+                      <textarea
+                        rows={4}
+                        className="admin-pill-input admin-pill-textarea"
+                        style={{ minHeight: '110px', borderRadius: '16px' }}
+                        value={card.desc || ''}
+                        onChange={(e) => handleCardChange('treatmentsShowcaseCards', idx, 'desc', e.target.value)}
+                        placeholder={`Card ${idx + 1} description...`}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* ================================================================
+                Section 03: What Treatment Can Involve Cards
+                ================================================================ */}
+            <section className="admin-section-block">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                <h2 className="admin-section-heading" style={{ margin: 0 }}>03. What Treatment Can Involve Cards</h2>
+                <button
+                  type="button"
+                  className="admin-add-faq-btn"
+                  onClick={() =>
+                    handleArrayItemAdd('treatmentsSteps', {
+                      stepNum: `0${(cmsData.treatmentsSteps || defaultCmsData.treatmentsSteps || []).length + 1}`,
+                      title: `New Step`,
+                      desc: `Step description here.`,
+                      img: '/assets/images/care_listen_first.jpg',
+                    })
+                  }
+                >
+                  <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>+</span>
+                  <span>Add Card</span>
+                </button>
+              </div>
+
+              <div className="admin-grid-2col">
+                {(cmsData.treatmentsSteps || defaultCmsData.treatmentsSteps || []).map((step, idx) => (
+                  <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem', marginBottom: '0.85rem' }}>
+                    <div className="admin-field-group">
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <label className="admin-field-label">Cards {idx + 1}</label>
+                        {idx >= 5 && (
+                          <button
+                            type="button"
+                            className="admin-action-icon-btn"
+                            title="Delete step"
+                            style={{ padding: 0 }}
+                            onClick={() => handleArrayItemRemove('treatmentsSteps', idx)}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polyline points="3 6 5 6 21 6"></polyline>
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                      <div className="admin-input-upload-pill">
+                        <input
+                          type="text"
+                          value={step.title || ''}
+                          onChange={(e) => handleCardChange('treatmentsSteps', idx, 'title', e.target.value)}
+                          placeholder={`Card ${idx + 1} Title`}
+                        />
+                        <label className="admin-upload-icon-trigger" title={step.img ? `File: ${step.img}` : 'Upload step image'}>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                            <line x1="19" y1="16" x2="19" y2="22" />
+                            <line x1="16" y1="19" x2="22" y2="19" />
+                          </svg>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleFileUpload(e, (name) => handleCardChange('treatmentsSteps', idx, 'img', name))}
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="admin-field-group">
+                      <label className="admin-field-label">Cards {idx + 1} Description</label>
+                      <textarea
+                        rows={4}
+                        className="admin-pill-input admin-pill-textarea"
+                        style={{ minHeight: '110px', borderRadius: '16px' }}
+                        value={step.desc || ''}
+                        onChange={(e) => handleCardChange('treatmentsSteps', idx, 'desc', e.target.value)}
+                        placeholder={`Card ${idx + 1} description...`}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* ================================================================
+                Section 04: Clear steps. No surprises. Section
+                ================================================================ */}
+            <section className="admin-section-block">
+              <h2 className="admin-section-heading">04 Clear steps. No surprises. Section</h2>
+
+              <div className="admin-grid-2col">
+                {(cmsData.treatmentsJourneySteps || defaultCmsData.treatmentsJourneySteps || []).map((step, idx) => (
+                  <div key={idx} className="admin-field-group" style={{ marginBottom: '1.25rem' }}>
+                    <span
+                      style={{
+                        fontSize: '0.78rem',
+                        fontWeight: '700',
+                        color: '#64748B',
+                        letterSpacing: '0.04em',
+                        textTransform: 'uppercase',
+                        marginBottom: '0.2rem',
+                      }}
+                    >
+                      STEP 0{idx + 1}
+                    </span>
                     <input
                       type="text"
                       className="admin-pill-input"
+                      style={{ marginBottom: '0.55rem' }}
                       value={step.title || ''}
-                      onChange={(e) => handleCardChange('treatmentsSteps', idx, 'title', e.target.value)}
+                      onChange={(e) => handleCardChange('treatmentsJourneySteps', idx, 'title', e.target.value)}
+                      placeholder={`Step ${idx + 1} title`}
                     />
-                  </div>
-                  <div className="admin-field-group">
-                    <label className="admin-field-label">Step Description</label>
                     <textarea
                       rows={2}
                       className="admin-pill-input admin-pill-textarea"
+                      style={{
+                        minHeight: '62px',
+                        borderRadius: '14px',
+                        fontSize: '0.88rem',
+                        lineHeight: '1.5',
+                      }}
                       value={step.desc || ''}
-                      onChange={(e) => handleCardChange('treatmentsSteps', idx, 'desc', e.target.value)}
+                      onChange={(e) => handleCardChange('treatmentsJourneySteps', idx, 'desc', e.target.value)}
+                      placeholder={`Step ${idx + 1} description`}
                     />
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </section>
           </div>
         )}

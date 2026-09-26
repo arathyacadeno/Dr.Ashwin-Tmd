@@ -1,6 +1,9 @@
-import React from 'react';
+'use client';
 
-const steps = [
+import React from 'react';
+import { useCms } from '@/context/CmsContext';
+
+const defaultSteps = [
   {
     num: '01',
     meta: 'START HERE',
@@ -21,7 +24,7 @@ const steps = [
     num: '03',
     meta: 'NEXT STEP',
     title: 'Treatment',
-    desc: 'The appliance is fitted or treatment begins, with regular reviews to make sure it is going the way it should.',
+    desc: 'Upper airway resistance, mouth breathing, or sleep-disordered breathing. The appliance is fitted or treatment begins, with regular reviews to make sure it is going the way it should.',
     subtext: null,
     isLast: false,
   },
@@ -36,6 +39,19 @@ const steps = [
 ];
 
 export default function TreatmentJourney() {
+  const { content } = useCms();
+
+  const steps = (content?.treatmentsJourneySteps && content.treatmentsJourneySteps.length > 0)
+    ? content.treatmentsJourneySteps.map((step, idx, arr) => ({
+        num: String(idx + 1).padStart(2, '0'),
+        meta: step.meta || (idx === 0 ? 'START HERE' : idx === arr.length - 1 ? 'ONGOING' : 'NEXT STEP'),
+        title: step.title || defaultSteps[idx]?.title || `Step ${idx + 1}`,
+        desc: step.desc || defaultSteps[idx]?.desc || '',
+        subtext: step.subtext || defaultSteps[idx]?.subtext || null,
+        isLast: idx === arr.length - 1,
+      }))
+    : defaultSteps;
+
   return (
     <section className="treatment-journey-section" id="treatment-journey">
       <div className="container">

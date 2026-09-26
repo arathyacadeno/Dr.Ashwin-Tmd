@@ -59,6 +59,7 @@ export default function TreatmentProcess() {
         title: cmsStep?.title || s.title,
         label: cmsStep?.title || s.label,
         desc: cmsStep?.desc || s.desc,
+        img: cmsStep?.img || s.img,
       };
     });
   }, [content?.treatmentsSteps]);

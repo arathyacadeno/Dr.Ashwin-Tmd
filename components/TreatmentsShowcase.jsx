@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useCms } from '@/context/CmsContext';
 
-const slides = [
+const defaultSlides = [
   {
     num: '01',
     title: 'Custom appliances',
@@ -50,6 +51,7 @@ const slides = [
 ];
 
 export default function TreatmentsShowcase() {
+  const { content } = useCms();
   const showcaseRef = useRef(null);
   const deckRef = useRef(null);
   const infoColRef = useRef(null);
@@ -58,6 +60,21 @@ export default function TreatmentsShowcase() {
   const heroSubRef = useRef(null);
   const scrollHintRef = useRef(null);
   const currNumRef = useRef(null);
+
+  const heroHeading = content?.treatmentsHeroTitle || 'Gentle, reversible, and explained before it begins';
+  const heroSubtitle = content?.treatmentsHeroSub || 'We start with the simplest approach that will work, and we only move further if we need to.';
+
+  const slides = useMemo(() => {
+    if (content?.treatmentsShowcaseCards && content.treatmentsShowcaseCards.length > 0) {
+      return content.treatmentsShowcaseCards.map((c, idx) => ({
+        num: String(idx + 1).padStart(2, '0'),
+        title: c.title || defaultSlides[idx]?.title || `Treatment ${idx + 1}`,
+        desc: c.desc || defaultSlides[idx]?.desc || '',
+        img: c.img || defaultSlides[idx]?.img || '/assets/images/with petient.png',
+      }));
+    }
+    return defaultSlides;
+  }, [content?.treatmentsShowcaseCards]);
   const dotsRef = useRef([]);
   const titlesRef = useRef([]);
   const descsRef = useRef([]);
@@ -343,11 +360,17 @@ export default function TreatmentsShowcase() {
       {/* HERO TITLE & SUBTITLE */}
       <div className="treatments-hero-intro" id="treatmentsHeroIntro" ref={heroIntroRef}>
         <h1 className="treatments-hero-title scaling-title" id="treatmentsScalingTitle" ref={heroTitleRef}>
-          <span className="hero-line hero-line-1">Gentle, reversible,</span>
-          <span className="hero-line hero-line-2">and explained before it begins</span>
+          {heroHeading.includes(',') ? (
+            <>
+              <span className="hero-line hero-line-1">{heroHeading.split(',')[0]},</span>
+              <span className="hero-line hero-line-2">{heroHeading.split(',').slice(1).join(',').trim()}</span>
+            </>
+          ) : (
+            <span className="hero-line hero-line-1">{heroHeading}</span>
+          )}
         </h1>
         <p className="treatments-hero-sub" id="treatmentsHeroSub" ref={heroSubRef}>
-          We start with the simplest approach that will work, and we only move further if we need to.
+          {heroSubtitle}
         </p>
         <div className="treatments-hero-scroll-hint" id="treatmentsHeroScrollHint" ref={scrollHintRef}>
           <span>Scroll down</span>
@@ -407,7 +430,7 @@ export default function TreatmentsShowcase() {
                   <span className="curr-num" id="showcaseCurrNum" ref={currNumRef}>
                     01
                   </span>
-                  <span className="total-num">/07</span>
+                  <span className="total-num">/{String(slides.length).padStart(2, '0')}</span>
                 </div>
 
                 {/* Dynamic Titles */}
