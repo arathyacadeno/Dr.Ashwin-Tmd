@@ -307,6 +307,11 @@
   box-shadow: 0 0 0 3px rgba(238, 157, 26, 0.2);
 }
 
+select.admin-pill-input {
+  cursor: pointer;
+  appearance: auto;
+}
+
 .admin-pill-textarea {
   border-radius: 16px !important;
   min-height: 120px;

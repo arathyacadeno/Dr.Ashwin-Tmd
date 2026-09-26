@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { upload } from '@vercel/blob/client';
 import { useCms, defaultCmsData } from '@/context/CmsContext';
+import { getGoogleMapsEmbedUrl } from '@/components/AppointmentForm';
 import '@/styles/admin.css';
 
 export default function AdminDashboardPage() {
@@ -2248,6 +2249,89 @@ export default function AdminDashboardPage() {
                 ))}
               </div>
             </section>
+
+            {/* ================================================================
+                Section 05: Footer "Treatments" Navigation Column
+                ================================================================ */}
+            <section className="admin-section-block">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                <div>
+                  <h2 className="admin-section-heading" style={{ margin: 0 }}>05. Footer &quot;Treatments&quot; Navigation Column</h2>
+                  <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#8E95A0' }}>
+                    Edit the treatment items listed in the website footer. All items automatically link to the Treatments page.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="admin-add-faq-btn"
+                  onClick={() =>
+                    handleArrayItemAdd('footerTreatmentsLinks', {
+                      label: 'New Treatment Service',
+                      url: '/treatments',
+                    })
+                  }
+                >
+                  <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>+</span>
+                  <span>Add Treatment Item</span>
+                </button>
+              </div>
+
+              <div className="admin-grid-full" style={{ marginBottom: '1.25rem' }}>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Column Title (Gold Header)</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.footerTreatmentsTitle || ''}
+                    onChange={(e) => handleInputChange('footerTreatmentsTitle', e.target.value)}
+                    placeholder="Treatments"
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                {(cmsData.footerTreatmentsLinks || defaultCmsData.footerTreatmentsLinks || []).map((link, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      background: '#18191B',
+                      border: '1px solid #2C2F36',
+                      borderRadius: '14px',
+                      padding: '0.75rem 1rem',
+                    }}
+                  >
+                    <div style={{ flex: 1 }}>
+                      <span style={{ display: 'block', fontSize: '0.75rem', color: '#8E95A0', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                        Treatment Item #{idx + 1}
+                      </span>
+                      <input
+                        type="text"
+                        className="admin-pill-input"
+                        value={link.label || ''}
+                        onChange={(e) => handleCardChange('footerTreatmentsLinks', idx, 'label', e.target.value)}
+                        placeholder="e.g. Neuromuscular dentistry"
+                      />
+                    </div>
+                    <div style={{ paddingTop: '18px' }}>
+                      <button
+                        type="button"
+                        className="admin-action-icon-btn"
+                        title="Remove treatment"
+                        onClick={() => handleArrayItemRemove('footerTreatmentsLinks', idx)}
+                      >
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
         )}
 
@@ -2256,8 +2340,9 @@ export default function AdminDashboardPage() {
             ================================================================== */}
         {activeTab === 'contact' && (
           <div>
+            {/* 01. Contact Hero Section */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Contact Hero &amp; Subtitle</h2>
+              <h2 className="admin-section-heading">01. Contact Hero Section</h2>
               <div className="admin-grid-full">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Hero Title</label>
@@ -2266,6 +2351,7 @@ export default function AdminDashboardPage() {
                     className="admin-pill-input"
                     value={cmsData.contactHeroTitle || ''}
                     onChange={(e) => handleInputChange('contactHeroTitle', e.target.value)}
+                    placeholder="Book your consultation"
                   />
                 </div>
               </div>
@@ -2275,15 +2361,206 @@ export default function AdminDashboardPage() {
                   <textarea
                     rows={2}
                     className="admin-pill-input admin-pill-textarea"
+                    style={{ minHeight: '65px' }}
                     value={cmsData.contactHeroSub || ''}
                     onChange={(e) => handleInputChange('contactHeroSub', e.target.value)}
+                    placeholder="Bring any scans, reports or records you have gathered — they always help."
                   />
                 </div>
               </div>
             </section>
 
+            {/* 02. Appointment Request Form & Image (Consultation Booking Card) */}
             <section className="admin-section-block">
-              <h2 className="admin-section-heading">Contact Details &amp; Clinic Channels</h2>
+              <h2 className="admin-section-heading">02. Appointment Request Form &amp; Image</h2>
+
+              {/* Consultation Card Image Upload */}
+              <div className="admin-grid-full">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Consultation Card Image</label>
+                  <div className="admin-input-upload-pill">
+                    <input
+                      type="text"
+                      value={cmsData.contactFormImage || ''}
+                      placeholder="/assets/images/contact_consultation_doctor.jpg"
+                      onChange={(e) => handleInputChange('contactFormImage', e.target.value)}
+                    />
+                    <label className="admin-upload-icon-trigger" title="Upload consultation image">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                        <line x1="19" y1="16" x2="19" y2="22" />
+                        <line x1="16" y1="19" x2="22" y2="19" />
+                      </svg>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFileUpload(e, (name) => handleInputChange('contactFormImage', name))}
+                      />
+                    </label>
+                  </div>
+                  {cmsData.contactFormImage && (
+                    <div style={{ marginTop: '0.65rem', display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                      <img
+                        src={cmsData.contactFormImage}
+                        alt="Consultation Card Preview"
+                        style={{
+                          width: '90px',
+                          height: '65px',
+                          objectFit: 'cover',
+                          borderRadius: '8px',
+                          border: '1.5px solid #CBD0D6',
+                          boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
+                        }}
+                      />
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                        <span style={{ fontSize: '0.84rem', fontWeight: '600', color: '#1E2229' }}>Card Image Preview</span>
+                        <span style={{ fontSize: '0.78rem', color: '#64748B' }}>{cmsData.contactFormImage}</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Form Heading & Submit Button */}
+              <div className="admin-grid-2col" style={{ marginTop: '1.2rem' }}>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Form Title Heading</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.contactFormHeading !== undefined ? cmsData.contactFormHeading : 'Request an appointment'}
+                    onChange={(e) => handleInputChange('contactFormHeading', e.target.value)}
+                    placeholder="Request an appointment"
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Submit Button Text</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.contactSubmitBtnText !== undefined ? cmsData.contactSubmitBtnText : 'Submit'}
+                    onChange={(e) => handleInputChange('contactSubmitBtnText', e.target.value)}
+                    placeholder="Submit"
+                  />
+                </div>
+              </div>
+
+              {/* Form Fields: Name & Phone */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Field 1: Name Label &amp; Placeholder</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    style={{ marginBottom: '0.55rem' }}
+                    value={cmsData.contactNameLabel !== undefined ? cmsData.contactNameLabel : 'FULL NAME'}
+                    onChange={(e) => handleInputChange('contactNameLabel', e.target.value)}
+                    placeholder="FULL NAME"
+                  />
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.contactNamePlaceholder !== undefined ? cmsData.contactNamePlaceholder : 'Enter your name'}
+                    onChange={(e) => handleInputChange('contactNamePlaceholder', e.target.value)}
+                    placeholder="Enter your name"
+                  />
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Field 2: Phone Label &amp; Placeholder</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    style={{ marginBottom: '0.55rem' }}
+                    value={cmsData.contactPhoneLabel !== undefined ? cmsData.contactPhoneLabel : 'PHONE NUMBER'}
+                    onChange={(e) => handleInputChange('contactPhoneLabel', e.target.value)}
+                    placeholder="PHONE NUMBER"
+                  />
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.contactPhonePlaceholder !== undefined ? cmsData.contactPhonePlaceholder : '+91 00000 00000'}
+                    onChange={(e) => handleInputChange('contactPhonePlaceholder', e.target.value)}
+                    placeholder="+91 00000 00000"
+                  />
+                </div>
+              </div>
+
+              {/* Form Fields: Primary Symptom & Notes */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Field 3: Primary Symptom Label &amp; Placeholder</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    style={{ marginBottom: '0.55rem' }}
+                    value={cmsData.contactSymptomLabel !== undefined ? cmsData.contactSymptomLabel : 'PRIMARY SYMPTOM'}
+                    onChange={(e) => handleInputChange('contactSymptomLabel', e.target.value)}
+                    placeholder="PRIMARY SYMPTOM"
+                  />
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.contactSymptomPlaceholder !== undefined ? cmsData.contactSymptomPlaceholder : 'Jaw Pain / TMJ'}
+                    onChange={(e) => handleInputChange('contactSymptomPlaceholder', e.target.value)}
+                    placeholder="Jaw Pain / TMJ"
+                  />
+                </div>
+
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Field 4: Notes Label &amp; Placeholder</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    style={{ marginBottom: '0.55rem' }}
+                    value={cmsData.contactNotesLabel !== undefined ? cmsData.contactNotesLabel : 'NOTES'}
+                    onChange={(e) => handleInputChange('contactNotesLabel', e.target.value)}
+                    placeholder="NOTES"
+                  />
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.contactNotesPlaceholder !== undefined ? cmsData.contactNotesPlaceholder : 'Share any specific concerns...'}
+                    onChange={(e) => handleInputChange('contactNotesPlaceholder', e.target.value)}
+                    placeholder="Share any specific concerns..."
+                  />
+                </div>
+              </div>
+
+              {/* Success Screen Customization */}
+              <div className="admin-grid-2col">
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Success Screen Title</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={cmsData.contactSuccessTitle !== undefined ? cmsData.contactSuccessTitle : 'Appointment Request Sent'}
+                    onChange={(e) => handleInputChange('contactSuccessTitle', e.target.value)}
+                    placeholder="Appointment Request Sent"
+                  />
+                </div>
+                <div className="admin-field-group">
+                  <label className="admin-field-label">Success Screen Description</label>
+                  <input
+                    type="text"
+                    className="admin-pill-input"
+                    value={
+                      cmsData.contactSuccessDesc !== undefined
+                        ? cmsData.contactSuccessDesc
+                        : "Thank you! Our care coordinator at Dr. Ashwin's TMD Clinic will call you shortly to confirm your consultation schedule."
+                    }
+                    onChange={(e) => handleInputChange('contactSuccessDesc', e.target.value)}
+                    placeholder="Thank you! Our care coordinator..."
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* 03. Contact Details & Clinic Channels */}
+            <section className="admin-section-block">
+              <h2 className="admin-section-heading">03. Contact Details &amp; Clinic Channels</h2>
               <div className="admin-grid-2col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Clinic Phone Number</label>
@@ -2352,13 +2629,31 @@ export default function AdminDashboardPage() {
 
               <div className="admin-grid-full">
                 <div className="admin-field-group">
-                  <label className="admin-field-label">Google Maps Search Query</label>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginBottom: '0.25rem' }}>
+                    <label className="admin-field-label">Google Maps Location</label>
+                    <span style={{ fontSize: '0.8rem', color: '#64748B' }}>
+                      Enter clinic address or landmark (e.g. <em>Asoka Hospital Bank Road Kozhikode</em>), or paste a Google Maps link or embed code (<code>&lt;iframe src=&quot;...&quot;&gt;</code>).
+                    </span>
+                  </div>
                   <input
                     type="text"
                     className="admin-pill-input"
                     value={cmsData.contactMapQuery || ''}
+                    placeholder="e.g. Asoka Hospital Bank Road Kozhikode Kerala, or paste Google Maps URL"
                     onChange={(e) => handleInputChange('contactMapQuery', e.target.value)}
                   />
+
+                  {/* Live Interactive Map Preview */}
+                  <div style={{ marginTop: '0.85rem', borderRadius: '14px', overflow: 'hidden', border: '1.5px solid #CBD0D6' }}>
+                    <iframe
+                      src={getGoogleMapsEmbedUrl(cmsData.contactMapQuery || 'Asoka Hospital Bank Road Kozhikode Kerala')}
+                      width="100%"
+                      height="260"
+                      style={{ border: 0, display: 'block' }}
+                      loading="lazy"
+                      title="Google Maps Live Preview"
+                    ></iframe>
+                  </div>
                 </div>
               </div>
             </section>
@@ -2490,6 +2785,195 @@ export default function AdminDashboardPage() {
                     value={cmsData.footerAddress || ''}
                     onChange={(e) => handleInputChange('footerAddress', e.target.value)}
                   />
+                </div>
+              </div>
+            </section>
+
+            {/* Footer Navigation Columns Section */}
+            <section className="admin-section-block">
+              <h2 className="admin-section-heading">Footer Navigation Columns</h2>
+
+              {/* Treatments Column */}
+              <div style={{ marginBottom: '2.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: '1.05rem', color: '#FCBC15', fontWeight: '600' }}>
+                      Treatments Column
+                    </h3>
+                    <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#8E95A0' }}>
+                      Edit the treatment items listed in the website footer. All items automatically link to the Treatments page.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="admin-add-faq-btn"
+                    onClick={() =>
+                      handleArrayItemAdd('footerTreatmentsLinks', {
+                        label: 'New Treatment Service',
+                        url: '/treatments',
+                      })
+                    }
+                  >
+                    <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>+</span>
+                    <span>Add Treatment Item</span>
+                  </button>
+                </div>
+
+                <div className="admin-grid-full" style={{ marginBottom: '1rem' }}>
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Column Title (Gold Header)</label>
+                    <input
+                      type="text"
+                      className="admin-pill-input"
+                      value={cmsData.footerTreatmentsTitle || ''}
+                      onChange={(e) => handleInputChange('footerTreatmentsTitle', e.target.value)}
+                      placeholder="Treatments"
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {(cmsData.footerTreatmentsLinks || defaultCmsData.footerTreatmentsLinks || []).map((link, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        background: '#18191B',
+                        border: '1px solid #2C2F36',
+                        borderRadius: '14px',
+                        padding: '0.75rem 1rem',
+                      }}
+                    >
+                      <div style={{ flex: 1 }}>
+                        <span style={{ display: 'block', fontSize: '0.75rem', color: '#8E95A0', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Treatment Item #{idx + 1}
+                        </span>
+                        <input
+                          type="text"
+                          className="admin-pill-input"
+                          value={link.label || ''}
+                          onChange={(e) => handleCardChange('footerTreatmentsLinks', idx, 'label', e.target.value)}
+                          placeholder="e.g. Neuromuscular dentistry"
+                        />
+                      </div>
+                      <div style={{ paddingTop: '18px' }}>
+                        <button
+                          type="button"
+                          className="admin-action-icon-btn"
+                          title="Remove treatment"
+                          onClick={() => handleArrayItemRemove('footerTreatmentsLinks', idx)}
+                        >
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Explore Column */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: '1.05rem', color: '#FCBC15', fontWeight: '600' }}>
+                      Explore Column
+                    </h3>
+                    <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: '#8E95A0' }}>
+                      Edit the title and links shown under the Explore column in the footer.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="admin-add-faq-btn"
+                    onClick={() =>
+                      handleArrayItemAdd('footerExploreLinks', {
+                        label: 'New Page',
+                        url: '/',
+                      })
+                    }
+                  >
+                    <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>+</span>
+                    <span>Add Explore Link</span>
+                  </button>
+                </div>
+
+                <div className="admin-grid-full" style={{ marginBottom: '1rem' }}>
+                  <div className="admin-field-group">
+                    <label className="admin-field-label">Column Title (Gold Header)</label>
+                    <input
+                      type="text"
+                      className="admin-pill-input"
+                      value={cmsData.footerExploreTitle || ''}
+                      onChange={(e) => handleInputChange('footerExploreTitle', e.target.value)}
+                      placeholder="Explore"
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {(cmsData.footerExploreLinks || defaultCmsData.footerExploreLinks || []).map((link, idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr auto',
+                        gap: '0.75rem',
+                        alignItems: 'center',
+                        background: '#18191B',
+                        border: '1px solid #2C2F36',
+                        borderRadius: '14px',
+                        padding: '0.75rem 1rem',
+                      }}
+                    >
+                      <div>
+                        <span style={{ display: 'block', fontSize: '0.75rem', color: '#8E95A0', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Link Label #{idx + 1}
+                        </span>
+                        <input
+                          type="text"
+                          className="admin-pill-input"
+                          value={link.label || ''}
+                          onChange={(e) => handleCardChange('footerExploreLinks', idx, 'label', e.target.value)}
+                          placeholder="e.g. About Us"
+                        />
+                      </div>
+                      <div>
+                        <span style={{ display: 'block', fontSize: '0.75rem', color: '#8E95A0', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          Link To Page
+                        </span>
+                        <select
+                          className="admin-pill-input"
+                          value={link.url || '/'}
+                          onChange={(e) => handleCardChange('footerExploreLinks', idx, 'url', e.target.value)}
+                          style={{ cursor: 'pointer', appearance: 'auto' }}
+                        >
+                          <option value="/">Home Page</option>
+                          <option value="/about">About Us Page</option>
+                          <option value="/what-is-tmd">What is TMD Page</option>
+                          <option value="/treatments">Treatments Page</option>
+                          <option value="/contact">Contact Us Page</option>
+                        </select>
+                      </div>
+                      <div style={{ paddingTop: '18px' }}>
+                        <button
+                          type="button"
+                          className="admin-action-icon-btn"
+                          title="Remove link"
+                          onClick={() => handleArrayItemRemove('footerExploreLinks', idx)}
+                        >
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </section>

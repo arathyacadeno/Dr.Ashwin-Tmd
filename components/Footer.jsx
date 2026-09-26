@@ -69,23 +69,35 @@ export default function Footer() {
 
         {/* Col 2: Explore */}
         <div>
-          <h4 className="footer-col-title-gold">Explore</h4>
+          <h4 className="footer-col-title-gold">{content?.footerExploreTitle || 'Explore'}</h4>
           <div className="footer-links-col">
-            <Link href="/">Home</Link>
-            <Link href="/about">About Us</Link>
-            <Link href="/what-is-tmd">What is TMD</Link>
-            <Link href="/treatments">Treatments</Link>
-            <Link href="/contact">Contact Us</Link>
+            {(content?.footerExploreLinks || [
+              { label: 'Home', url: '/' },
+              { label: 'About Us', url: '/about' },
+              { label: 'What is TMD', url: '/what-is-tmd' },
+              { label: 'Treatments', url: '/treatments' },
+              { label: 'Contact Us', url: '/contact' },
+            ]).map((link, idx) => (
+              <Link key={idx} href={link.url || '#'}>
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 
         {/* Col 3: Treatments */}
         <div>
-          <h4 className="footer-col-title-gold">Treatments</h4>
+          <h4 className="footer-col-title-gold">{content?.footerTreatmentsTitle || 'Treatments'}</h4>
           <div className="footer-links-col">
-            <Link href="/treatments">Neuromuscular dentistry</Link>
-            <Link href="/treatments">TMD diagnosis</Link>
-            <Link href="/treatments">Treatment process</Link>
+            {(content?.footerTreatmentsLinks || [
+              { label: 'Neuromuscular dentistry', url: '/treatments' },
+              { label: 'TMD diagnosis', url: '/treatments' },
+              { label: 'Treatment process', url: '/treatments' },
+            ]).map((link, idx) => (
+              <Link key={idx} href={link.url || '/treatments'}>
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 

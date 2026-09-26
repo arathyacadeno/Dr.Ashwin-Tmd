@@ -452,6 +452,20 @@ const defaultCmsData = {
   // 5. CONTACT US
   contactHeroTitle: 'Book your consultation',
   contactHeroSub: 'Bring any scans, reports or records you have gathered — they always help.',
+  contactFormHeading: 'Request an appointment',
+  contactFormImage: '/assets/images/contact_consultation_doctor.jpg',
+  contactNameLabel: 'FULL NAME',
+  contactNamePlaceholder: 'Enter your name',
+  contactPhoneLabel: 'PHONE NUMBER',
+  contactPhonePlaceholder: '+91 00000 00000',
+  contactSymptomLabel: 'PRIMARY SYMPTOM',
+  contactSymptomPlaceholder: 'Jaw Pain / TMJ',
+  contactNotesLabel: 'NOTES',
+  contactNotesPlaceholder: 'Share any specific concerns...',
+  contactSubmitBtnText: 'Submit',
+  contactSuccessTitle: 'Appointment Request Sent',
+  contactSuccessDesc:
+    "Thank you! Our care coordinator at Dr. Ashwin's TMD Clinic will call you shortly to confirm your consultation schedule.",
   contactPhone: '+91 94970 88200',
   contactWhatsApp: '+91 99479 33999',
   contactEmail: 'info@drashwintmd.com',
@@ -470,6 +484,20 @@ const defaultCmsData = {
   // 7. FOOTER
   footerClinicDesc:
     "Expert care for TMJ/TMD disorders using advanced diagnostics and non-invasive treatments to restore comfort and jaw function. Led by Dr. Ashwin in Kozhikode.",
+  footerTreatmentsTitle: 'Treatments',
+  footerTreatmentsLinks: [
+    { label: 'Neuromuscular dentistry', url: '/treatments' },
+    { label: 'TMD diagnosis', url: '/treatments' },
+    { label: 'Treatment process', url: '/treatments' },
+  ],
+  footerExploreTitle: 'Explore',
+  footerExploreLinks: [
+    { label: 'Home', url: '/' },
+    { label: 'About Us', url: '/about' },
+    { label: 'What is TMD', url: '/what-is-tmd' },
+    { label: 'Treatments', url: '/treatments' },
+    { label: 'Contact Us', url: '/contact' },
+  ],
   footerPhone: '+91 94970 88200',
   footerWhatsApp: '+91 99479 33999',
   footerEmail: 'info@drashwintmd.com',

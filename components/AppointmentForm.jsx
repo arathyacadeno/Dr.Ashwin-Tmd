@@ -57,17 +57,17 @@ export default function AppointmentForm() {
         {/* Form + Image Row */}
         <div className="contact-form-row">
           <div className="contact-image-col">
-            <Image
-              src="/assets/images/contact_consultation_doctor.jpg"
+            <img
+              src={content?.contactFormImage || '/assets/images/contact_consultation_doctor.jpg'}
               alt="Dr. Ashwin's TMD Consultation"
-              width={560}
-              height={500}
               className="contact-clinic-img"
-              priority
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
           <div className="contact-form-col">
-            <h3 className="contact-form-heading">Request an appointment</h3>
+            <h3 className="contact-form-heading">
+              {content?.contactFormHeading || 'Request an appointment'}
+            </h3>
 
             {status.success ? (
               <div
@@ -82,10 +82,11 @@ export default function AppointmentForm() {
               >
                 <div style={{ fontSize: '2.5rem', color: '#EDAA12', marginBottom: '0.75rem' }}>✓</div>
                 <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', color: '#1E1E1E', marginBottom: '0.5rem' }}>
-                  Appointment Request Sent
+                  {content?.contactSuccessTitle || 'Appointment Request Sent'}
                 </h4>
                 <p style={{ fontSize: '0.95rem', color: '#555', lineHeight: 1.6 }}>
-                  Thank you! Our care coordinator at Dr. Ashwin&apos;s TMD Clinic will call you shortly to confirm your consultation schedule.
+                  {content?.contactSuccessDesc ||
+                    "Thank you! Our care coordinator at Dr. Ashwin's TMD Clinic will call you shortly to confirm your consultation schedule."}
                 </p>
                 <button
                   type="button"
@@ -115,11 +116,11 @@ export default function AppointmentForm() {
 
                 <div className="contact-form-grid">
                   <div className="contact-form-group">
-                    <label className="contact-label">FULL NAME</label>
+                    <label className="contact-label">{content?.contactNameLabel || 'FULL NAME'}</label>
                     <input
                       type="text"
                       name="fullName"
-                      placeholder="Enter your name"
+                      placeholder={content?.contactNamePlaceholder || 'Enter your name'}
                       className="contact-input"
                       required
                       value={formData.fullName}
@@ -127,11 +128,11 @@ export default function AppointmentForm() {
                     />
                   </div>
                   <div className="contact-form-group">
-                    <label className="contact-label">PHONE NUMBER</label>
+                    <label className="contact-label">{content?.contactPhoneLabel || 'PHONE NUMBER'}</label>
                     <input
                       type="tel"
                       name="phone"
-                      placeholder="+91 00000 00000"
+                      placeholder={content?.contactPhonePlaceholder || '+91 00000 00000'}
                       className="contact-input"
                       required
                       value={formData.phone}
@@ -141,11 +142,11 @@ export default function AppointmentForm() {
                 </div>
 
                 <div className="contact-form-group">
-                  <label className="contact-label">PRIMARY SYMPTOM</label>
+                  <label className="contact-label">{content?.contactSymptomLabel || 'PRIMARY SYMPTOM'}</label>
                   <input
                     type="text"
                     name="primarySymptom"
-                    placeholder="Jaw Pain / TMJ"
+                    placeholder={content?.contactSymptomPlaceholder || 'Jaw Pain / TMJ'}
                     className="contact-input"
                     value={formData.primarySymptom}
                     onChange={handleChange}
@@ -153,10 +154,10 @@ export default function AppointmentForm() {
                 </div>
 
                 <div className="contact-form-group">
-                  <label className="contact-label">NOTES</label>
+                  <label className="contact-label">{content?.contactNotesLabel || 'NOTES'}</label>
                   <textarea
                     name="notes"
-                    placeholder="Share any specific concerns..."
+                    placeholder={content?.contactNotesPlaceholder || 'Share any specific concerns...'}
                     className="contact-textarea"
                     rows={1}
                     value={formData.notes}
@@ -170,7 +171,7 @@ export default function AppointmentForm() {
                   disabled={status.loading}
                   style={{ opacity: status.loading ? 0.7 : 1 }}
                 >
-                  {status.loading ? 'Submitting...' : 'Submit'}
+                  {status.loading ? 'Submitting...' : content?.contactSubmitBtnText || 'Submit'}
                 </button>
               </form>
             )}
@@ -281,7 +282,7 @@ export default function AppointmentForm() {
         {/* Map View Section */}
         <div className="contact-map-wrapper">
           <iframe
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(content?.contactMapQuery || 'Asoka Hospital Bank Road Kozhikode Kerala')}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+            src={getGoogleMapsEmbedUrl(content?.contactMapQuery || 'Asoka Hospital Bank Road Kozhikode Kerala')}
             width="100%"
             height="400"
             style={{ border: 0 }}
@@ -294,4 +295,46 @@ export default function AppointmentForm() {
       </div>
     </section>
   );
+}
+
+export function getGoogleMapsEmbedUrl(input) {
+  if (!input || typeof input !== 'string') {
+    return 'https://maps.google.com/maps?q=Asoka%20Hospital%20Bank%20Road%20Kozhikode%20Kerala&t=&z=15&ie=UTF8&iwloc=&output=embed';
+  }
+
+  const trimmed = input.trim();
+
+  // 1. If user pasted an iframe embed tag: <iframe src="https://..."></iframe>
+  const iframeMatch = trimmed.match(/src=["']([^"']+)["']/i);
+  if (iframeMatch && iframeMatch[1]) {
+    return iframeMatch[1];
+  }
+
+  // 2. Direct embed URL
+  if (trimmed.includes('/maps/embed')) {
+    return trimmed;
+  }
+
+  // 3. Google Maps place or search URL
+  if (trimmed.includes('google.com/maps') || trimmed.includes('maps.google.') || trimmed.includes('goo.gl/maps') || trimmed.includes('maps.app.goo.gl')) {
+    try {
+      if (trimmed.includes('?q=') || trimmed.includes('&q=')) {
+        const urlObj = new URL(trimmed);
+        const q = urlObj.searchParams.get('q');
+        if (q) {
+          return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+        }
+      }
+      const placeMatch = trimmed.match(/\/place\/([^\/@?#]+)/);
+      if (placeMatch && placeMatch[1]) {
+        const placeName = decodeURIComponent(placeMatch[1].replace(/\+/g, ' '));
+        return `https://maps.google.com/maps?q=${encodeURIComponent(placeName)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+      }
+    } catch {
+      // Fallback
+    }
+  }
+
+  // 4. Standard text query (address or clinic name)
+  return `https://maps.google.com/maps?q=${encodeURIComponent(trimmed)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
 }
