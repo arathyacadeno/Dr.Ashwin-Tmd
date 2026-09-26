@@ -123,8 +123,15 @@
   box-shadow: -4px 0 15px rgba(0, 0, 0, 0.06);
 }
 
+.admin-nav-item svg {
+  color: #FFFFFF;
+  stroke: currentColor;
+  display: block;
+}
+
 .admin-nav-item.active svg {
   color: #1E2229;
+  stroke: #1E2229;
 }
 
 .admin-nav-icon {
