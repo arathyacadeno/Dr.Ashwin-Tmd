@@ -155,7 +155,13 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'about' ? 'active' : ''}`}
             onClick={() => setActiveTab('about')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '28px' }}>About Us</span>
+            <span className="admin-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            </span>
+            <span className="admin-nav-text">About Us</span>
           </button>
 
           {/* What is TMD Tab */}
@@ -165,23 +171,11 @@ export default function AdminDashboardPage() {
             onClick={() => setActiveTab('tmd')}
           >
             <span className="admin-nav-icon">
-              <span
-                style={{
-                  width: '22px',
-                  height: '22px',
-                  borderRadius: '50%',
-                  backgroundColor: '#000000',
-                  color: '#FFFFFF',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '13px',
-                  fontWeight: '800',
-                  lineHeight: '1',
-                }}
-              >
-                ?
-              </span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
             </span>
             <span className="admin-nav-text">What is TMD</span>
           </button>
@@ -192,7 +186,14 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'treatments' ? 'active' : ''}`}
             onClick={() => setActiveTab('treatments')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '28px' }}>Treatments</span>
+            <span className="admin-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="16" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+              </svg>
+            </span>
+            <span className="admin-nav-text">Treatments</span>
           </button>
 
           {/* Contact Us Tab */}
@@ -201,7 +202,12 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'contact' ? 'active' : ''}`}
             onClick={() => setActiveTab('contact')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '28px' }}>Contact Us</span>
+            <span className="admin-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </span>
+            <span className="admin-nav-text">Contact Us</span>
           </button>
 
           {/* Navigation Bar Tab */}
@@ -210,7 +216,13 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'navbar' ? 'active' : ''}`}
             onClick={() => setActiveTab('navbar')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '28px' }}>Navigation Bar</span>
+            <span className="admin-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+              </svg>
+            </span>
+            <span className="admin-nav-text">Navigation Bar</span>
           </button>
 
           {/* Footer Tab */}
@@ -219,7 +231,13 @@ export default function AdminDashboardPage() {
             className={`admin-nav-item ${activeTab === 'footer' ? 'active' : ''}`}
             onClick={() => setActiveTab('footer')}
           >
-            <span className="admin-nav-text" style={{ paddingLeft: '28px' }}>Footer</span>
+            <span className="admin-nav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="3" y1="16" x2="21" y2="16" />
+              </svg>
+            </span>
+            <span className="admin-nav-text">Footer</span>
           </button>
         </nav>
       </aside>
@@ -257,12 +275,12 @@ export default function AdminDashboardPage() {
                 activeTab === 'about'
                   ? '/about'
                   : activeTab === 'tmd'
-                  ? '/what-is-tmd'
-                  : activeTab === 'treatments'
-                  ? '/treatments'
-                  : activeTab === 'contact'
-                  ? '/contact'
-                  : '/'
+                    ? '/what-is-tmd'
+                    : activeTab === 'treatments'
+                      ? '/treatments'
+                      : activeTab === 'contact'
+                        ? '/contact'
+                        : '/'
               }
               target="_blank"
               className="admin-preview-btn"
@@ -1147,7 +1165,7 @@ export default function AdminDashboardPage() {
             {/* Section 7: Patient Testimonials Section (Screenshot 5) */}
             <section className="admin-section-block">
               <h2 className="admin-section-heading">Patient Testimonials / Patient Stories section.</h2>
-              
+
               <div className="admin-grid-2col">
                 <div className="admin-field-group">
                   <label className="admin-field-label">Section Name</label>
@@ -1274,8 +1292,8 @@ export default function AdminDashboardPage() {
                       cmsData.aboutStoryParagraph !== undefined
                         ? cmsData.aboutStoryParagraph
                         : [cmsData.aboutStoryP1, cmsData.aboutStoryP2, cmsData.aboutStoryP3]
-                            .filter(Boolean)
-                            .join('\n\n')
+                          .filter(Boolean)
+                          .join('\n\n')
                     }
                     onChange={(e) => {
                       handleInputChange('aboutStoryParagraph', e.target.value);
@@ -1390,8 +1408,8 @@ export default function AdminDashboardPage() {
                       cmsData.aboutDoctorBio !== undefined
                         ? cmsData.aboutDoctorBio
                         : [cmsData.aboutDoctorBio1, cmsData.aboutDoctorBio2]
-                            .filter(Boolean)
-                            .join('\n\n')
+                          .filter(Boolean)
+                          .join('\n\n')
                     }
                     onChange={(e) => {
                       handleInputChange('aboutDoctorBio', e.target.value);
@@ -1742,7 +1760,7 @@ export default function AdminDashboardPage() {
                       cmsData.tmdWhenIntro !== undefined
                         ? cmsData.tmdWhenIntro
                         : cmsData.tmdWhenText ||
-                          'You do not need to wait until the pain becomes severe or debilitating. Early evaluation protects the articular cartilage and prevents chronic muscular adaptation.'
+                        'You do not need to wait until the pain becomes severe or debilitating. Early evaluation protects the articular cartilage and prevents chronic muscular adaptation.'
                     }
                     onChange={(e) => {
                       handleInputChange('tmdWhenIntro', e.target.value);

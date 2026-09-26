@@ -511,7 +511,7 @@ const defaultCmsData = {
 
 const CmsContext = createContext({
   content: defaultCmsData,
-  saveContent: async () => {},
+  saveContent: async () => { },
 });
 
 export function CmsProvider({ children, initialContent }) {
@@ -551,7 +551,7 @@ export function CmsProvider({ children, initialContent }) {
       if (e.key === 'dr_ashwin_cms_data' && e.newValue) {
         try {
           setContent((prev) => ({ ...prev, ...JSON.parse(e.newValue) }));
-        } catch {}
+        } catch { }
       }
     };
 

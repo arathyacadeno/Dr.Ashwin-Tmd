@@ -30,31 +30,33 @@ Text Domain: dr-ashwin-theme
   --gold-primary: #EDAA12;
   --gold-light: #F5A623;
   --gold-glow: rgba(232, 156, 29, 0.35);
-  
+
   --dark-bg: #1E1E1E;
   --dark-card: #282828;
   --dark-overlay: rgba(30, 30, 30, 0.85);
-  
+
   --light-bg: #F0F0F0;
   --main-bg: #F0F0F0;
   --light-card: #FFFFFF;
   --text-light-muted: #9E9E9E;
   --text-white: #FFFFFF;
-  
+
   --font-serif: Georgia, 'Times New Roman', serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-full: 9999px;
-  
+
   --transition-fast: 0.25s ease;
   --transition-normal: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* Reset & Global Styles */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -81,7 +83,8 @@ a {
   transition: var(--transition-fast);
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -91,7 +94,10 @@ img {
   display: block;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   font-family: inherit;
   font-size: 1rem;
   border: none;
@@ -185,6 +191,7 @@ button, input, textarea, select {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -291,7 +298,8 @@ button, input, textarea, select {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: var(--bg-main); /* Canvas tone */
+  background-color: var(--bg-main);
+  /* Canvas tone */
   display: flex;
   z-index: 10;
 }
@@ -415,13 +423,11 @@ button, input, textarea, select {
   display: inline-block;
 
   /* Exact Dual-Tone Split: Charcoal (#5F6065) on left (over canvas), White (#FFFFFF) on right (over video) */
-  background: linear-gradient(
-    to right,
-    #5F6065 0%,
-    #5F6065 50%,
-    #FFFFFF 50%,
-    #FFFFFF 100%
-  );
+  background: linear-gradient(to right,
+      #5F6065 0%,
+      #5F6065 50%,
+      #FFFFFF 50%,
+      #FFFFFF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -737,15 +743,18 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   .doctor-sticky-section {
     height: auto;
   }
+
   .doctor-sticky-track {
     position: relative;
     height: auto;
     padding: 60px 20px;
   }
+
   .doctor-scroll-container {
     grid-template-columns: 1fr;
     gap: 32px;
   }
+
   .doctor-image-wrapper {
     width: 100%;
     max-width: 380px;
@@ -753,12 +762,15 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
     margin: 0 auto;
     transform: scale(1);
   }
+
   .doc-quote-headline {
     font-size: 1.5rem;
   }
+
   .reveal-word {
     color: rgba(34, 34, 34, 1) !important;
   }
+
   .doc-author-block {
     opacity: 1 !important;
   }
@@ -858,8 +870,13 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
 }
 
 @keyframes starHoverRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 960px) {
@@ -1099,7 +1116,7 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   border: 2px solid transparent;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s ease;
+    box-shadow 0.35s ease;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -1152,8 +1169,8 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   visibility: hidden;
   transform: translateY(24px);
   transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.45s;
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.45s;
   pointer-events: none;
   z-index: 5;
 }
@@ -1292,24 +1309,7 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
 }
 
 .metrics-baseline {
-  position: absolute;
-  bottom: 0;
-  left: -50vw;
-  width: 200vw;
-  height: 2px;
-  background: #D8D8D8;
-  z-index: 1;
-  transform: scaleX(0.08);
-  opacity: 0.15;
-  transform-origin: center;
-  transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-}
-
-.metrics-cluster.is-converging ~ .metrics-baseline,
-.metrics-cluster.is-converged ~ .metrics-baseline,
-.metrics-cluster.is-floating ~ .metrics-baseline {
-  transform: scaleX(1);
-  opacity: 1;
+  display: none !important;
 }
 
 /* Central Gravitational Ripple Ring */
@@ -1337,9 +1337,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
     transform: scale(0.5);
     box-shadow: 0 0 25px rgba(252, 188, 21, 0.6);
   }
+
   60% {
     opacity: 0.35;
   }
+
   100% {
     opacity: 0;
     transform: scale(2.6);
@@ -1391,196 +1393,254 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
    - Right bubbles (5, 6, 7) roll in counter-clockwise (positive degrees -> 0deg)
    - Upper-tier bubbles roll along the ground, then naturally roll up into position */
 
+/* ============================================================
+   ACTIVE SPRING POP-IN & ZOOM ENTRANCE (Exact Video Motion Match)
+   - Staggered elastic expansion from center
+   - Bouncy spring scale overshoot: scale(0) -> scale(1.18) -> scale(0.95) -> scale(1)
+   ============================================================ */
+
 .metrics-cluster.is-converging .bubble-4 {
-  animation: rollInBubble4 1.85s cubic-bezier(0.22, 1, 0.36, 1) 0s forwards;
+  animation: popInBubble4 1.15s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards;
 }
+
 .metrics-cluster.is-converging .bubble-5 {
-  animation: rollInBubble5 1.85s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+  animation: popInBubble5 1.15s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
 }
+
 .metrics-cluster.is-converging .bubble-2 {
-  animation: rollInBubble2 1.95s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
+  animation: popInBubble2 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards;
 }
+
 .metrics-cluster.is-converging .bubble-6 {
-  animation: rollInBubble6 1.95s cubic-bezier(0.22, 1, 0.36, 1) 0.16s forwards;
+  animation: popInBubble6 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
 }
+
 .metrics-cluster.is-converging .bubble-3 {
-  animation: rollInBubble3 2.05s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards;
+  animation: popInBubble3 1.25s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s forwards;
 }
+
 .metrics-cluster.is-converging .bubble-1 {
-  animation: rollInBubble1 2.15s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
+  animation: popInBubble1 1.25s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s forwards;
 }
+
 .metrics-cluster.is-converging .bubble-7 {
-  animation: rollInBubble7 2.15s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards;
+  animation: popInBubble7 1.25s cubic-bezier(0.34, 1.56, 0.64, 1) 0.65s forwards;
 }
 
-/* ============================================================
-   LEFT BUBBLES: Rolling along the baseline Clockwise
-   ============================================================ */
-
-/* 1. Bubble 4 (98% Patient Relief) — Lead roller from left along baseline */
-@keyframes rollInBubble4 {
+@keyframes popInBubble4 {
   0% {
-    transform: translate3d(-720px, 0, 0) rotate(-680deg);
+    transform: scale(0);
     opacity: 0;
   }
-  12% {
+  55% {
+    transform: scale(1.18);
     opacity: 1;
   }
   78% {
-    transform: translate3d(8px, 0, 0) rotate(8deg);
-  }
-  90% {
-    transform: translate3d(-3px, 0, 0) rotate(-3deg);
+    transform: scale(0.94);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform: scale(1);
     opacity: 1;
     pointer-events: auto;
   }
 }
 
-/* 2. Bubble 2 (12k+ Successful Cases) — Rolls along baseline then rolls up into mid-left */
-@keyframes rollInBubble2 {
+@keyframes popInBubble5 {
   0% {
-    transform: translate3d(-750px, 84px, 0) rotate(-720deg);
+    transform: scale(0);
     opacity: 0;
   }
-  12% {
+  55% {
+    transform: scale(1.18);
     opacity: 1;
   }
-  60% {
-    transform: translate3d(-90px, 80px, 0) rotate(-90deg);
-  }
-  80% {
-    transform: translate3d(8px, -4px, 0) rotate(8deg);
-  }
-  92% {
-    transform: translate3d(-2px, 2px, 0) rotate(-2deg);
+  78% {
+    transform: scale(0.94);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform: scale(1);
     opacity: 1;
     pointer-events: auto;
   }
 }
 
-/* 3. Bubble 3 (15 Global Awards) — Rolls along baseline then rolls up to top-center peak */
-@keyframes rollInBubble3 {
+@keyframes popInBubble2 {
   0% {
-    transform: translate3d(-730px, 122px, 0) rotate(-700deg);
+    transform: scale(0) translate3d(-18px, 18px, 0);
     opacity: 0;
   }
-  12% {
+  55% {
+    transform: scale(1.16) translate3d(2px, -3px, 0);
     opacity: 1;
   }
-  60% {
-    transform: translate3d(-80px, 115px, 0) rotate(-80deg);
-  }
-  80% {
-    transform: translate3d(7px, -4px, 0) rotate(7deg);
-  }
-  92% {
-    transform: translate3d(-2px, 1px, 0) rotate(-2deg);
+  78% {
+    transform: scale(0.95);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform: scale(1) translate3d(0, 0, 0);
     opacity: 1;
     pointer-events: auto;
   }
 }
 
-/* 4. Bubble 1 (25+ Years Experience) — Baseline left anchor rolling in behind */
-@keyframes rollInBubble1 {
+@keyframes popInBubble6 {
   0% {
-    transform: translate3d(-820px, 0, 0) rotate(-780deg);
+    transform: scale(0) translate3d(18px, 18px, 0);
     opacity: 0;
   }
-  12% {
+  55% {
+    transform: scale(1.16) translate3d(-2px, -3px, 0);
     opacity: 1;
   }
-  80% {
-    transform: translate3d(7px, 0, 0) rotate(7deg);
-  }
-  92% {
-    transform: translate3d(-2px, 0, 0) rotate(-2deg);
+  78% {
+    transform: scale(0.95);
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@keyframes popInBubble3 {
+  0% {
+    transform: scale(0) translate3d(0, 24px, 0);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.15) translate3d(0, -3px, 0);
+    opacity: 1;
+  }
+  78% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@keyframes popInBubble1 {
+  0% {
+    transform: scale(0) translate3d(-25px, 0, 0);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.15) translate3d(3px, 0, 0);
+    opacity: 1;
+  }
+  78% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@keyframes popInBubble7 {
+  0% {
+    transform: scale(0) translate3d(25px, 0, 0);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.15) translate3d(-3px, 0, 0);
+    opacity: 1;
+  }
+  78% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
     opacity: 1;
     pointer-events: auto;
   }
 }
 
 /* ============================================================
-   RIGHT BUBBLES: Rolling along the baseline Counter-Clockwise
+   GOLDEN ROTATING ORBIT RINGS & FLOATING PARTICLES (From Video)
    ============================================================ */
 
-/* 5. Bubble 5 (4.9/5+ Patient Rating) — Lead roller from right along baseline */
-@keyframes rollInBubble5 {
-  0% {
-    transform: translate3d(720px, 0, 0) rotate(680deg);
-    opacity: 0;
-  }
-  12% {
-    opacity: 1;
-  }
-  78% {
-    transform: translate3d(-8px, 0, 0) rotate(-8deg);
-  }
-  90% {
-    transform: translate3d(3px, 0, 0) rotate(3deg);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    opacity: 1;
-    pointer-events: auto;
-  }
+.orbit-ring {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(252, 188, 21, 0.45);
+  pointer-events: none;
+  animation: rotateOrbit 10s linear infinite;
+  z-index: -1;
 }
 
-/* 6. Bubble 6 (24/7 Patient Support) — Rolls along baseline then rolls up to mid-right */
-@keyframes rollInBubble6 {
-  0% {
-    transform: translate3d(750px, 70px, 0) rotate(720deg);
-    opacity: 0;
-  }
-  12% {
-    opacity: 1;
-  }
-  60% {
-    transform: translate3d(90px, 66px, 0) rotate(90deg);
-  }
-  80% {
-    transform: translate3d(-8px, -4px, 0) rotate(-8deg);
-  }
-  92% {
-    transform: translate3d(2px, 2px, 0) rotate(2deg);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    opacity: 1;
-    pointer-events: auto;
-  }
+.orbit-ring-2 {
+  inset: -16px;
+  border-color: rgba(252, 188, 21, 0.4);
+  animation-duration: 11s;
 }
 
-/* 7. Bubble 7 (100% Personalized Care) — Baseline right anchor rolling in behind */
-@keyframes rollInBubble7 {
+.orbit-ring-4 {
+  inset: -18px;
+  border: 1.8px solid rgba(252, 188, 21, 0.7);
+  box-shadow: 0 0 14px rgba(252, 188, 21, 0.22);
+  animation-duration: 8s;
+}
+
+.orbit-ring-6 {
+  inset: -14px;
+  border-color: rgba(252, 188, 21, 0.55);
+  animation-direction: reverse;
+  animation-duration: 9.5s;
+}
+
+.orbit-dot {
+  position: absolute;
+  top: -4.5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8.5px;
+  height: 8.5px;
+  background-color: #FCBC15;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #FCBC15, 0 0 18px rgba(252, 188, 21, 0.85);
+}
+
+@keyframes rotateOrbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Floating Golden Particles (Background Atmosphere) */
+.why-choose-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.why-choose-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FCBC15 35%, rgba(252, 188, 21, 0.35) 75%, transparent 100%);
+  box-shadow: 0 0 10px rgba(252, 188, 21, 0.6);
+  opacity: 0.65;
+  animation: floatSparkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatSparkle {
   0% {
-    transform: translate3d(820px, 0, 0) rotate(780deg);
-    opacity: 0;
+    transform: translateY(0) scale(0.85);
+    opacity: 0.25;
   }
-  12% {
-    opacity: 1;
-  }
-  80% {
-    transform: translate3d(-7px, 0, 0) rotate(-7deg);
-  }
-  92% {
-    transform: translate3d(2px, 0, 0) rotate(2deg);
+  50% {
+    transform: translateY(-18px) scale(1.2);
+    opacity: 0.8;
   }
   100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-    opacity: 1;
-    pointer-events: auto;
+    transform: translateY(-36px) scale(0.85);
+    opacity: 0.3;
   }
 }
 
@@ -1588,59 +1648,127 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
 .metrics-cluster.is-floating .bubble-1 {
   animation: orbitFloat1 5.2s ease-in-out infinite alternate;
 }
+
 .metrics-cluster.is-floating .bubble-2 {
   animation: orbitFloat2 6.4s ease-in-out infinite alternate;
 }
+
 .metrics-cluster.is-floating .bubble-3 {
   animation: orbitFloat3 5.8s ease-in-out infinite alternate;
 }
+
 .metrics-cluster.is-floating .bubble-4 {
   animation: orbitFloat4 6.2s ease-in-out infinite alternate;
 }
+
 .metrics-cluster.is-floating .bubble-5 {
   animation: orbitPulse5 4.6s ease-in-out infinite alternate;
 }
+
 .metrics-cluster.is-floating .bubble-6 {
   animation: orbitFloat6 5.5s ease-in-out infinite alternate;
 }
+
 .metrics-cluster.is-floating .bubble-7 {
   animation: orbitFloat7 6.6s ease-in-out infinite alternate;
 }
 
 @keyframes orbitFloat1 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-3px, -5px) rotate(-1.5deg); }
-  100% { transform: translate(2px, 3px) rotate(1deg); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-3px, -5px) rotate(-1.5deg);
+  }
+
+  100% {
+    transform: translate(2px, 3px) rotate(1deg);
+  }
 }
+
 @keyframes orbitFloat2 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(4px, -4px) rotate(1.5deg); }
-  100% { transform: translate(-3px, 4px) rotate(-1deg); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(4px, -4px) rotate(1.5deg);
+  }
+
+  100% {
+    transform: translate(-3px, 4px) rotate(-1deg);
+  }
 }
+
 @keyframes orbitFloat3 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-2px, -6px) rotate(-1deg); }
-  100% { transform: translate(3px, 2px) rotate(1.5deg); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-2px, -6px) rotate(-1deg);
+  }
+
+  100% {
+    transform: translate(3px, 2px) rotate(1.5deg);
+  }
 }
+
 @keyframes orbitFloat4 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(3px, 3px) rotate(1.2deg); }
-  100% { transform: translate(-4px, -3px) rotate(-1.5deg); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(3px, 3px) rotate(1.2deg);
+  }
+
+  100% {
+    transform: translate(-4px, -3px) rotate(-1.5deg);
+  }
 }
+
 @keyframes orbitPulse5 {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.025) translateY(-2px); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.025) translateY(-2px);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
+
 @keyframes orbitFloat6 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(4px, -5px) rotate(1.8deg); }
-  100% { transform: translate(-2px, 3px) rotate(-1.2deg); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(4px, -5px) rotate(1.8deg);
+  }
+
+  100% {
+    transform: translate(-2px, 3px) rotate(-1.2deg);
+  }
 }
+
 @keyframes orbitFloat7 {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-4px, 4px) rotate(-1.5deg); }
-  100% { transform: translate(3px, -3px) rotate(1.2deg); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-4px, 4px) rotate(-1.5deg);
+  }
+
+  100% {
+    transform: translate(3px, -3px) rotate(1.2deg);
+  }
 }
 
 .metric-number {
@@ -1681,9 +1809,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   left: 10px;
   z-index: 4;
 }
+
 .bubble-1 .metric-number {
   font-size: 1.85rem;
 }
+
 .bubble-1 .metric-label {
   max-width: 72px;
 }
@@ -1696,9 +1826,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   left: 98px;
   z-index: 2;
 }
+
 .bubble-2 .metric-number {
   font-size: 2.2rem;
 }
+
 .bubble-2 .metric-label {
   max-width: 80px;
 }
@@ -1711,9 +1843,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   left: 254px;
   z-index: 2;
 }
+
 .bubble-3 .metric-number {
   font-size: 1.95rem;
 }
+
 .bubble-3 .metric-label {
   max-width: 68px;
 }
@@ -1726,9 +1860,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   left: 216px;
   z-index: 5;
 }
+
 .bubble-4 .metric-number {
   font-size: 1.85rem;
 }
+
 .bubble-4 .metric-label {
   max-width: 72px;
 }
@@ -1741,9 +1877,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   left: 332px;
   z-index: 6;
 }
+
 .bubble-5 .metric-number {
   font-size: 2.05rem;
 }
+
 .bubble-5 .metric-label {
   max-width: 80px;
 }
@@ -1756,9 +1894,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   left: 446px;
   z-index: 3;
 }
+
 .bubble-6 .metric-number {
   font-size: 1.95rem;
 }
+
 .bubble-6 .metric-label {
   max-width: 76px;
 }
@@ -1771,9 +1911,11 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   left: 518px;
   z-index: 5;
 }
+
 .bubble-7 .metric-number {
   font-size: 1.75rem;
 }
+
 .bubble-7 .metric-label {
   max-width: 74px;
 }
@@ -2534,7 +2676,8 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
-  padding: 45px 2rem 45px; /* Matched 45px symmetrical spacing above heading and below to cards */
+  padding: 45px 2rem 45px;
+  /* Matched 45px symmetrical spacing above heading and below to cards */
   background: var(--bg-main);
 }
 
@@ -2631,20 +2774,20 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   display: inline-block;
   letter-spacing: -0.02em;
   position: relative;
-  
+
   /* Opulent metallic gold gradient */
   background: linear-gradient(135deg, #B8860B 0%, #E5C158 30%, #FFF3B3 50%, #D4AF37 70%, #996515 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
+
   /* Initial entrance state before active */
   opacity: 0.15;
   transform: translateY(35px) scale(0.88);
   filter: blur(4px);
   transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, filter;
   user-select: none;
 }
@@ -2655,7 +2798,7 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   transform: translateY(0) scale(1);
   filter: blur(0);
   animation: numberGoldShimmer 5s ease-in-out infinite alternate,
-             numberSoftFloat 4s ease-in-out infinite 0.85s;
+    numberSoftFloat 4s ease-in-out infinite 0.85s;
 }
 
 /* Shimmer and floating keyframes */
@@ -2663,15 +2806,19 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   0% {
     background-position: 0% 50%;
   }
+
   100% {
     background-position: 100% 50%;
   }
 }
 
 @keyframes numberSoftFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) scale(1);
   }
+
   50% {
     transform: translateY(-5px) scale(1.02);
   }
@@ -2691,7 +2838,8 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   font-size: 35px;
   font-weight: 600;
   color: #4F4D4D;
-  margin-bottom: 40px; /* Exact 40px gap between heading and card description */
+  margin-bottom: 40px;
+  /* Exact 40px gap between heading and card description */
   letter-spacing: -0.025em;
   line-height: 1.25;
 }
@@ -3075,12 +3223,12 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
     grid-template-columns: 1fr;
     gap: 3rem;
   }
-  
+
   .equipment-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
-  
+
   .equipment-column {
     gap: 1.25rem;
   }
@@ -3088,7 +3236,7 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   .equipment-card {
     height: 380px;
   }
-  
+
   .outcomes-section {
     padding: 0;
   }
@@ -3154,22 +3302,22 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
     font-size: 3.5rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .footer-main-grid {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .treatments-strips-container {
     flex-direction: column;
     height: auto;
   }
-  
+
   .treatment-strip {
     height: 120px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
-  
+
   .treatment-strip.active {
     height: 380px;
   }
@@ -3203,25 +3351,25 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   .nav-menu {
     display: none;
   }
-  
+
   .mobile-nav-toggle {
     display: block;
   }
-  
+
   .equipment-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .equipment-column {
     gap: 1.5rem;
     animation: none !important;
   }
-  
+
   .footer-main-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .outcome-big-number {
     font-size: 4rem;
   }
@@ -3317,6 +3465,7 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(calc(-50% - 1.1rem));
   }
@@ -3396,7 +3545,8 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
 /* Emerald Green Stars (Exact Trustpilot/Verified Review Style) */
 .chat-bubble-stars {
   font-size: 1.25rem;
-  color: #00B67A;            /* Vivid Trustpilot emerald green like reference image */
+  color: #00B67A;
+  /* Vivid Trustpilot emerald green like reference image */
   letter-spacing: 0.22em;
   margin-top: auto;
   align-self: flex-start;
@@ -3448,14 +3598,17 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
   .real-stories-section {
     padding: 4rem 0 5rem;
   }
+
   .real-stories-title {
     font-size: 26px;
     margin-bottom: 2.2rem;
   }
+
   .chat-review-card {
     width: 290px;
     min-width: 290px;
   }
+
   .chat-bubble {
     padding: 1.5rem 1.4rem 1.2rem;
     min-height: 200px;
@@ -3519,6 +3672,7 @@ body:not(.contact-page-body):not(.is-about-page):not(.is-contact-page):not(.is-t
     opacity: 0;
     transform: translateY(6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -4031,6 +4185,7 @@ a.contact-detail-sub:hover {
     opacity: 0;
     transform: translateY(22px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -4043,13 +4198,16 @@ a.contact-detail-sub:hover {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
+
   .contact-details-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+
   .contact-header {
     padding: 3.5rem 1rem 1rem;
   }
+
   .contact-main-title {
     font-size: 2.4rem;
   }
@@ -4060,12 +4218,15 @@ a.contact-detail-sub:hover {
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
+
   .contact-quick-row {
     grid-template-columns: 1fr;
   }
+
   .contact-form-card {
     padding: 2rem 1.5rem;
   }
+
   .contact-main-title {
     font-size: 2rem;
   }
@@ -4100,7 +4261,7 @@ a.contact-detail-sub:hover {
   text-align: center;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 
+  box-shadow:
     0 24px 50px -10px rgba(0, 0, 0, 0.22),
     0 8px 18px -4px rgba(0, 0, 0, 0.08),
     inset 0 1px 2px 0 #ffffff,
@@ -4110,7 +4271,7 @@ a.contact-detail-sub:hover {
 
 .treatments-cta-card:hover {
   transform: translateY(-3px);
-  box-shadow: 
+  box-shadow:
     0 32px 65px -12px rgba(0, 0, 0, 0.28),
     0 14px 28px -5px rgba(0, 0, 0, 0.1),
     inset 0 1px 2px 0 #ffffff;
@@ -4324,9 +4485,8 @@ a.contact-detail-sub:hover {
     top: 0;
     margin-top: 1rem;
   }
+
   .about-reveal-image-wrapper {
     height: clamp(280px, 50vw, 360px);
   }
 }
-
-

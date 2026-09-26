@@ -39,7 +39,7 @@ export default function WhyChooseUs() {
         if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
         animTimeoutRef.current = setTimeout(() => {
           setClusterClass('is-converged is-floating');
-        }, 2600);
+        }, 1800);
       });
     });
   };
@@ -81,8 +81,20 @@ export default function WhyChooseUs() {
   };
 
   return (
-    <div className="why-choose-us-wrap">
+    <section className="why-choose-us-wrap" id="why-choose-us">
+      {/* Floating Golden Ambient Sparkles in Background */}
+      <div className="why-choose-particles" aria-hidden="true">
+        <span className="why-choose-particle p1" style={{ top: '18%', left: '12%', width: '7px', height: '7px', animationDelay: '0s' }} />
+        <span className="why-choose-particle p2" style={{ top: '25%', right: '14%', width: '9px', height: '9px', animationDelay: '1.2s' }} />
+        <span className="why-choose-particle p3" style={{ top: '65%', left: '18%', width: '6px', height: '6px', animationDelay: '2.4s' }} />
+        <span className="why-choose-particle p4" style={{ top: '72%', right: '20%', width: '8px', height: '8px', animationDelay: '0.8s' }} />
+        <span className="why-choose-particle p5" style={{ top: '42%', left: '30%', width: '5px', height: '5px', animationDelay: '1.8s' }} />
+        <span className="why-choose-particle p6" style={{ top: '38%', right: '32%', width: '6px', height: '6px', animationDelay: '3.1s' }} />
+        <span className="why-choose-particle p7" style={{ top: '80%', left: '46%', width: '7px', height: '7px', animationDelay: '2.0s' }} />
+      </div>
+
       <div className="container why-choose-container">
+        {/* Section Header */}
         <div className="why-choose-header">
           <span className="why-choose-tag">WHY CHOOSE US</span>
           <h2 className="why-choose-headline">
@@ -102,28 +114,46 @@ export default function WhyChooseUs() {
           </h2>
         </div>
 
-        {/* Circular Metric Cluster */}
+        {/* Circular Metric Cluster with Elastic Zoom & Golden Orbit Animation */}
         <div className="metrics-cluster-wrapper" ref={wrapperRef}>
           <div
             className={`metrics-cluster ${clusterClass}`}
             onClick={handleClick}
             title="Click to replay animation"
           >
-            {metrics.map((m, idx) => (
-              <div key={idx} className={`metric-bubble bubble-${idx + 1}`}>
-                <span className="metric-number">{m.number}</span>
-                <span className="metric-label">{m.label}</span>
-              </div>
-            ))}
+            {metrics.map((m, idx) => {
+              const bubbleNum = idx + 1;
+              const hasOrbit = bubbleNum === 2 || bubbleNum === 4 || bubbleNum === 6;
 
-            {/* Central Gravitational Ripple Ring */}
+              return (
+                <div key={idx} className={`metric-bubble bubble-${bubbleNum}`}>
+                  {/* Rotating Golden Orbit Ring with Orbiting Dot */}
+                  {hasOrbit && (
+                    <div className={`orbit-ring orbit-ring-${bubbleNum}`} aria-hidden="true">
+                      <span className="orbit-dot" />
+                    </div>
+                  )}
+
+                  <span className="metric-number">
+                    {m.number.includes('+') ? (
+                      <>
+                        {m.number.replace('+', '')}
+                        <span className="metric-plus">+</span>
+                      </>
+                    ) : (
+                      m.number
+                    )}
+                  </span>
+                  <span className="metric-label">{m.label}</span>
+                </div>
+              );
+            })}
+
+            {/* Central Golden Gravitational Ripple Ring */}
             <div className="convergence-pulse-ring" aria-hidden="true"></div>
           </div>
-
-          {/* Horizontal Baseline Line */}
-          <div className="metrics-baseline"></div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
